@@ -1,4 +1,4 @@
-<h1>Keep Optimimstic and be OPStack deployer!! </h1>
+<h1>Keep Optimistic and be OPStack deployer!! </h1>
 
 WIP!!
 
@@ -30,7 +30,7 @@ Together with [`Redprint Wizard UI`](https://github.com/Ratimon/redprint-wizard)
 
 We are currently still in an experimental phase leading up to a first audit and would love to hear your feedback on how we can improve `Reprint`.
 
-If you want to say **thank you** or/and support active development of Solid Grinder:
+If you want to say **thank you** or/and support active development of redprint-forge:
 
 - Add a [GitHub Star](https://github.com/Ratimon/redprint-forge) to the
   project.
