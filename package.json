@@ -13,6 +13,7 @@
   "license": "MIT",
   "repository": "github:Ratimon/redprint-forge",
   "scripts": {
+    "prepare": "rm -rf lib/ && set-defaults .vscode && forge install --no-git safe-global/safe-smart-account@v1.4.1 || echo '' ",
     "build": "forge build",
     "clean": "rm -rf cache out",
     "test": "forge test"
@@ -22,6 +23,11 @@
     "url": "https://github.com/Ratimon/redprint-forge"
   },
   "devDependencies": {
-    "forge-std": "github:foundry-rs/forge-std#v1.8.1"
+    "@openzeppelin/contracts": "v4.9.4",
+    "@openzeppelin/contracts-upgradeable": "v4.9.4",
+    "clones-with-immutable-args": "v1.0.0",
+    "contracts-upgradeable@v4.9.4": "link:@@openzeppelin/contracts-upgradeable@v4.9.4",
+    "forge-std": "github:foundry-rs/forge-std#v1.8.1",
+    "set-defaults": "^0.0.2"
   }
 }

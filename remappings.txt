@@ -2,3 +2,7 @@
 @script/=script/
 @test/=test/
 @forge-std/=node_modules/forge-std/src
+@openzeppelin/=node_modules/@openzeppelin/contracts
+@openzeppelin-upgradable/=node_modules/@openzeppelin/contracts-upgradeable
+@safe-contracts/=lib/safe-smart-account/contracts/
+@clones-with-immutable-args/=node_modules/clones-with-immutable-args
