@@ -1,6 +1,20 @@
 [profile.default]
 src = "src"
 out = "out"
-libs = ["lib"]
+test = "test"
+script = 'script'
+libs = ["node_modules", "lib"]
+solc_version = '0.8.15'
+auto_detect_solc = false
+
+[fmt]
+bracket_spacing = true
+int_types = "long"
+line_length = 132
+multiline_func_header = "all"
+number_underscore = "preserve"
+quote_style = "double"
+tab_width = 4
+wrap_comments = true
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
