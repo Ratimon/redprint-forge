@@ -1,5 +1,6 @@
 # Compiler files
 cache/
+node_modules
 out/
 
 # Ignores development broadcast logs
@@ -10,5 +11,11 @@ out/
 # Docs
 docs/
 
-# Dotenv file
-.env
+# files
+*.env
+*.log
+.DS_Store
+.pnp.*
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

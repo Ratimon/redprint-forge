@@ -1,12 +1,27 @@
 {
   "name": "redprint-forge",
-  "description": "A  developer-friendly framework/library in solidity to modify & deploy OPStack ’s contracts in a modular style.",
-  "version": "0.0.1",
-  "main": "index.js",
+  "description": "A developer-friendly framework/library in solidity to modify & deploy OPStack ’s contracts in a modular style.",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Ratimon/redprint-forg#readme",
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "library",
+    "smart-contracts",
+    "solidity"
+  ],
+  "license": "MIT",
+  "repository": "github:Ratimon/redprint-forge",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "forge build",
+    "clean": "rm -rf cache out",
+    "test": "forge test"
   },
-  "keywords": [],
-  "author": "Rati Montreewat",
-  "license": "ISC"
+  "author": {
+    "name": "Rati Montreewat",
+    "url": "https://github.com/Ratimon/redprint-forge"
+  },
+  "devDependencies": {
+    "forge-std": "github:foundry-rs/forge-std#v1.8.1"
+  }
 }
