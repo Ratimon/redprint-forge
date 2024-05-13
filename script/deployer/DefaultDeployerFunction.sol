@@ -37,7 +37,7 @@ library DefaultDeployerFunction {
 
     /// @notice generic deploy function (to be used with Deployer)
     ///  `using DefaultDeployerFunction with Deployer;`
-    /// @param deployer contract that keep track of the deployments and save them
+    /// @param deployer contract that keeps track of the deployments and saves them
     /// @param name the deployment's name that will stored on disk in `<deployments>/<context>/<name>.json`
     /// @param artifact forge's artifact path `<solidity file>.sol:<contract name>`
     /// @param args encoded arguments for the contract's constructor
@@ -50,11 +50,11 @@ library DefaultDeployerFunction {
 
     /// @notice generic create2 deploy function (to be used with Deployer)
     ///  `using DefaultDeployerFunction with Deployer;`
-    /// @param deployer contract that keep track of the deployments and save them
+    /// @param deployer contract that keeps track of the deployments and saves them
     /// @param name the deployment's name that will stored on disk in `<deployments>/<context>/<name>.json`
     /// @param artifact forge's artifact path `<solidity file>.sol:<contract name>`
     /// @param args encoded arguments for the contract's constructor
-    /// @param options options to specify for salt for deterministic deployment
+    /// @param options to specify for salt for deterministic deployment
     function deploy(
         IDeployer deployer,
         string memory name,
