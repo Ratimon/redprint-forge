@@ -8,6 +8,20 @@ WIP!!
 
 > The code is not audited yet. Please use it carefully in production.
 
+- [Installation](#installation)
+- [What is it for](#what-is-it-for)
+
+## Installation
+
+There are 2 ways: [Git Submodules](#git-submodules) and one [with npm](#with-npm)
+
+### git submodules
+
+WIP
+
+### with npm
+
+WIP
 
 ## What is it for ?
 
