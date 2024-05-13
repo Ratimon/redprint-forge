@@ -51,4 +51,4 @@ If you want to say **thank you** or/and support active development of redprint-f
 - Tweet about **redprint**.
 - Write interesting articles about the project on
   [Medium](https://medium.com/), or your personal blog.
-- Keep Optimimstic !!
+- Keep Optimistic !!
