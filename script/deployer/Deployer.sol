@@ -47,12 +47,12 @@ interface IDeployer {
     /// @notice function that return all new deployments as an array
     function newDeployments() external view returns (Deployment[] memory);
 
-    /// @notice function that tell you whether a deployment already exists with that name
+    /// @notice function that tells you whether a deployment already exists with that name
     /// @param name deployment's name to query
     /// @return exists whether the deployment exists or not
     function has(string memory name) external view returns (bool exists);
 
-    /// @notice function that return the address of a deployment
+    /// @notice function that returns the address of a deployment
     /// @param name deployment's name to query
     /// @return addr the deployment's address or the zero address
     function getAddress(string memory name) external view returns (address payable addr);
@@ -60,11 +60,11 @@ interface IDeployer {
     function mustGetAddress(string memory _name) external view returns (address payable);
 
     /// @notice allow to override an existing deployment by ignoring the current one.
-    /// the deployment will only be overriden on disk once the broadast is performed and `forge-deploy` sync is invoked.
+    /// the deployment will only be overridden on disk once the broadcast is performed and `forge-deploy` sync is invoked.
     /// @param name deployment's name to override
     function ignoreDeployment(string memory name) external;
 
-    /// @notice function that return the deployment (address, bytecode and args bytes used)
+    /// @notice function that returns the deployment (address, bytecode and args bytes used)
     /// @param name deployment's name to query
     /// @return deployment the deployment (with address zero if not existent)
     function get(string memory name) external view returns (Deployment memory deployment);
@@ -72,7 +72,7 @@ interface IDeployer {
     function save(string memory name, address deployed) external;
 }
 
-/// @notice contract that keep track of the deployment and save them as return value in the forge's broadcast
+/// @notice contract that keeps track of the deployment and saves them as return value in the forge's broadcast
 contract GlobalDeployer is IDeployer {
     // --------------------------------------------------------------------------------------------
     // Constants
@@ -100,9 +100,9 @@ contract GlobalDeployer is IDeployer {
     /// @notice init a deployer with the current context
     /// the context is by default the current chainId
     /// but if the DEPLOYMENT_CONTEXT env variable is set, the context take that value
-    /// The context allow you to organise deployments in a set as well as make specific configurations
+    /// The context allows you to organise deployments in a set as well as make specific configurations
     function init() external {
-        // needed as we etch the deployed code and so the initialization in the declaration above is not taken in consideration
+        // needed as we etch the deployed code and so the initialization in the declaration above is not taken into consideration
         _autoBroadcast = true;
         _autoSave = false;
 
@@ -117,8 +117,8 @@ contract GlobalDeployer is IDeployer {
         // is set. Great for loading addresses from `superchain-registry`.
         string memory addresses = Config.contractAddressesPath();
 
-        // when we run first script, we DONOT load the addresses
-        // it will be generate the entire new deployment schema which will used later
+        // when we run first script, we DO NOT load the addresses
+        // it will generate the entire new deployment schema which will be used later
         if (_autoSave) {
             if (bytes(addresses).length > 0) {
                 // console.log("_autoSave");
@@ -265,7 +265,7 @@ contract GlobalDeployer is IDeployer {
     }
 
     /// @notice allow to override an existing deployment by ignoring the current one.
-    /// the deployment will only be overriden on disk once the broadast is performed and `forge-deploy` sync is invoked.
+    /// the deployment will only be overridden on disk once the broadcast is performed and `forge-deploy` sync is invoked.
     /// @param name deployment's name to override
     function ignoreDeployment(string memory name) public {
         _namedDeployments[name].name = "";
