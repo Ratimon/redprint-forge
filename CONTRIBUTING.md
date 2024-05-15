@@ -23,10 +23,10 @@ pnpm add -D clones-with-immutable-args@v1.0.0
 
 ```bash
 git add .
-git commit -am "v0.0.5"
+git commit -am "v0.0.6"
 git push -u origin main
-git tag v0.0.5 main
-git push origin tag v0.0.5
+git tag v0.0.6 main
+git push origin tag v0.0.6
 ```
 
 DONT forget to add secret env `NPM_AUTH_TOKEN` at [repo](https://github.com/Ratimon/solid-grinder/settings/secrets/actions)
