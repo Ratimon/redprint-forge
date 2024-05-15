@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-import "@redprint/libraries/DisputeTypes.sol";
-import "@redprint/dispute/interfaces/IDisputeGame.sol";
+import "@redprint-core/libraries/DisputeTypes.sol";
+import "@redprint-core/dispute/interfaces/IDisputeGame.sol";
 
 /// @title LibGameId
 /// @notice Utility functions for packing and unpacking GameIds.

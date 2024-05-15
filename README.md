@@ -34,8 +34,11 @@ yarn add -D redprint-forge
 2. Adding `remappings.txt` with following line:
 
 ```txt
-@safe-contracts/=node_modules/redprint-forge/lib/safe-smart-account/contracts
-@redprint/=node_modules/redprint-forge/
+@redprint-core/=node_modules/redprint-forge/src
+@redprint-openzeppelin/=node_modules/redprint-forge/lib/openzeppelin-contracts/contracts
+@redprint-openzeppelin-upgradable/=node_modules/redprint-forge/lib/openzeppelin-contracts-upgradeable/contracts
+@redprint-safe-contracts/=node_modules/redprint-forge/lib/safe-smart-account/contracts
+@redprint-clones-with-immutable-args/=node_modules/clones-with-immutable-args/src
 ```
 
 ### git submodules

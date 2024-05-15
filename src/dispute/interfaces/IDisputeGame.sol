@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-import {IInitializable} from "@redprint/dispute/interfaces/IInitializable.sol";
+import {IInitializable} from "@redprint-core/dispute/interfaces/IInitializable.sol";
 
 import "src/libraries/DisputeTypes.sol";
 

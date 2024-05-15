@@ -14,7 +14,7 @@
   "repository": "github:Ratimon/redprint-forge",
   "scripts": {
     "---------------------- USER WORKFLOW ----------------------": "",
-    "postinstall": "forge install --no-git safe-global/safe-smart-account@v1.4.1 || echo ''",
+    "postinstall": "forge install --no-git safe-global/safe-smart-account@v1.4.1 OpenZeppelin/openzeppelin-contracts@v4.9.4 OpenZeppelin/openzeppelin-contracts-upgradeable@v4.9.4 wighawag/clones-with-immutable-args@v1.0.0 || echo ''",
     "---------------------- DEV WORKFLOW ----------------------": "",
     "prepare": "rm -rf lib/ && set-defaults .vscode && forge install --no-git safe-global/safe-smart-account@v1.4.1 || echo '' ",
     "build": "forge build",

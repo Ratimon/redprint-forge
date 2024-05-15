@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.15;
 
-import {OwnableUpgradeable} from "@openzeppelin-upgradable/access/OwnableUpgradeable.sol";
-import {ISemver} from "@redprint/universal/ISemver.sol";
+import {OwnableUpgradeable} from "@redprint-openzeppelin-upgradable/access/OwnableUpgradeable.sol";
+import {ISemver} from "@redprint-core/universal/ISemver.sol";
 
-import {IDelayedWETH} from "@redprint/dispute/interfaces/IDelayedWETH.sol";
-import {IWETH} from "@redprint/dispute/interfaces/IWETH.sol";
-import {WETH98} from "@redprint/dispute/weth/WETH98.sol";
+import {IDelayedWETH} from "@redprint-core/dispute/interfaces/IDelayedWETH.sol";
+import {IWETH} from "@redprint-core/dispute/interfaces/IWETH.sol";
+import {WETH98} from "@redprint-core/dispute/weth/WETH98.sol";
 
-import {SuperchainConfig} from "@redprint/L1/SuperchainConfig.sol";
+import {SuperchainConfig} from "@redprint-core/L1/SuperchainConfig.sol";
 
 /// @title DelayedWETH
 /// @notice DelayedWETH is an extension to WETH9 that allows for delayed withdrawals. Accounts must

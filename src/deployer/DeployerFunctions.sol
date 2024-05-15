@@ -3,15 +3,15 @@ pragma solidity ^0.8.0;
 
 import {console2 as console} from "@forge-std/console2.sol";
 
-import {IDeployer} from "@redprint/deployer/Deployer.sol";
-import {DefaultDeployerFunction, DeployOptions} from "@redprint/deployer/DefaultDeployerFunction.sol";
+import {IDeployer} from "@redprint-core/deployer/Deployer.sol";
+import {DefaultDeployerFunction, DeployOptions} from "@redprint-core/deployer/DefaultDeployerFunction.sol";
 
-import {SafeProxy} from "@safe-contracts/proxies/SafeProxy.sol";
-import {SafeProxyFactory} from "@safe-contracts/proxies/SafeProxyFactory.sol";
-import {Safe} from "@safe-contracts/Safe.sol";
+import {SafeProxy} from "@redprint-safe-contracts/proxies/SafeProxy.sol";
+import {SafeProxyFactory} from "@redprint-safe-contracts/proxies/SafeProxyFactory.sol";
+import {Safe} from "@redprint-safe-contracts/Safe.sol";
 
-import {AddressManager} from "src/legacy/AddressManager.sol";
-import {ProxyAdmin} from "src/universal/ProxyAdmin.sol";
+import {AddressManager} from "@redprint-core/legacy/AddressManager.sol";
+import {ProxyAdmin} from "@redprint-core/universal/ProxyAdmin.sol";
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
 string constant Artifact_Safe = "Safe.sol:Safe";

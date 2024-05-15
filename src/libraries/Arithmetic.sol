@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {SignedMath} from "@openzeppelin/utils/math/SignedMath.sol";
-import {FixedPointMathLib} from "@redprint/libraries/FixedPointMathLib.sol";
+import {SignedMath} from "@redprint-openzeppelin/utils/math/SignedMath.sol";
+import {FixedPointMathLib} from "@redprint-core/libraries/FixedPointMathLib.sol";
 
 /// @title Arithmetic
 /// @notice Even more math than before.

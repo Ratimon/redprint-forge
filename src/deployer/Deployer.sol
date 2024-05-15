@@ -5,9 +5,9 @@ import {Vm} from "@forge-std/Vm.sol";
 import {console2 as console} from "@forge-std/console2.sol";
 import {stdJson} from "@forge-std/StdJson.sol";
 
-import {Predeploys} from "@redprint/libraries/Predeploys.sol";
-import {Config} from "@redprint/deployer/Config.sol";
-import {ForgeArtifacts} from "@redprint/deployer/ForgeArtifacts.sol";
+import {Predeploys} from "@redprint-core/libraries/Predeploys.sol";
+import {Config} from "@redprint-core/deployer/Config.sol";
+import {ForgeArtifacts} from "@redprint-core/deployer/ForgeArtifacts.sol";
 
 /// @notice represent a deployment
 struct Deployment {

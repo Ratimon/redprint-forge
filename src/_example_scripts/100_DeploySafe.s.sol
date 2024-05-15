@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {DeployScript, IDeployer} from "@redprint/deployer/DeployScript.sol";
-import {DeployerFunctions} from "@redprint/deployer/DeployerFunctions.sol";
+import {DeployScript, IDeployer} from "@redprint-core/deployer/DeployScript.sol";
+import {DeployerFunctions} from "@redprint-core/deployer/DeployerFunctions.sol";
 
-import {SafeProxyFactory} from "@safe-contracts/proxies/SafeProxyFactory.sol";
-import {Safe} from "@safe-contracts/Safe.sol";
-import {SafeProxy} from "@safe-contracts/proxies/SafeProxy.sol";
+import {SafeProxyFactory} from "@redprint-safe-contracts/proxies/SafeProxyFactory.sol";
+import {Safe} from "@redprint-safe-contracts/Safe.sol";
+import {SafeProxy} from "@redprint-safe-contracts/proxies/SafeProxy.sol";
 
 contract DeploySafeScript is DeployScript {
     using DeployerFunctions for IDeployer;

@@ -18,7 +18,7 @@
 
 pragma solidity 0.8.15;
 
-import {IWETH} from "@redprint/dispute/interfaces/IWETH.sol";
+import {IWETH} from "@redprint-core/dispute/interfaces/IWETH.sol";
 
 /// @title WETH98
 /// @notice WETH98 is a version of WETH9 upgraded for Solidity 0.8.x.

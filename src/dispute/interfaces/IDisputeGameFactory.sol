@@ -3,7 +3,7 @@ pragma solidity ^0.8.15;
 
 import {IDisputeGame} from "./IDisputeGame.sol";
 
-import "@redprint/libraries/DisputeTypes.sol";
+import "@redprint-core/libraries/DisputeTypes.sol";
 
 /// @title IDisputeGameFactory
 /// @notice The interface for a DisputeGameFactory contract.

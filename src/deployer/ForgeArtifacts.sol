@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {Vm} from "@forge-std/Vm.sol";
-import {Executables} from "@redprint/deployer/Executables.sol";
+import {Executables} from "@redprint-core/deployer/Executables.sol";
 import {stdJson} from "@forge-std/StdJson.sol";
 
 /// @notice Contains information about a storage slot. Mirrors the layout of the storage

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-import "@redprint/libraries/DisputeTypes.sol";
-import "@redprint/libraries/DisputeErrors.sol";
+import "@redprint-core/libraries/DisputeTypes.sol";
+import "@redprint-core/libraries/DisputeErrors.sol";
 
 /// @title LibPosition
 /// @notice This library contains helper functions for working with the `Position` type.
