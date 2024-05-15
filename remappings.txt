@@ -1,3 +1,4 @@
+@redprint/=src/
 @main/=src/
 @script/=script/
 @test/=test/

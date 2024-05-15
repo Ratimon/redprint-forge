@@ -2,13 +2,13 @@
 pragma solidity 0.8.15;
 
 import {OwnableUpgradeable} from "@openzeppelin-upgradable/access/OwnableUpgradeable.sol";
-import {ISemver} from "@main/universal/ISemver.sol";
+import {ISemver} from "@redprint/universal/ISemver.sol";
 
-import {IDelayedWETH} from "@main/dispute/interfaces/IDelayedWETH.sol";
-import {IWETH} from "@main/dispute/interfaces/IWETH.sol";
-import {WETH98} from "@main/dispute/weth/WETH98.sol";
+import {IDelayedWETH} from "@redprint/dispute/interfaces/IDelayedWETH.sol";
+import {IWETH} from "@redprint/dispute/interfaces/IWETH.sol";
+import {WETH98} from "@redprint/dispute/weth/WETH98.sol";
 
-import {SuperchainConfig} from "@main/L1/SuperchainConfig.sol";
+import {SuperchainConfig} from "@redprint/L1/SuperchainConfig.sol";
 
 /// @title DelayedWETH
 /// @notice DelayedWETH is an extension to WETH9 that allows for delayed withdrawals. Accounts must

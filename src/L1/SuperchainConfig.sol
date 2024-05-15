@@ -2,8 +2,8 @@
 pragma solidity 0.8.15;
 
 import {Initializable} from "@openzeppelin/proxy/utils/Initializable.sol";
-import {ISemver} from "@main/universal/ISemver.sol";
-import {Storage} from "@main/libraries/Storage.sol";
+import {ISemver} from "@redprint/universal/ISemver.sol";
+import {Storage} from "@redprint/libraries/Storage.sol";
 
 /// @custom:audit none This contracts is not yet audited.
 /// @title SuperchainConfig

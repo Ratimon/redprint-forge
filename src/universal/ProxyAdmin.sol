@@ -2,10 +2,10 @@
 pragma solidity 0.8.15;
 
 import {Ownable} from "@openzeppelin/access/Ownable.sol";
-import {Proxy} from "@main/universal/Proxy.sol";
-import {AddressManager} from "@main/legacy/AddressManager.sol";
-import {L1ChugSplashProxy} from "@main/legacy/L1ChugSplashProxy.sol";
-import {Constants} from "@main/libraries/Constants.sol";
+import {Proxy} from "@redprint/universal/Proxy.sol";
+import {AddressManager} from "@redprint/legacy/AddressManager.sol";
+import {L1ChugSplashProxy} from "@redprint/legacy/L1ChugSplashProxy.sol";
+import {Constants} from "@redprint/libraries/Constants.sol";
 
 /// @title IStaticERC1967Proxy
 /// @notice IStaticERC1967Proxy is a static version of the ERC1967 proxy interface.

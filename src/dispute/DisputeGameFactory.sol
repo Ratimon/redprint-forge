@@ -3,15 +3,15 @@ pragma solidity 0.8.15;
 
 import {ClonesWithImmutableArgs} from "@clones-with-immutable-args/ClonesWithImmutableArgs.sol";
 import {OwnableUpgradeable} from "@openzeppelin-upgradable/access/OwnableUpgradeable.sol";
-import {ISemver} from "@main/universal/ISemver.sol";
+import {ISemver} from "@redprint/universal/ISemver.sol";
 
-import {IDisputeGame} from "@main/dispute/interfaces/IDisputeGame.sol";
-import {IDisputeGameFactory} from "@main/dispute/interfaces/IDisputeGameFactory.sol";
+import {IDisputeGame} from "@redprint/dispute/interfaces/IDisputeGame.sol";
+import {IDisputeGameFactory} from "@redprint/dispute/interfaces/IDisputeGameFactory.sol";
 
-import {LibGameId} from "@main/dispute/lib/LibGameId.sol";
+import {LibGameId} from "@redprint/dispute/lib/LibGameId.sol";
 
-import "@main/libraries/DisputeTypes.sol";
-import "@main/libraries/DisputeErrors.sol";
+import "@redprint/libraries/DisputeTypes.sol";
+import "@redprint/libraries/DisputeErrors.sol";
 
 /// @title DisputeGameFactory
 /// @notice A factory contract for creating `IDisputeGame` contracts. All created dispute games

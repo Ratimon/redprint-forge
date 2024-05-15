@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {SignedMath} from "@openzeppelin/utils/math/SignedMath.sol";
-import {FixedPointMathLib} from "@main/libraries/FixedPointMathLib.sol";
+import {FixedPointMathLib} from "@redprint/libraries/FixedPointMathLib.sol";
 
 /// @title Arithmetic
 /// @notice Even more math than before.

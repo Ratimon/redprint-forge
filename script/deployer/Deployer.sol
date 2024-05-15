@@ -5,7 +5,7 @@ import {Vm} from "@forge-std/Vm.sol";
 import {console2 as console} from "@forge-std/console2.sol";
 import {stdJson} from "@forge-std/StdJson.sol";
 
-import {Predeploys} from "@main/libraries/Predeploys.sol";
+import {Predeploys} from "@redprint/libraries/Predeploys.sol";
 import {Config} from "@script/deployer/Config.sol";
 import {ForgeArtifacts} from "@script/deployer/ForgeArtifacts.sol";
 

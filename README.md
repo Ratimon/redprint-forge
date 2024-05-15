@@ -2,9 +2,11 @@
 
 WIP!!
 
-> **Note**💡
+> [!NOTE]💡
 
 > You can find our alpha mvp and relevant examples [`here`](https://github.com/Ratimon/redprint-optimism-contracts-examples)
+
+> [!WARNING]
 
 > The code is not audited yet. Please use it carefully in production.
 
@@ -13,13 +15,31 @@ WIP!!
 
 ## Installation
 
-There are 2 ways: [Git Submodules](#git-submodules) and one [with npm](#with-npm)
+There are 2 ways: [with Node.js](#with-node) and one  [Git Submodules](#git-submodules)
+
+### with Node
+
+This is the recommended approach.
+
+We assume that you already setup your working environment with **hardhat** + **foundry** as specified in [foundry 's guide](https://book.getfoundry.sh/config/hardhat) or [hardhat 's guide](https://hardhat.org/hardhat-runner/docs/advanced/hardhat-and-foundry) and `cd` into it
+
+```bash
+cd my-project;
+``` 
+
+1.  Add the `redprint-forge` using your favorite package manager, e.g., with Yarn:
+
+```sh
+yarn add -D redprint-forge
+```
+
+2. Adding `remappings.txt` with following line:
+
+```txt
+@redprint/=node_modules/@redprint/
+```
 
 ### git submodules
-
-WIP
-
-### with npm
 
 WIP
 
