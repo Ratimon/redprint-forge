@@ -2,12 +2,10 @@
 
 WIP!!
 
-> [!NOTE]💡
-
+>[!NOTE]💡
 > You can find our alpha mvp and relevant examples [`here`](https://github.com/Ratimon/redprint-optimism-contracts-examples)
 
-> [!WARNING]
-
+>[!WARNING]
 > The code is not audited yet. Please use it carefully in production.
 
 - [Installation](#installation)

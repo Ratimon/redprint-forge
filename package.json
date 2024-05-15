@@ -26,7 +26,6 @@
     "@openzeppelin/contracts": "v4.9.4",
     "@openzeppelin/contracts-upgradeable": "v4.9.4",
     "clones-with-immutable-args": "v1.0.0",
-    "contracts-upgradeable@v4.9.4": "link:@@openzeppelin/contracts-upgradeable@v4.9.4",
     "forge-std": "github:foundry-rs/forge-std#v1.8.1",
     "set-defaults": "^0.0.2"
   }
