@@ -1,6 +1,7 @@
 ## Quick Installation
 
-Scaffolding:
+
+### Scaffolding
 
 ```bash
 nvm use v20.12.2
@@ -18,3 +19,10 @@ pnpm add -D forge-std@github:foundry-rs/forge-std#v1.8.1
 pnpm add -D clones-with-immutable-args@v1.0.0
 ```
 
+### Publishing
+
+```bash
+git commit -am "v0.0.1"
+git push
+git push origin tag v0.0.1
+```
