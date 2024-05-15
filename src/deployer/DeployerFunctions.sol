@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {console2 as console} from "@forge-std/console2.sol";
+import {console2 as console} from "@redprint-forge-std/console2.sol";
 
 import {IDeployer} from "@redprint-core/deployer/Deployer.sol";
 import {DefaultDeployerFunction, DeployOptions} from "@redprint-core/deployer/DefaultDeployerFunction.sol";

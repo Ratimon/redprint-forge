@@ -35,6 +35,7 @@ yarn add -D redprint-forge
 
 ```txt
 @redprint-core/=node_modules/redprint-forge/src
+@redprint-forge-std/=node_modules/redprint-forge/lib/forge-std/src
 @redprint-openzeppelin/=node_modules/redprint-forge/lib/openzeppelin-contracts/contracts
 @redprint-openzeppelin-upgradable/=node_modules/redprint-forge/lib/openzeppelin-contracts-upgradeable/contracts
 @redprint-safe-contracts/=node_modules/redprint-forge/lib/safe-smart-account/contracts

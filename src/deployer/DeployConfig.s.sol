@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {Script} from "@forge-std/Script.sol";
-import {console2 as console} from "@forge-std/console2.sol";
-import {stdJson} from "@forge-std/StdJson.sol";
+import {Script} from "@redprint-forge-std/Script.sol";
+import {console2 as console} from "@redprint-forge-std/console2.sol";
+import {stdJson} from "@redprint-forge-std/StdJson.sol";
 import {Executables} from "@redprint-core/deployer/Executables.sol";
 import {Chains} from "@redprint-core/deployer/Chains.sol";
 

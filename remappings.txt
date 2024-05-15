@@ -1,7 +1,7 @@
 @redprint-core/=src/
 @main/=src/
 @test/=test/
-@forge-std/=node_modules/forge-std/src
+@redprint-forge-std/=node_modules/forge-std/src
 @redprint-openzeppelin/=node_modules/@openzeppelin/contracts
 @redprint-openzeppelin-upgradable/=node_modules/@openzeppelin/contracts-upgradeable
 @redprint-safe-contracts/=lib/safe-smart-account/contracts/
