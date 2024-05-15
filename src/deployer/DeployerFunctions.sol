@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 
 import {console2 as console} from "@forge-std/console2.sol";
 
-import {IDeployer} from "@script/deployer/Deployer.sol";
-import {DefaultDeployerFunction, DeployOptions} from "@script/deployer/DefaultDeployerFunction.sol";
+import {IDeployer} from "@redprint/deployer/Deployer.sol";
+import {DefaultDeployerFunction, DeployOptions} from "@redprint/deployer/DefaultDeployerFunction.sol";
 
 import {SafeProxy} from "@safe-contracts/proxies/SafeProxy.sol";
 import {SafeProxyFactory} from "@safe-contracts/proxies/SafeProxyFactory.sol";

@@ -13,6 +13,9 @@
   "license": "MIT",
   "repository": "github:Ratimon/redprint-forge",
   "scripts": {
+    "---------------------- USER WORKFLOW ----------------------": "",
+    "postinstall": "forge install --no-git safe-global/safe-smart-account@v1.4.1 || echo ''",
+    "---------------------- DEV WORKFLOW ----------------------": "",
     "prepare": "rm -rf lib/ && set-defaults .vscode && forge install --no-git safe-global/safe-smart-account@v1.4.1 || echo '' ",
     "build": "forge build",
     "clean": "rm -rf cache out",

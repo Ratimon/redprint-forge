@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IDeployer, Vm} from "@script/deployer/Deployer.sol";
+import {IDeployer, Vm} from "@redprint/deployer/Deployer.sol";
 
 struct DeployOptions {
     uint256 salt;

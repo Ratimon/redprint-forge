@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 import {Script} from "@forge-std/Script.sol";
 import {console2 as console} from "@forge-std/console2.sol";
 import {stdJson} from "@forge-std/StdJson.sol";
-import {Executables} from "@script/deployer/Executables.sol";
-import {Chains} from "@script/deployer/Chains.sol";
+import {Executables} from "@redprint/deployer/Executables.sol";
+import {Chains} from "@redprint/deployer/Chains.sol";
 
 // Global constant for the `useFaultProofs` slot in the DeployConfig contract, which can be overridden in the testing
 // environment.

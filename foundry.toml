@@ -2,7 +2,7 @@
 src = "src"
 out = "out"
 test = "test"
-script = 'script'
+# script = 'script'
 libs = ["node_modules", "lib"]
 solc_version = '0.8.15'
 auto_detect_solc = false

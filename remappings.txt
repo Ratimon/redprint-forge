@@ -1,6 +1,5 @@
 @redprint/=src/
 @main/=src/
-@script/=script/
 @test/=test/
 @forge-std/=node_modules/forge-std/src
 @openzeppelin/=node_modules/@openzeppelin/contracts

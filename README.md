@@ -34,7 +34,8 @@ yarn add -D redprint-forge
 2. Adding `remappings.txt` with following line:
 
 ```txt
-@redprint/=node_modules/@redprint/
+@safe-contracts/=node_modules/redprint-forge/lib/safe-smart-account/contracts
+@redprint/=node_modules/redprint-forge/
 ```
 
 ### git submodules

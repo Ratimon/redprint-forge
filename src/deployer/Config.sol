@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {Vm} from "@forge-std/Vm.sol";
-import {Chains} from "@script/deployer/Chains.sol";
+import {Chains} from "@redprint/deployer/Chains.sol";
 
 /// @title Config
 /// @notice Contains all env var based config. Add any new env var parsing to this file
