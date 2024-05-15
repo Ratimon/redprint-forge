@@ -22,7 +22,9 @@ pnpm add -D clones-with-immutable-args@v1.0.0
 ### Publishing
 
 ```bash
-git commit -am "v0.0.1"
-git push
-git push origin tag v0.0.1
+git add .
+git commit -am "v0.0.3"
+git push -u origin main
+git tag v0.0.3 main
+git push origin tag v0.0.3
 ```
