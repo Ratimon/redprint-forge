@@ -51,7 +51,7 @@ yarn add -D redprint-forge
 WIP
 
 
-## What is it for ?
+## What Is It For
 
 One of our Swiss army knife toolset: **redprint-forge** is a developer-friendly framework/library in solidity to modify & deploy OPStack ’s contracts in a modular style.
 
