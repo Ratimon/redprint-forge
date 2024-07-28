@@ -10,6 +10,16 @@
     "smart-contracts",
     "solidity"
   ],
+  "files": [
+    "script/",
+    "src/",
+    "test/",
+    "LICENSE",
+    "README.md",
+    "foundry.toml",
+    "remappings.txt",
+    "LICENSE"
+  ],
   "license": "MIT",
   "repository": "github:Ratimon/redprint-forge",
   "scripts": {
