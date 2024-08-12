@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.15;
+pragma solidity ^0.8.15;
 
-import {Initializable} from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
-import {ISemver} from "@redprint-core/universal/ISemver.sol";
-import {Storage} from "@redprint-core/libraries/Storage.sol";
+import {Initializable} from "@openzeppelin-4_9_4/proxy/utils/Initializable.sol";
+import {ISemver} from "@main/universal/ISemver.sol";
+import {Storage} from "@main/libraries/Storage.sol";
 
 /// @custom:audit none This contracts is not yet audited.
 /// @title SuperchainConfig

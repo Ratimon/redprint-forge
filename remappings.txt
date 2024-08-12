@@ -1,8 +1,12 @@
 @redprint-core/=src/
 @main/=src/
+@redprint-deploy/=script/
+@script/=script/
 @test/=test/
-@redprint-forge-std/=node_modules/forge-std/src
-@redprint-openzeppelin/=node_modules/@openzeppelin/contracts
-@redprint-openzeppelin-upgradable/=node_modules/@openzeppelin/contracts-upgradeable
-@redprint-safe-contracts/=lib/safe-smart-account/contracts/
-@redprint-clones-with-immutable-args/=node_modules/clones-with-immutable-args
+
+@forge-std/=lib/forge-std/src/
+@solady/=node_modules/solady/src/
+@solmate/=node_modules/solmate/src/
+@safe-contracts/=lib/safe-smart-account/contracts/
+@openzeppelin-4_9_4/=lib/openzeppelin-4_9_4/contracts
+@openzeppelin-upgradable-4_9_4/=lib/openzeppelin-upgradeable-4_9_4/contracts

@@ -35,20 +35,15 @@ yarn add -D redprint-forge
 
 ```txt
 @redprint-core/=node_modules/redprint-forge/src
+@redprint-deploy/=node_modules/redprint-forge/script
 @redprint-forge-std/=node_modules/redprint-forge/lib/forge-std/src
-@redprint-openzeppelin/=node_modules/redprint-forge/lib/openzeppelin-contracts/contracts
-@redprint-openzeppelin-upgradable/=node_modules/redprint-forge/lib/openzeppelin-contracts-upgradeable/contracts
+@redprint-openzeppelin/=node_modules/redprint-forge/lib/openzeppelin-4_9_4/contracts
+@redprint-openzeppelin-upgradable/=node_modules/redprint-forge/lib/openzeppelin-upgradable-4_9_4/contracts
 @redprint-safe-contracts/=node_modules/redprint-forge/lib/safe-smart-account/contracts
-@redprint-clones-with-immutable-args/=node_modules/redprint-forge/lib/clones-with-immutable-args/src
 ```
 
 >[!TIP]
-> We use @redprint-<yourLib>/ as a convention to avoid any naming conflicts with your installed libararies ( i.e. `@redprint-forge-std/` vs `@forge-std/`)
-
-
-### git submodules
-
-WIP
+> We use @redprint-<yourLib>/ as a convention to avoid any naming conflicts with your previously installed libararies ( i.e. `@redprint-forge-std/` vs `@forge-std/`)
 
 
 ## What Is It For

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.15;
+pragma solidity ^0.8.0;
 
-import {IDisputeGame} from "./IDisputeGame.sol";
+import { IDisputeGame } from "./IDisputeGame.sol";
 
-import "@redprint-core/libraries/DisputeTypes.sol";
+import "@main/dispute/lib/Types.sol";
 
 /// @title IDisputeGameFactory
 /// @notice The interface for a DisputeGameFactory contract.
@@ -46,7 +46,11 @@ interface IDisputeGameFactory {
     /// @return proxy_ The clone of the `DisputeGame` created with the given parameters.
     ///         Returns `address(0)` if nonexistent.
     /// @return timestamp_ The timestamp of the creation of the dispute game.
-    function games(GameType _gameType, Claim _rootClaim, bytes calldata _extraData)
+    function games(
+        GameType _gameType,
+        Claim _rootClaim,
+        bytes calldata _extraData
+    )
         external
         view
         returns (IDisputeGame proxy_, Timestamp timestamp_);
@@ -80,7 +84,11 @@ interface IDisputeGameFactory {
     /// @param _rootClaim The root claim of the DisputeGame.
     /// @param _extraData Any extra data that should be provided to the created dispute game.
     /// @return proxy_ The address of the created DisputeGame proxy.
-    function create(GameType _gameType, Claim _rootClaim, bytes calldata _extraData)
+    function create(
+        GameType _gameType,
+        Claim _rootClaim,
+        bytes calldata _extraData
+    )
         external
         payable
         returns (IDisputeGame proxy_);
@@ -104,7 +112,11 @@ interface IDisputeGameFactory {
     /// @param _rootClaim The root claim of the DisputeGame.
     /// @param _extraData Any extra data that should be provided to the created dispute game.
     /// @return uuid_ The unique identifier for the given dispute game parameters.
-    function getGameUUID(GameType _gameType, Claim _rootClaim, bytes memory _extraData)
+    function getGameUUID(
+        GameType _gameType,
+        Claim _rootClaim,
+        bytes memory _extraData
+    )
         external
         pure
         returns (Hash uuid_);
@@ -114,7 +126,11 @@ interface IDisputeGameFactory {
     /// @param _gameType The type of game to find.
     /// @param _start The index to start the reverse search from.
     /// @param _n The number of games to find.
-    function findLatestGames(GameType _gameType, uint256 _start, uint256 _n)
+    function findLatestGames(
+        GameType _gameType,
+        uint256 _start,
+        uint256 _n
+    )
         external
         view
         returns (GameSearchResult[] memory games_);

@@ -24,9 +24,9 @@
   "repository": "github:Ratimon/redprint-forge",
   "scripts": {
     "---------------------- USER WORKFLOW ----------------------": "",
-    "postinstall": "forge install --no-git foundry-rs/forge-std@v1.8.1 safe-global/safe-smart-account@v1.4.1 OpenZeppelin/openzeppelin-contracts@v4.9.4 OpenZeppelin/openzeppelin-contracts-upgradeable@v4.9.4 wighawag/clones-with-immutable-args@v1.0.0 || echo ''",
+    "postinstall": "forge install --no-git openzeppelin-4_9_4=openzeppelin/openzeppelin-contracts@v4.9.4 openzeppelin-upgradeable-4_9_4=OpenZeppelin/openzeppelin-contracts-upgradeable@v4.9.4 foundry-rs/forge-std@v1.9.1 safe-global/safe-smart-account@v1.4.1 || echo ''",
     "---------------------- DEV WORKFLOW ----------------------": "",
-    "prepare": "rm -rf lib/ && set-defaults .vscode && forge install --no-git safe-global/safe-smart-account@v1.4.1 || echo '' ",
+    "prepare": "rm -rf lib/ && set-defaults .vscode && forge install --no-git openzeppelin-4_9_4=openzeppelin/openzeppelin-contracts@v4.9.4 openzeppelin-upgradeable-4_9_4=OpenZeppelin/openzeppelin-contracts-upgradeable@v4.9.4 foundry-rs/forge-std@v1.9.1 safe-global/safe-smart-account@v1.4.1 || echo '' ",
     "build": "forge build",
     "clean": "rm -rf cache out",
     "test": "forge test"
@@ -38,7 +38,8 @@
   "devDependencies": {
     "@openzeppelin/contracts": "v4.9.4",
     "@openzeppelin/contracts-upgradeable": "v4.9.4",
-    "clones-with-immutable-args": "v1.0.0",
+    "solady": "0.0.174",
+    "solmate": "v6",
     "forge-std": "github:foundry-rs/forge-std#v1.8.1",
     "set-defaults": "^0.0.2"
   }

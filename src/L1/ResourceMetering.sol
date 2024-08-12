@@ -1,16 +1,19 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.15;
+pragma solidity ^0.8.0;
 
-import {Initializable} from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
-import {Math} from "@redprint-openzeppelin/utils/math/Math.sol";
-import {Burn} from "@redprint-core/libraries/Burn.sol";
-import {Arithmetic} from "@redprint-core/libraries/Arithmetic.sol";
+import { Initializable } from "@openzeppelin-4_9_4/proxy/utils/Initializable.sol";
+import { Math } from "@openzeppelin-4_9_4/utils/math/Math.sol";
+import { Burn } from "@main/libraries/Burn.sol";
+import { Arithmetic } from "@main/libraries/Arithmetic.sol";
 
 /// @custom:upgradeable
 /// @title ResourceMetering
 /// @notice ResourceMetering implements an EIP-1559 style resource metering system where pricing
 ///         updates automatically based on current demand.
 abstract contract ResourceMetering is Initializable {
+    /// @notice Error returned when too much gas resource is consumed.
+    error OutOfGas();
+
     /// @notice Represents the various parameters that control the way in which resources are
     ///         metered. Corresponds to the EIP-1559 resource metering system.
     /// @custom:field prevBaseFee   Base fee from the previous block(s).
@@ -121,10 +124,9 @@ abstract contract ResourceMetering is Initializable {
 
         // Make sure we can actually buy the resource amount requested by the user.
         params.prevBoughtGas += _amount;
-        require(
-            int256(uint256(params.prevBoughtGas)) <= int256(uint256(config.maxResourceLimit)),
-            "ResourceMetering: cannot buy more gas than available gas limit"
-        );
+        if (int256(uint256(params.prevBoughtGas)) > int256(uint256(config.maxResourceLimit))) {
+            revert OutOfGas();
+        }
 
         // Determine the amount of ETH to be paid.
         uint256 resourceCost = uint256(_amount) * uint256(params.prevBaseFee);
@@ -145,6 +147,13 @@ abstract contract ResourceMetering is Initializable {
         }
     }
 
+    /// @notice Adds an amount of L2 gas consumed to the prev bought gas params. This is meant to be used
+    ///         when L2 system transactions are generated from L1.
+    /// @param _amount Amount of the L2 gas resource requested.
+    function useGas(uint32 _amount) internal {
+        params.prevBoughtGas += uint64(_amount);
+    }
+
     /// @notice Virtual function that returns the resource config.
     ///         Contracts that inherit this contract must implement this function.
     /// @return ResourceConfig
@@ -155,7 +164,7 @@ abstract contract ResourceMetering is Initializable {
     ///         child contract.
     function __ResourceMetering_init() internal onlyInitializing {
         if (params.prevBlockNum == 0) {
-            params = ResourceParams({prevBaseFee: 1 gwei, prevBoughtGas: 0, prevBlockNum: uint64(block.number)});
+            params = ResourceParams({ prevBaseFee: 1 gwei, prevBoughtGas: 0, prevBlockNum: uint64(block.number) });
         }
     }
 }

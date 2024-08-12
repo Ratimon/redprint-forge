@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.15;
+pragma solidity >=0.8.15;
 
-import {Ownable} from "@redprint-openzeppelin/access/Ownable.sol";
+import {Ownable} from "@openzeppelin-4_9_4/access/Ownable.sol";
 
 /**
  * @custom:legacy

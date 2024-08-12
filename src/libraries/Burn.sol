@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.15;
+pragma solidity ^0.8.15;
 
 /// @title Burn
 /// @notice Utilities for burning stuff.
@@ -7,7 +7,7 @@ library Burn {
     /// @notice Burns a given amount of ETH.
     /// @param _amount Amount of ETH to burn.
     function eth(uint256 _amount) internal {
-        new Burner{value: _amount}();
+        new Burner{ value: _amount }();
     }
 
     /// @notice Burns a given amount of gas.
