@@ -43,7 +43,7 @@ yarn add -D redprint-forge
 ```
 
 >[!TIP]
-> We use @redprint-<yourLib>/ as a convention to avoid any naming conflicts with your installed libararies ( i.e. `@redprint-forge-std/` and `@forge-std/`)
+> We use @redprint-<yourLib>/ as a convention to avoid any naming conflicts with your installed libararies ( i.e. `@redprint-forge-std/` vs `@forge-std/`)
 
 
 ### git submodules
