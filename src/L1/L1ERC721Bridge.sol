@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { ERC721Bridge } from "@main/universal/ERC721Bridge.sol";
-import { IERC721 } from "@openzeppelin-4_9_4/token/ERC721/IERC721.sol";
-import { L2ERC721Bridge } from "@main/L2/L2ERC721Bridge.sol";
-import { ISemver } from "@main/universal/ISemver.sol";
-import { Predeploys } from "@main/libraries/Predeploys.sol";
-import { CrossDomainMessenger } from "@main/universal/CrossDomainMessenger.sol";
-import { StandardBridge } from "@main/universal/StandardBridge.sol";
-import { Constants } from "@main/libraries/Constants.sol";
-import { SuperchainConfig } from "@main/L1/SuperchainConfig.sol";
+import { ERC721Bridge } from "@redprint-core/universal/ERC721Bridge.sol";
+import { IERC721 } from "@redprint-openzeppelin/token/ERC721/IERC721.sol";
+import { L2ERC721Bridge } from "@redprint-core/L2/L2ERC721Bridge.sol";
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
+import { CrossDomainMessenger } from "@redprint-core/universal/CrossDomainMessenger.sol";
+import { StandardBridge } from "@redprint-core/universal/StandardBridge.sol";
+import { Constants } from "@redprint-core/libraries/Constants.sol";
+import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
 
 /// @title L1ERC721Bridge
 /// @notice The L1 ERC721 bridge is a contract which works together with the L2 ERC721 bridge to

@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { LibClone } from "@solady/utils/LibClone.sol";
-import { OwnableUpgradeable } from "@openzeppelin-upgradable-4_9_4/access/OwnableUpgradeable.sol";
-import { ISemver } from "@main/universal/ISemver.sol";
+import { LibClone } from "@redprint-solady/utils/LibClone.sol";
+import { OwnableUpgradeable } from "@redprint-openzeppelin-upgradable/access/OwnableUpgradeable.sol";
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
 
-import { IDisputeGame } from "@main/dispute/interfaces/IDisputeGame.sol";
-import { IDisputeGameFactory } from "@main/dispute/interfaces/IDisputeGameFactory.sol";
+import { IDisputeGame } from "@redprint-core/dispute/interfaces/IDisputeGame.sol";
+import { IDisputeGameFactory } from "@redprint-core/dispute/interfaces/IDisputeGameFactory.sol";
 
-import "@main/dispute/lib/Types.sol";
-import "@main/dispute/lib/Errors.sol";
+import "@redprint-core/dispute/lib/Types.sol";
+import "@redprint-core/dispute/lib/Errors.sol";
 
 /// @title DisputeGameFactory
 /// @notice A factory contract for creating `IDisputeGame` contracts. All created dispute games are stored in both a

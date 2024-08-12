@@ -1,28 +1,28 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { ProxyAdmin } from "@main/universal/ProxyAdmin.sol";
-import { ResourceMetering } from "@main/L1/ResourceMetering.sol";
-import { DeployConfig } from "@script/deployer/DeployConfig.s.sol";
-// import { Deployer } from "@script/deployer/Deployer.sol";
-import { SystemConfig } from "@main/L1/SystemConfig.sol";
-import { Constants } from "@main/libraries/Constants.sol";
-import { L1StandardBridge } from "@main/L1/L1StandardBridge.sol";
-import { L2OutputOracle } from "@main/L1/L2OutputOracle.sol";
-import { DisputeGameFactory } from "@main/dispute/DisputeGameFactory.sol";
-import { DelayedWETH } from "@main/dispute/weth/DelayedWETH.sol";
-import { ProtocolVersion, ProtocolVersions } from "@main/L1/ProtocolVersions.sol";
-import { SuperchainConfig } from "@main/L1/SuperchainConfig.sol";
-import { OptimismPortal } from "@main/L1/OptimismPortal.sol";
-import { OptimismPortal2 } from "@main/L1/OptimismPortal2.sol";
-import { L1CrossDomainMessenger } from "@main/L1/L1CrossDomainMessenger.sol";
-import { OptimismMintableERC20Factory } from "@main/universal/OptimismMintableERC20Factory.sol";
-import { L1ERC721Bridge } from "@main/L1/L1ERC721Bridge.sol";
-import { Predeploys } from "@main/libraries/Predeploys.sol";
-import { Types } from "@script/optimism/Types.sol";
-import { Vm } from "@forge-std/Vm.sol";
-import { ISystemConfigV0 } from "@script/interfaces/ISystemConfigV0.sol";
-import { console2 as console } from "@forge-std/console2.sol";
+import { ProxyAdmin } from "@redprint-core/universal/ProxyAdmin.sol";
+import { ResourceMetering } from "@redprint-core/L1/ResourceMetering.sol";
+import { DeployConfig } from "@redprint-deploy/deployer/DeployConfig.s.sol";
+// import { Deployer } from "@redprint-deploy/deployer/Deployer.sol";
+import { SystemConfig } from "@redprint-core/L1/SystemConfig.sol";
+import { Constants } from "@redprint-core/libraries/Constants.sol";
+import { L1StandardBridge } from "@redprint-core/L1/L1StandardBridge.sol";
+import { L2OutputOracle } from "@redprint-core/L1/L2OutputOracle.sol";
+import { DisputeGameFactory } from "@redprint-core/dispute/DisputeGameFactory.sol";
+import { DelayedWETH } from "@redprint-core/dispute/weth/DelayedWETH.sol";
+import { ProtocolVersion, ProtocolVersions } from "@redprint-core/L1/ProtocolVersions.sol";
+import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
+import { OptimismPortal } from "@redprint-core/L1/OptimismPortal.sol";
+import { OptimismPortal2 } from "@redprint-core/L1/OptimismPortal2.sol";
+import { L1CrossDomainMessenger } from "@redprint-core/L1/L1CrossDomainMessenger.sol";
+import { OptimismMintableERC20Factory } from "@redprint-core/universal/OptimismMintableERC20Factory.sol";
+import { L1ERC721Bridge } from "@redprint-core/L1/L1ERC721Bridge.sol";
+import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
+import { Types } from "@redprint-deploy/optimism/Types.sol";
+import { Vm } from "@redprint-forge-std/Vm.sol";
+import { ISystemConfigV0 } from "@redprint-deploy/interfaces/ISystemConfigV0.sol";
+import { console2 as console } from "@redprint-forge-std/console2.sol";
 
 library ChainAssertions {
     Vm internal constant vm = Vm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);

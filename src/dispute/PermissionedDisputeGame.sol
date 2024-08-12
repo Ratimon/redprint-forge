@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { IDelayedWETH } from "@main/dispute/interfaces/IDelayedWETH.sol";
-import { IAnchorStateRegistry } from "@main/dispute/interfaces/IAnchorStateRegistry.sol";
-import { FaultDisputeGame, IFaultDisputeGame, IBigStepper, IInitializable } from "@main/dispute/FaultDisputeGame.sol";
-import "@main/dispute/lib/Types.sol";
-import "@main/dispute/lib/Errors.sol";
+import { IDelayedWETH } from "@redprint-core/dispute/interfaces/IDelayedWETH.sol";
+import { IAnchorStateRegistry } from "@redprint-core/dispute/interfaces/IAnchorStateRegistry.sol";
+import { FaultDisputeGame, IFaultDisputeGame, IBigStepper, IInitializable } from "@redprint-core/dispute/FaultDisputeGame.sol";
+import "@redprint-core/dispute/lib/Types.sol";
+import "@redprint-core/dispute/lib/Errors.sol";
 
 /// @title PermissionedDisputeGame
 /// @notice PermissionedDisputeGame is a contract that inherits from `FaultDisputeGame`, and contains two roles:

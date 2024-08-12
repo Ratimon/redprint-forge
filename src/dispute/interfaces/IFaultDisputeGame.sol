@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import { IDisputeGame } from "./IDisputeGame.sol";
 
-import "@main/dispute/lib/Types.sol";
+import "@redprint-core/dispute/lib/Types.sol";
 
 /// @title IFaultDisputeGame
 /// @notice The interface for a fault proof backed dispute game.

@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { IDeployer} from "@script/deployer/DeployScript.sol";
+import { IDeployer} from "@redprint-deploy/deployer/DeployScript.sol";
 
-import { Safe } from "@safe-contracts/Safe.sol";
-import { Enum as SafeOps } from "@safe-contracts/common/Enum.sol";
+import { Safe } from "@redprint-safe-contracts/Safe.sol";
+import { Enum as SafeOps } from "@redprint-safe-contracts/common/Enum.sol";
 
-import {ProxyAdmin} from "@main/universal/ProxyAdmin.sol";
+import {ProxyAdmin} from "@redprint-core/universal/ProxyAdmin.sol";
 
 
 abstract contract SafeScript {

@@ -1,22 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { Initializable } from "@openzeppelin-4_9_4/proxy/utils/Initializable.sol";
-import { SafeCall } from "@main/libraries/SafeCall.sol";
-import { DisputeGameFactory, IDisputeGame } from "@main/dispute/DisputeGameFactory.sol";
-import { SystemConfig } from "@main/L1/SystemConfig.sol";
-import { SuperchainConfig } from "@main/L1/SuperchainConfig.sol";
-import { Constants } from "@main/libraries/Constants.sol";
-import { Types } from "@main/libraries/Types.sol";
-import { Hashing } from "@main/libraries/Hashing.sol";
-import { SecureMerkleTrie } from "@main/libraries/trie/SecureMerkleTrie.sol";
-import { AddressAliasHelper } from "@main/vendor/AddressAliasHelper.sol";
-import { ResourceMetering } from "@main/L1/ResourceMetering.sol";
-import { ISemver } from "@main/universal/ISemver.sol";
-import { Constants } from "@main/libraries/Constants.sol";
+import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
+import { SafeCall } from "@redprint-core/libraries/SafeCall.sol";
+import { DisputeGameFactory, IDisputeGame } from "@redprint-core/dispute/DisputeGameFactory.sol";
+import { SystemConfig } from "@redprint-core/L1/SystemConfig.sol";
+import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
+import { Constants } from "@redprint-core/libraries/Constants.sol";
+import { Types } from "@redprint-core/libraries/Types.sol";
+import { Hashing } from "@redprint-core/libraries/Hashing.sol";
+import { SecureMerkleTrie } from "@redprint-core/libraries/trie/SecureMerkleTrie.sol";
+import { AddressAliasHelper } from "@redprint-core/vendor/AddressAliasHelper.sol";
+import { ResourceMetering } from "@redprint-core/L1/ResourceMetering.sol";
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { Constants } from "@redprint-core/libraries/Constants.sol";
 
-import "@main/libraries/PortalErrors.sol";
-import "@main/dispute/lib/Types.sol";
+import "@redprint-core/libraries/PortalErrors.sol";
+import "@redprint-core/dispute/lib/Types.sol";
 
 /// @custom:proxied
 /// @title OptimismPortal2

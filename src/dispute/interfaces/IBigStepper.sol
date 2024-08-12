@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-import {IPreimageOracle} from "@main/cannon/interfaces/IPreimageOracle.sol";
+import {IPreimageOracle} from "@redprint-core/cannon/interfaces/IPreimageOracle.sol";
 
 /// @title IBigStepper
 /// @notice Describes a state machine that can perform a single instruction step, provided a prestate and an optional

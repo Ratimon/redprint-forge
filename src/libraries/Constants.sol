@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { ResourceMetering } from "@main/L1/ResourceMetering.sol";
+import { ResourceMetering } from "@redprint-core/L1/ResourceMetering.sol";
 
 /// @title Constants
 /// @notice Constants is a library for storing constants. Simple! Don't put everything in here, just

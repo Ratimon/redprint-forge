@@ -1,23 +1,23 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { Initializable } from "@openzeppelin-4_9_4/proxy/utils/Initializable.sol";
-import { SafeCall } from "@main/libraries/SafeCall.sol";
-import { L2OutputOracle } from "@main/L1/L2OutputOracle.sol";
-import { SystemConfig } from "@main/L1/SystemConfig.sol";
-import { SuperchainConfig } from "@main/L1/SuperchainConfig.sol";
-import { Constants } from "@main/libraries/Constants.sol";
-import { Types } from "@main/libraries/Types.sol";
-import { Hashing } from "@main/libraries/Hashing.sol";
-import { SecureMerkleTrie } from "@main/libraries/trie/SecureMerkleTrie.sol";
-import { AddressAliasHelper } from "@main/vendor/AddressAliasHelper.sol";
-import { ResourceMetering } from "@main/L1/ResourceMetering.sol";
-import { ISemver } from "@main/universal/ISemver.sol";
-import { SafeERC20 } from "@openzeppelin-4_9_4/token/ERC20/utils/SafeERC20.sol";
-import { IERC20 } from "@openzeppelin-4_9_4/token/ERC20/IERC20.sol";
-import { L1Block } from "@main/L2/L1Block.sol";
-import { Predeploys } from "@main/libraries/Predeploys.sol";
-import "@main/libraries/PortalErrors.sol";
+import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
+import { SafeCall } from "@redprint-core/libraries/SafeCall.sol";
+import { L2OutputOracle } from "@redprint-core/L1/L2OutputOracle.sol";
+import { SystemConfig } from "@redprint-core/L1/SystemConfig.sol";
+import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
+import { Constants } from "@redprint-core/libraries/Constants.sol";
+import { Types } from "@redprint-core/libraries/Types.sol";
+import { Hashing } from "@redprint-core/libraries/Hashing.sol";
+import { SecureMerkleTrie } from "@redprint-core/libraries/trie/SecureMerkleTrie.sol";
+import { AddressAliasHelper } from "@redprint-core/vendor/AddressAliasHelper.sol";
+import { ResourceMetering } from "@redprint-core/L1/ResourceMetering.sol";
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { SafeERC20 } from "@redprint-openzeppelin/token/ERC20/utils/SafeERC20.sol";
+import { IERC20 } from "@redprint-openzeppelin/token/ERC20/IERC20.sol";
+import { L1Block } from "@redprint-core/L2/L1Block.sol";
+import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
+import "@redprint-core/libraries/PortalErrors.sol";
 
 /// @custom:proxied
 /// @title OptimismPortal

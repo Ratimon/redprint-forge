@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {Script} from "@forge-std/Script.sol";
-import {Vm} from "@forge-std/Vm.sol";
-import {Deployment, Deployment, IDeployer, getDeployer} from "@script/deployer/Deployer.sol";
+import {Script} from "@redprint-forge-std/Script.sol";
+import {Vm} from "@redprint-forge-std/Vm.sol";
+import {Deployment, Deployment, IDeployer, getDeployer} from "@redprint-deploy/deployer/Deployer.sol";
 
-import { Config } from "@script/deployer/Config.sol";
+import { Config } from "@redprint-deploy/deployer/Config.sol";
 
 abstract contract DeployScript is Script {
     IDeployer internal deployer = getDeployer();

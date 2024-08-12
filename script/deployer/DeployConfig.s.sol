@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { Script } from "@forge-std/Script.sol";
-import { console2 as console } from "@forge-std/console2.sol";
-import { stdJson } from "@forge-std/StdJson.sol";
-import { Executables } from "@script/deployer/Executables.sol";
-import { Process } from "@script/libraries/Process.sol";
-import { Chains } from "@script/deployer/Chains.sol";
-import { Config, Fork, ForkUtils } from "@script/deployer/Config.sol";
+import { Script } from "@redprint-forge-std/Script.sol";
+import { console2 as console } from "@redprint-forge-std/console2.sol";
+import { stdJson } from "@redprint-forge-std/StdJson.sol";
+import { Executables } from "@redprint-deploy/deployer/Executables.sol";
+import { Process } from "@redprint-deploy/libraries/Process.sol";
+import { Chains } from "@redprint-deploy/deployer/Chains.sol";
+import { Config, Fork, ForkUtils } from "@redprint-deploy/deployer/Config.sol";
 
 /// @title DeployConfig
 /// @notice Represents the configuration required to deploy the system. It is expected

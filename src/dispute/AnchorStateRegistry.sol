@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { Initializable } from "@openzeppelin-4_9_4/proxy/utils/Initializable.sol";
-import { ISemver } from "@main/universal/ISemver.sol";
+import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
 
-import { IAnchorStateRegistry } from "@main/dispute/interfaces/IAnchorStateRegistry.sol";
-import { IFaultDisputeGame } from "@main/dispute/interfaces/IFaultDisputeGame.sol";
-import { IDisputeGame } from "@main/dispute/interfaces/IDisputeGame.sol";
-import { IDisputeGameFactory } from "@main/dispute/interfaces/IDisputeGameFactory.sol";
+import { IAnchorStateRegistry } from "@redprint-core/dispute/interfaces/IAnchorStateRegistry.sol";
+import { IFaultDisputeGame } from "@redprint-core/dispute/interfaces/IFaultDisputeGame.sol";
+import { IDisputeGame } from "@redprint-core/dispute/interfaces/IDisputeGame.sol";
+import { IDisputeGameFactory } from "@redprint-core/dispute/interfaces/IDisputeGameFactory.sol";
 
-import "@main/dispute/lib/Types.sol";
+import "@redprint-core/dispute/lib/Types.sol";
 
 /// @title AnchorStateRegistry
 /// @notice The AnchorStateRegistry is a contract that stores the latest "anchor" state for each available

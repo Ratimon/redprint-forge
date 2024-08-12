@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { IDisputeGameFactory } from "@main/dispute/interfaces/IDisputeGameFactory.sol";
+import { IDisputeGameFactory } from "@redprint-core/dispute/interfaces/IDisputeGameFactory.sol";
 
-import "@main/dispute/lib/Types.sol";
+import "@redprint-core/dispute/lib/Types.sol";
 
 /// @title IAnchorStateRegistry
 /// @notice Describes a contract that stores the anchor state for each game type.

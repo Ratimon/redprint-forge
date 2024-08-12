@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { ISemver } from "@main/universal/ISemver.sol";
-import { Constants } from "@main/libraries/Constants.sol";
-import { GasPayingToken, IGasToken } from "@main/libraries/GasPayingToken.sol";
-import "@main/libraries/L1BlockErrors.sol";
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { Constants } from "@redprint-core/libraries/Constants.sol";
+import { GasPayingToken, IGasToken } from "@redprint-core/libraries/GasPayingToken.sol";
+import "@redprint-core/libraries/L1BlockErrors.sol";
 
 /// @custom:proxied
 /// @custom:predeploy 0x4200000000000000000000000000000000000015

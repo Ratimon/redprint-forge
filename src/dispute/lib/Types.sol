@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-import "@main/dispute/lib/LibUDT.sol";
+import "@redprint-core/dispute/lib/LibUDT.sol";
 
 /// @notice The current status of the dispute game.
 enum GameStatus {

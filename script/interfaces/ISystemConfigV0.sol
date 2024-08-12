@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { ResourceMetering } from "@main/L1/ResourceMetering.sol";
+import { ResourceMetering } from "@redprint-core/L1/ResourceMetering.sol";
 
 /// @title ISystemConfigV0
 /// @notice Minimal interface of the Legacy SystemConfig containing only getters.

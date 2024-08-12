@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { IERC165 } from "@openzeppelin-4_9_4/utils/introspection/IERC165.sol";
+import { IERC165 } from "@redprint-openzeppelin/utils/introspection/IERC165.sol";
 
 /// @title IOptimismMintableERC20
 /// @notice This interface is available on the OptimismMintableERC20 contract.

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { OptimismMintableERC20 } from "@main/universal/OptimismMintableERC20.sol";
-import { ISemver } from "@main/universal/ISemver.sol";
-import { Initializable } from "@openzeppelin-4_9_4/proxy/utils/Initializable.sol";
+import { OptimismMintableERC20 } from "@redprint-core/universal/OptimismMintableERC20.sol";
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
 
 /// @custom:proxied
 /// @custom:predeployed 0x4200000000000000000000000000000000000012

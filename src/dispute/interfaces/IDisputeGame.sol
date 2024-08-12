@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-import {IInitializable} from "@main/dispute/interfaces/IInitializable.sol";
+import {IInitializable} from "@redprint-core/dispute/interfaces/IInitializable.sol";
 
-import "@main/dispute/lib/Types.sol";
+import "@redprint-core/dispute/lib/Types.sol";
 
 /// @title IDisputeGame
 /// @notice The generic interface for a DisputeGame contract.

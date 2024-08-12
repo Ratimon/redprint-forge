@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { OwnableUpgradeable } from "@openzeppelin-upgradable-4_9_4/access/OwnableUpgradeable.sol";
-import { ISemver } from "@main/universal/ISemver.sol";
-import { Storage } from "@main/libraries/Storage.sol";
-import { Constants } from "@main/libraries/Constants.sol";
+import { OwnableUpgradeable } from "@redprint-openzeppelin-upgradable/access/OwnableUpgradeable.sol";
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { Storage } from "@redprint-core/libraries/Storage.sol";
+import { Constants } from "@redprint-core/libraries/Constants.sol";
 
 /// @notice ProtocolVersion is a numeric identifier of the protocol version.
 type ProtocolVersion is uint256;

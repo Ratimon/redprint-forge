@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-import "@main/dispute/lib/LibPosition.sol";
+import "@redprint-core/dispute/lib/LibPosition.sol";
 
 using LibClaim for Claim global;
 using LibHash for Hash global;

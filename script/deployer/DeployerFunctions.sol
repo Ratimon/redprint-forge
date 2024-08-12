@@ -1,25 +1,25 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {console2 as console} from "@forge-std/console2.sol";
-import { Vm } from "@forge-std/Vm.sol";
+import {console2 as console} from "@redprint-forge-std/console2.sol";
+import { Vm } from "@redprint-forge-std/Vm.sol";
 
-import {IDeployer} from "@script/deployer/Deployer.sol";
-import {DefaultDeployerFunction, DeployOptions} from "@script/deployer/DefaultDeployerFunction.sol";
+import {IDeployer} from "@redprint-deploy/deployer/Deployer.sol";
+import {DefaultDeployerFunction, DeployOptions} from "@redprint-deploy/deployer/DefaultDeployerFunction.sol";
 
-import { EIP1967Helper } from "@main/universal/EIP1967Helper.sol";
+import { EIP1967Helper } from "@redprint-core/universal/EIP1967Helper.sol";
 
-import {SafeProxy} from "@safe-contracts/proxies/SafeProxy.sol";
-import {SafeProxyFactory} from "@safe-contracts/proxies/SafeProxyFactory.sol";
-import {Safe} from "@safe-contracts/Safe.sol";
+import {SafeProxy} from "@redprint-safe-contracts/proxies/SafeProxy.sol";
+import {SafeProxyFactory} from "@redprint-safe-contracts/proxies/SafeProxyFactory.sol";
+import {Safe} from "@redprint-safe-contracts/Safe.sol";
 
-import {AddressManager} from "@main/legacy/AddressManager.sol";
-import {ProxyAdmin} from "@main/universal/ProxyAdmin.sol";
+import {AddressManager} from "@redprint-core/legacy/AddressManager.sol";
+import {ProxyAdmin} from "@redprint-core/universal/ProxyAdmin.sol";
 
-import {Proxy} from "@main/universal/Proxy.sol";
+import {Proxy} from "@redprint-core/universal/Proxy.sol";
 
-import { SuperchainConfig } from "@main/L1/SuperchainConfig.sol";
-import { ProtocolVersions } from "@main/L1/ProtocolVersions.sol";
+import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
+import { ProtocolVersions } from "@redprint-core/L1/ProtocolVersions.sol";
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";

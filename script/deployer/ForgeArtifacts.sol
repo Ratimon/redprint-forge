@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {Vm} from "@forge-std/Vm.sol";
-import {Executables} from "@script/deployer/Executables.sol";
-import {stdJson} from "@forge-std/StdJson.sol";
+import {Vm} from "@redprint-forge-std/Vm.sol";
+import {Executables} from "@redprint-deploy/deployer/Executables.sol";
+import {stdJson} from "@redprint-forge-std/StdJson.sol";
 
 /// @notice Contains information about a storage slot. Mirrors the layout of the storage
 ///         slot object in Forge artifacts so that we can deserialize JSON into this struct.

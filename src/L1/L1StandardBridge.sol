@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { Predeploys } from "@main/libraries/Predeploys.sol";
-import { StandardBridge } from "@main/universal/StandardBridge.sol";
-import { ISemver } from "@main/universal/ISemver.sol";
-import { CrossDomainMessenger } from "@main/universal/CrossDomainMessenger.sol";
-import { SuperchainConfig } from "@main/L1/SuperchainConfig.sol";
-import { OptimismPortal } from "@main/L1/OptimismPortal.sol";
-import { SystemConfig } from "@main/L1/SystemConfig.sol";
+import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
+import { StandardBridge } from "@redprint-core/universal/StandardBridge.sol";
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { CrossDomainMessenger } from "@redprint-core/universal/CrossDomainMessenger.sol";
+import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
+import { OptimismPortal } from "@redprint-core/L1/OptimismPortal.sol";
+import { SystemConfig } from "@redprint-core/L1/SystemConfig.sol";
 
 /// @custom:proxied
 /// @title L1StandardBridge

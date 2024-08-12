@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { Initializable } from "@openzeppelin-4_9_4/proxy/utils/Initializable.sol";
-import { Math } from "@openzeppelin-4_9_4/utils/math/Math.sol";
-import { Burn } from "@main/libraries/Burn.sol";
-import { Arithmetic } from "@main/libraries/Arithmetic.sol";
+import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
+import { Math } from "@redprint-openzeppelin/utils/math/Math.sol";
+import { Burn } from "@redprint-core/libraries/Burn.sol";
+import { Arithmetic } from "@redprint-core/libraries/Arithmetic.sol";
 
 /// @custom:upgradeable
 /// @title ResourceMetering
