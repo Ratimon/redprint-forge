@@ -124,7 +124,7 @@ contract DeployAndInitializeProtocolVersionsScript is DeployScript, SafeScript {
 ```
 
 >[!NOTE]
-> You can the full example here: [`03B_DeployAndInitializeProtocolVersions.s.sol`](https://github.com/Ratimon/redprint-optimism-contracts-examples/blob/main/script/203B_DeployAndInitializeProtocolVersions.s.sol)
+> You can the see full example here: [`03B_DeployAndInitializeProtocolVersions.s.sol`](https://github.com/Ratimon/redprint-optimism-contracts-examples/blob/main/script/203B_DeployAndInitializeProtocolVersions.s.sol)
 
 #### Call to Any Contract with arbitrary data
 
