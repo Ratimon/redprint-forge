@@ -128,7 +128,7 @@ contract DeployAndInitializeProtocolVersionsScript is DeployScript, SafeScript {
 
 #### Call to Any Contract with arbitrary data
 
-Let’s see another example at [`SafeScript`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol) itselfs. It just calls [`_callViaSafe`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol#L23):
+Let’s see another example at [`SafeScript`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol) itselfs. Our internal function just calls [`_callViaSafe`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol#L23):
 
 ```ts
 /** ... */
