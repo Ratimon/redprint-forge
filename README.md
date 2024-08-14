@@ -2,6 +2,7 @@
 
 - [Installation](#installation)
 - [What is it for](#what-is-it-for)
+- [Quickstart](#quickstart)
 - [Contributing](#contributing)
 
 >[!NOTE]
@@ -60,8 +61,95 @@ The features include:
 
 - All-Solidity-based so no context switching, no new scripting syntax in other languages
 
+- Tx Management via Safe Smart Contract Deploy Script
+
 Together with [`Redprint Wizard UI`](https://github.com/Ratimon/redprint-wizard), which is a code generator/ interactive playground oriented for OPStack development, it does not only help novice developers to deploy OPStack's smart contracts to deploy on OP mainnet, but also help them to use generated deployment script in their own projects.
 
+
+## Quickstart
+
+### Tx Management Via Safe-Multisig
+
+You can write solidity script, then execute it from command-line in order to make any smart contract calls, or send transactions from your own safe multi-sig wallet.
+
+You can access both [`_upgradeAndCallViaSafe`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol#L27) and [`_callViaSafe`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol#L23) easily by inheriting and using from  in `redprint-forge` module ’s parent contract [`SafeScript`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol).
+ 
+#### Call and Upgrade Proxy Contract
+
+Let’s see a practical example when initializing one of OPStack's proxy contract ( eg. [`ProtocolVersions`](https://github.com/Ratimon/redprint-forge/blob/main/src/L1/ProtocolVersions.sol) ) by calling [`_upgradeAndCallViaSafe`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol#L27C1-L28C1):
+
+```ts
+
+/** ... */
+
+// `redprint-forge` 's core engine
+import { SafeScript} from "@redprint-deploy/safe-management/SafeScript.sol";
+
+/** ... */
+
+contract DeployAndInitializeProtocolVersionsScript is DeployScript, SafeScript {
+
+    /** ... */
+
+    function initializeProtocolVersions() public {
+      console.log("Upgrading and initializing ProtocolVersions proxy");
+
+      /** ... */
+
+      address proxyAdmin = deployer.mustGetAddress("ProxyAdmin");
+      address safe = deployer.mustGetAddress("SystemOwnerSafe");
+
+      /** ... */
+
+      _upgradeAndCallViaSafe({
+          _proxyAdmin: proxyAdmin,
+          _safe: safe,
+          _owner: owner,
+          _proxy: payable(protocolVersionsProxy),
+          _implementation: protocolVersions,
+          _innerCallData: abi.encodeCall(
+              ProtocolVersions.initialize,
+              (
+                  finalSystemOwner,
+                  ProtocolVersion.wrap(requiredProtocolVersion),
+                  ProtocolVersion.wrap(recommendedProtocolVersion)
+              )
+          )
+      });
+      /** ... */
+    }
+
+}
+
+```
+
+>[!NOTE]
+> You can the full example here: [`03B_DeployAndInitializeProtocolVersions.s.sol`](https://github.com/Ratimon/redprint-optimism-contracts-examples/blob/main/script/203B_DeployAndInitializeProtocolVersions.s.sol)
+
+#### Call to Any Contract with arbitrary data
+
+Let’s see another example at [`SafeScript`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol) itselfs. It just calls [`_callViaSafe`](https://github.com/Ratimon/redprint-forge/blob/main/script/safe-management/SafeScript.sol#L23):
+
+```ts
+/** ... */
+
+abstract contract SafeScript {
+
+  /** ... */
+
+  function _upgradeAndCallViaSafe( address _owner, address _proxyAdmin, address _safe, address _proxy, address _implementation, bytes memory _innerCallData) internal {
+
+      bytes memory data =
+          abi.encodeCall(ProxyAdmin.upgradeAndCall, (payable(_proxy), _implementation, _innerCallData));
+
+      Safe safe = Safe(payable(_safe));
+      _callViaSafe({ _safe: safe, _owner: _owner, _target: _proxyAdmin, _data: data });
+  }
+
+  /** ... */
+
+}
+```
 
 ## Contributing
 

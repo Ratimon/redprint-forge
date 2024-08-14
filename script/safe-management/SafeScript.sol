@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { IDeployer} from "@redprint-deploy/deployer/DeployScript.sol";
-
 import { Safe } from "@redprint-safe-contracts/Safe.sol";
 import { Enum as SafeOps } from "@redprint-safe-contracts/common/Enum.sol";
 
@@ -12,15 +10,13 @@ import {ProxyAdmin} from "@redprint-core/universal/ProxyAdmin.sol";
 abstract contract SafeScript {
 
     /// @notice Call from the Safe contract to the Proxy Admin's upgrade and call method
-    function _upgradeAndCallViaSafe(IDeployer _deployer, address _owner, address _proxy, address _implementation, bytes memory _innerCallData) internal {
-
-        address proxyAdmin = _deployer.mustGetAddress("ProxyAdmin");
+    function _upgradeAndCallViaSafe( address _owner, address _proxyAdmin, address _safe, address _proxy, address _implementation, bytes memory _innerCallData) internal {
 
         bytes memory data =
             abi.encodeCall(ProxyAdmin.upgradeAndCall, (payable(_proxy), _implementation, _innerCallData));
 
-        Safe safe = Safe(_deployer.mustGetAddress("SystemOwnerSafe"));
-        _callViaSafe({ _safe: safe, _owner: _owner, _target: proxyAdmin, _data: data });
+        Safe safe = Safe(payable(_safe));
+        _callViaSafe({ _safe: safe, _owner: _owner, _target: _proxyAdmin, _data: data });
     }
 
     /// @notice Make a call from the Safe contract to an arbitrary address with arbitrary data
