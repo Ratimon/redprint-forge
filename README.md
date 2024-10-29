@@ -4,6 +4,7 @@
 - [What is it for](#what-is-it-for)
 - [Quickstart](#quickstart)
 - [Contributing](#contributing)
+- [Acknowledgement](#acknowledgement)
 
 >[!NOTE]
 > You can find our alpha mvp and relevant examples [`here`](https://github.com/Ratimon/redprint-optimism-contracts-examples)
@@ -163,3 +164,9 @@ If you want to say **thank you** or/and support active development of redprint-f
 - Write interesting articles about the project on
   [Medium](https://medium.com/), or your personal blog.
 - Keep Optimistic !!
+
+## Acknowledgement
+
+This project would not have been possible to build without the advanced iniatiative from opensource software including  [forge-deploy](https://github.com/wighawag/forge-deploy), so we are deeply thankful for their contributions in our web3 ecosystem.
+
+If we’ve overlooked anyone, please open an issue so we can correct it. While we always aim to acknowledge the inspirations and code we utilize, mistakes can happen in a team setting, and a reference might unintentionally be missed.
