@@ -11,7 +11,7 @@ import { Constants } from "@redprint-core/libraries/Constants.sol";
 import { GasPayingToken, IGasToken } from "@redprint-core/libraries/GasPayingToken.sol";
 
 // Interfaces
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
 import { IOptimismPortal } from "@redprint-core/L1/interfaces/IOptimismPortal.sol";
 import { IResourceMetering } from "@redprint-core/L1/interfaces/IResourceMetering.sol";
 

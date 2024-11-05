@@ -6,7 +6,7 @@ import { ERC165Checker } from "@redprint-openzeppelin/utils/introspection/ERC165
 import { Address } from "@redprint-openzeppelin/utils/Address.sol";
 import { SafeERC20 } from "@redprint-openzeppelin/token/ERC20/utils/SafeERC20.sol";
 import { SafeCall } from "@redprint-core/libraries/SafeCall.sol";
-import { IOptimismMintableERC20, ILegacyMintableERC20 } from "@redprint-core/universal/IOptimismMintableERC20.sol";
+import { IOptimismMintableERC20, ILegacyMintableERC20 } from "@redprint-core/universal/interfaces/IOptimismMintableERC20.sol";
 import { CrossDomainMessenger } from "@redprint-core/universal/CrossDomainMessenger.sol";
 import { OptimismMintableERC20 } from "@redprint-core/universal/OptimismMintableERC20.sol";
 import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";

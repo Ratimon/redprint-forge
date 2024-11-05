@@ -2,7 +2,7 @@
 pragma solidity ^0.8.15;
 
 import {Initializable} from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
-import {ISemver} from "@redprint-core/universal/ISemver.sol";
+import {ISemver} from "@redprint-core/universal/interfaces/ISemver.sol";
 import {Storage} from "@redprint-core/libraries/Storage.sol";
 
 /// @custom:audit none This contracts is not yet audited.

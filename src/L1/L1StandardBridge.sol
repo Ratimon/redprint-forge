@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
 import { StandardBridge } from "@redprint-core/universal/StandardBridge.sol";
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
 import { CrossDomainMessenger } from "@redprint-core/universal/CrossDomainMessenger.sol";
 import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
 import { OptimismPortal } from "@redprint-core/L1/OptimismPortal.sol";

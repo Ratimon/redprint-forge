@@ -9,7 +9,7 @@ import { LibClone } from "@solady/utils/LibClone.sol";
 import { GameType, Claim, GameId, Timestamp, Hash, LibGameId } from "@redprint-core/dispute/lib/Types.sol";
 import { NoImplementation, IncorrectBondAmount, GameAlreadyExists } from "@redprint-core/dispute/lib/Errors.sol";
 
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
 
 import { IDisputeGame } from "@redprint-core/dispute/interfaces/IDisputeGame.sol";
 

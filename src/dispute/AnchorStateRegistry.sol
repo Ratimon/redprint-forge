@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
 
 import { IAnchorStateRegistry } from "@redprint-core/dispute/interfaces/IAnchorStateRegistry.sol";
 import { IFaultDisputeGame } from "@redprint-core/dispute/interfaces/IFaultDisputeGame.sol";

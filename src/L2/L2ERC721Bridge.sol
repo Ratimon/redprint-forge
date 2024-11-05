@@ -4,9 +4,9 @@ pragma solidity ^0.8.0;
 import { ERC721Bridge } from "@redprint-core/universal/ERC721Bridge.sol";
 import { ERC165Checker } from "@redprint-openzeppelin/utils/introspection/ERC165Checker.sol";
 import { L1ERC721Bridge } from "@redprint-core/L1/L1ERC721Bridge.sol";
-import { IOptimismMintableERC721 } from "@redprint-core/universal/IOptimismMintableERC721.sol";
+import { IOptimismMintableERC721 } from "@redprint-core/universal/interfaces/IOptimismMintableERC721.sol";
 import { CrossDomainMessenger } from "@redprint-core/universal/CrossDomainMessenger.sol";
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
 import { Constants } from "@redprint-core/libraries/Constants.sol";
 import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
 

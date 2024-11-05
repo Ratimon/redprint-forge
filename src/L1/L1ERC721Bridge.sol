@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import { ERC721Bridge } from "@redprint-core/universal/ERC721Bridge.sol";
 import { IERC721 } from "@redprint-openzeppelin/token/ERC721/IERC721.sol";
 import { L2ERC721Bridge } from "@redprint-core/L2/L2ERC721Bridge.sol";
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
 import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
 import { CrossDomainMessenger } from "@redprint-core/universal/CrossDomainMessenger.sol";
 import { StandardBridge } from "@redprint-core/universal/StandardBridge.sol";

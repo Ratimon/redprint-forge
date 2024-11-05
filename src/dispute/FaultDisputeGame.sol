@@ -3,22 +3,22 @@ pragma solidity ^0.8.0;
 
 import { FixedPointMathLib } from "@solady/utils/FixedPointMathLib.sol";
 
-import { IDelayedWETH } from "src/dispute/interfaces/IDelayedWETH.sol";
-import { IDisputeGame } from "src/dispute/interfaces/IDisputeGame.sol";
-import { IFaultDisputeGame } from "src/dispute/interfaces/IFaultDisputeGame.sol";
-import { IInitializable } from "src/dispute/interfaces/IInitializable.sol";
-import { IBigStepper, IPreimageOracle } from "src/dispute/interfaces/IBigStepper.sol";
-import { IAnchorStateRegistry } from "src/dispute/interfaces/IAnchorStateRegistry.sol";
+import { IDelayedWETH } from "@redprint-core/dispute/interfaces/IDelayedWETH.sol";
+import { IDisputeGame } from "@redprint-core/dispute/interfaces/IDisputeGame.sol";
+import { IFaultDisputeGame } from "@redprint-core/dispute/interfaces/IFaultDisputeGame.sol";
+import { IInitializable } from "@redprint-core/dispute/interfaces/IInitializable.sol";
+import { IBigStepper, IPreimageOracle } from "@redprint-core/dispute/interfaces/IBigStepper.sol";
+import { IAnchorStateRegistry } from "@redprint-core/dispute/interfaces/IAnchorStateRegistry.sol";
 
 import { Clone } from "@solady/utils/Clone.sol";
-import { Types } from "src/libraries/Types.sol";
-import { ISemver } from "src/universal/ISemver.sol";
+import { Types } from "@redprint-core/libraries/Types.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
 
-import { Types } from "src/libraries/Types.sol";
-import { Hashing } from "src/libraries/Hashing.sol";
-import { RLPReader } from "src/libraries/rlp/RLPReader.sol";
-import "src/dispute/lib/Types.sol";
-import "src/dispute/lib/Errors.sol";
+import { Types } from "@redprint-core/libraries/Types.sol";
+import { Hashing } from "@redprint-core/libraries/Hashing.sol";
+import { RLPReader } from "@redprint-core/libraries/rlp/RLPReader.sol";
+import "@redprint-core/dispute/lib/Types.sol";
+import "@redprint-core/dispute/lib/Errors.sol";
 
 /// @title FaultDisputeGame
 /// @notice An implementation of the `IFaultDisputeGame` interface.

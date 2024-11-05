@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
 import { Types } from "@redprint-core/libraries/Types.sol";
 import { Constants } from "@redprint-core/libraries/Constants.sol";
 

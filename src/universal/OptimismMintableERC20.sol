@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 
 import { ERC20 } from "@redprint-openzeppelin/token/ERC20/ERC20.sol";
 import { IERC165 } from "@redprint-openzeppelin/utils/introspection/IERC165.sol";
-import { ILegacyMintableERC20, IOptimismMintableERC20 } from "@redprint-core/universal/IOptimismMintableERC20.sol";
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { ILegacyMintableERC20, IOptimismMintableERC20 } from "@redprint-core/universal/interfaces/IOptimismMintableERC20.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
 
 /// @title OptimismMintableERC20
 /// @notice OptimismMintableERC20 is a standard extension of the base ERC20 token contract designed
