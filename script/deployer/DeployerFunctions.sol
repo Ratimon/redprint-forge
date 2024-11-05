@@ -17,9 +17,16 @@ import {AddressManager} from "@redprint-core/legacy/AddressManager.sol";
 import {ProxyAdmin} from "@redprint-core/universal/ProxyAdmin.sol";
 
 import {Proxy} from "@redprint-core/universal/Proxy.sol";
+import {ResolvedDelegateProxy} from "@redprint-core/legacy/ResolvedDelegateProxy.sol";
+import {L1ChugSplashProxy} from "@redprint-core/legacy/L1ChugSplashProxy.sol";
 
 import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
 import { ProtocolVersions } from "@redprint-core/L1/ProtocolVersions.sol";
+
+import {L1CrossDomainMessenger} from "@redprint-core/L1/L1CrossDomainMessenger.sol";
+import {OptimismMintableERC20Factory} from "@redprint-core/universal/OptimismMintableERC20Factory.sol";
+import {SystemConfig} from "@redprint-core/L1/SystemConfig.sol";
+import {SystemConfigInterop} from "@redprint-core/L1/SystemConfigInterop.sol";
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
@@ -28,9 +35,16 @@ string constant Artifact_Safe = "Safe.sol:Safe";
 string constant Artifact_AddressManager = "AddressManager.sol:AddressManager";
 string constant Artifact_ProxyAdmin = "ProxyAdmin.sol:ProxyAdmin";
 string constant Artifact_Proxy = "Proxy.sol:Proxy";
+string constant Artifact_ResolvedDelegateProxy = "ResolvedDelegateProxy.sol:ResolvedDelegateProxy";
+string constant Artifact_L1ChugSplashProxy = "L1ChugSplashProxy.sol:L1ChugSplashProxy";
 
 string constant Artifact_SuperchainConfig = "SuperchainConfig.sol:SuperchainConfig";
 string constant Artifact_ProtocolVersions = "ProtocolVersions.sol:ProtocolVersions";
+
+string constant Artifact_L1CrossDomainMessenger = "L1CrossDomainMessenger.sol:L1CrossDomainMessenger";
+string constant Artifact_OptimismMintableERC20Factory = "OptimismMintableERC20Factory.sol:OptimismMintableERC20Factory";
+string constant Artifact_SystemConfig = "SystemConfig.sol:SystemConfig";
+string constant Artifact_SystemConfigInterop = "SystemConfigInterop.sol:SystemConfigInterop";
 
 
 library DeployerFunctions {
@@ -125,9 +139,6 @@ library DeployerFunctions {
     {
         console.log("Deploying ERC1967Proxy");
 
-        // Proxy proxy = new Proxy({ _admin: _proxyOwner });
-        // deployer.save(name, address(proxy));
-
         bytes memory args = abi.encode(_proxyOwner);
         Proxy proxy = Proxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args));
 
@@ -141,15 +152,63 @@ library DeployerFunctions {
     {
         console.log("Deploying ERC1967Proxy");
 
-        // Proxy proxy = new Proxy({ _admin: _proxyOwner });
-        // deployer.save(name, address(proxy));
-
         bytes memory args = abi.encode(_proxyOwner);
         Proxy proxy = Proxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args, options));
 
         require(EIP1967Helper.getAdmin(address(proxy)) == _proxyOwner, "admin must equal owner");
         return proxy;
     }
+
+
+
+    function deploy_L1ChugSplashProxy(IDeployer deployer, string memory name, address _proxyOwner)
+        internal
+        returns (L1ChugSplashProxy)
+    {
+        console.log("Deploying L1ChugSplashProxy");
+
+        bytes memory args = abi.encode(_proxyOwner);
+        L1ChugSplashProxy proxy = L1ChugSplashProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args));
+
+        require(EIP1967Helper.getAdmin(address(proxy)) == _proxyOwner, "Admin address must equal the owner param");
+        return proxy;
+    }
+
+    function deploy_L1ChugSplashProxy(IDeployer deployer, string memory name, address _proxyOwner, DeployOptions memory options)
+        internal
+        returns (L1ChugSplashProxy)
+    {
+        console.log("Deploying L1ChugSplashProxy");
+
+        bytes memory args = abi.encode(_proxyOwner);
+        L1ChugSplashProxy proxy = L1ChugSplashProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args, options));
+
+        require(EIP1967Helper.getAdmin(address(proxy)) == _proxyOwner, "Admin address must equal the owner param");
+        return proxy;
+    }
+
+    function deploy_ResolvedDelegateProxy(IDeployer deployer, string memory name, address _addressManager, string memory _implementationName)
+        internal
+        returns (ResolvedDelegateProxy)
+    {
+        console.log("Deploying ResolvedDelegateProxy");
+
+        bytes memory args = abi.encode(_addressManager, _implementationName);
+        ResolvedDelegateProxy proxy = ResolvedDelegateProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args));
+        return proxy;
+    }
+
+    function deploy_ResolvedDelegateProxy(IDeployer deployer,string memory name, address _addressManager, string memory _implementationName,  DeployOptions memory options)
+        internal
+        returns (ResolvedDelegateProxy)
+    {
+        console.log("Deploying ResolvedDelegateProxy");
+
+        bytes memory args = abi.encode(_addressManager, _implementationName);
+        ResolvedDelegateProxy proxy = ResolvedDelegateProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args, options));
+        return proxy;
+    }
+
 
     function deploy_SuperchainConfig(IDeployer deployer, string memory name)
         internal
@@ -195,6 +254,78 @@ library DeployerFunctions {
         console.log("Deploying ProtocolVersions");
         bytes memory args = abi.encode();
         return ProtocolVersions(DefaultDeployerFunction.deploy(deployer, name, Artifact_ProtocolVersions, args, options));
+    }
+
+    function deploy_L1CrossDomainMessenger(IDeployer deployer, string memory name)
+        internal
+        returns (L1CrossDomainMessenger)
+    {
+        console.log("Deploying L1CrossDomainMessenger");
+        bytes memory args = abi.encode();
+        return L1CrossDomainMessenger(DefaultDeployerFunction.deploy(deployer, name, Artifact_L1CrossDomainMessenger, args));
+    }
+
+    function deploy_L1CrossDomainMessenger(IDeployer deployer, string memory name, DeployOptions memory options)
+        internal
+        returns (L1CrossDomainMessenger)
+    {
+        console.log("Deploying L1CrossDomainMessenger");
+        bytes memory args = abi.encode();
+        return L1CrossDomainMessenger(DefaultDeployerFunction.deploy(deployer, name, Artifact_L1CrossDomainMessenger, args, options));
+    }
+
+    function deploy_OptimismMintableERC20Factory(IDeployer deployer, string memory name)
+        internal
+        returns (OptimismMintableERC20Factory)
+    {
+        console.log("Deploying OptimismMintableERC20Factory");
+        bytes memory args = abi.encode();
+        return OptimismMintableERC20Factory(DefaultDeployerFunction.deploy(deployer, name, Artifact_OptimismMintableERC20Factory, args));
+    }
+
+    function deploy_OptimismMintableERC20Factory(IDeployer deployer, string memory name, DeployOptions memory options)
+        internal
+        returns (OptimismMintableERC20Factory)
+    {
+        console.log("Deploying OptimismMintableERC20Factory");
+        bytes memory args = abi.encode();
+        return OptimismMintableERC20Factory(DefaultDeployerFunction.deploy(deployer, name, Artifact_OptimismMintableERC20Factory, args, options));
+    }
+
+    function deploy_SystemConfig(IDeployer deployer, string memory name)
+        internal
+        returns (SystemConfig)
+    {
+        console.log("Deploying SystemConfig");
+        bytes memory args = abi.encode();
+        return SystemConfig(DefaultDeployerFunction.deploy(deployer, name, Artifact_SystemConfig, args));
+    }
+
+    function deploy_SystemConfig(IDeployer deployer, string memory name, DeployOptions memory options)
+        internal
+        returns (SystemConfig)
+    {
+        console.log("Deploying SystemConfig");
+        bytes memory args = abi.encode();
+        return SystemConfig(DefaultDeployerFunction.deploy(deployer, name, Artifact_SystemConfig, args, options));
+    }
+
+    function deploy_SystemConfigInterop(IDeployer deployer, string memory name)
+        internal
+        returns (SystemConfigInterop)
+    {
+        console.log("Deploying SystemConfigInterop");
+        bytes memory args = abi.encode();
+        return SystemConfigInterop(DefaultDeployerFunction.deploy(deployer, name, Artifact_SystemConfigInterop, args));
+    }
+
+    function deploy_SystemConfigInterop(IDeployer deployer, string memory name, DeployOptions memory options)
+        internal
+        returns (SystemConfigInterop)
+    {
+        console.log("Deploying SystemConfigInterop");
+        bytes memory args = abi.encode();
+        return SystemConfigInterop(DefaultDeployerFunction.deploy(deployer, name, Artifact_SystemConfigInterop, args, options));
     }
 
 }

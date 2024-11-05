@@ -1,25 +1,43 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+// Contracts
 import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
+import { ResourceMetering } from "@redprint-core/L1/ResourceMetering.sol";
+
+// Libraries
+import { SafeERC20 } from "@redprint-openzeppelin/token/ERC20/utils/SafeERC20.sol";
 import { SafeCall } from "@redprint-core/libraries/SafeCall.sol";
-import { L2OutputOracle } from "@redprint-core/L1/L2OutputOracle.sol";
-import { SystemConfig } from "@redprint-core/L1/SystemConfig.sol";
-import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
 import { Constants } from "@redprint-core/libraries/Constants.sol";
 import { Types } from "@redprint-core/libraries/Types.sol";
 import { Hashing } from "@redprint-core/libraries/Hashing.sol";
 import { SecureMerkleTrie } from "@redprint-core/libraries/trie/SecureMerkleTrie.sol";
-import { AddressAliasHelper } from "@redprint-core/vendor/AddressAliasHelper.sol";
-import { ResourceMetering } from "@redprint-core/L1/ResourceMetering.sol";
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
-import { SafeERC20 } from "@redprint-openzeppelin/token/ERC20/utils/SafeERC20.sol";
-import { IERC20 } from "@redprint-openzeppelin/token/ERC20/IERC20.sol";
-import { L1Block } from "@redprint-core/L2/L1Block.sol";
 import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
-import "@redprint-core/libraries/PortalErrors.sol";
+import { AddressAliasHelper } from "@redprint-core/vendor/AddressAliasHelper.sol";
+import {
+    BadTarget,
+    LargeCalldata,
+    SmallGasLimit,
+    TransferFailed,
+    OnlyCustomGasToken,
+    NoValue,
+    Unauthorized,
+    CallPaused,
+    GasEstimation,
+    NonReentrant,
+    Unproven
+} from "@redprint-core/libraries/PortalErrors.sol";
 
-/// @custom:proxied
+// Interfaces
+import { IERC20 } from "@redprint-openzeppelin/token/ERC20/IERC20.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
+import { IL2OutputOracle } from "@redprint-core/L1/interfaces/IL2OutputOracle.sol";
+import { ISystemConfig } from "@redprint-core/L1/interfaces/ISystemConfig.sol";
+import { IResourceMetering } from "@redprint-core/L1/interfaces/IResourceMetering.sol";
+import { ISuperchainConfig } from "@redprint-core/L1/interfaces/ISuperchainConfig.sol";
+import { IL1Block } from "@redprint-core/L2/interfaces/IL1Block.sol";
+
+/// @custom:proxied true
 /// @title OptimismPortal
 /// @notice The OptimismPortal is a low-level contract responsible for passing messages between L1
 ///         and L2. Messages sent directly to the OptimismPortal have no form of replayability.
@@ -64,15 +82,15 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
     bool private spacer_53_0_1;
 
     /// @notice Contract of the Superchain Config.
-    SuperchainConfig public superchainConfig;
+    ISuperchainConfig public superchainConfig;
 
     /// @notice Contract of the L2OutputOracle.
     /// @custom:network-specific
-    L2OutputOracle public l2Oracle;
+    IL2OutputOracle public l2Oracle;
 
     /// @notice Contract of the SystemConfig.
     /// @custom:network-specific
-    SystemConfig public systemConfig;
+    ISystemConfig public systemConfig;
 
     /// @custom:spacer disputeGameFactory
     /// @notice Spacer for backwards compatibility.
@@ -128,17 +146,17 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
     }
 
     /// @notice Semantic version.
-    /// @custom:semver 2.8.1-beta.1
+    /// @custom:semver 2.8.1-beta.4
     function version() public pure virtual returns (string memory) {
-        return "2.8.1-beta.1";
+        return "2.8.1-beta.4";
     }
 
     /// @notice Constructs the OptimismPortal contract.
     constructor() {
         initialize({
-            _l2Oracle: L2OutputOracle(address(0)),
-            _systemConfig: SystemConfig(address(0)),
-            _superchainConfig: SuperchainConfig(address(0))
+            _l2Oracle: IL2OutputOracle(address(0)),
+            _systemConfig: ISystemConfig(address(0)),
+            _superchainConfig: ISuperchainConfig(address(0))
         });
     }
 
@@ -147,9 +165,9 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
     /// @param _systemConfig Contract of the SystemConfig.
     /// @param _superchainConfig Contract of the SuperchainConfig.
     function initialize(
-        L2OutputOracle _l2Oracle,
-        SystemConfig _systemConfig,
-        SuperchainConfig _superchainConfig
+        IL2OutputOracle _l2Oracle,
+        ISystemConfig _systemConfig,
+        ISuperchainConfig _superchainConfig
     )
         public
         initializer
@@ -222,8 +240,16 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
     ///         Used internally by the ResourceMetering contract.
     ///         The SystemConfig is the source of truth for the resource config.
     /// @return ResourceMetering ResourceConfig
-    function _resourceConfig() internal view override returns (ResourceMetering.ResourceConfig memory) {
-        return systemConfig.resourceConfig();
+    function _resourceConfig() internal view override returns (ResourceConfig memory) {
+        IResourceMetering.ResourceConfig memory config = systemConfig.resourceConfig();
+        return ResourceConfig({
+            maxResourceLimit: config.maxResourceLimit,
+            elasticityMultiplier: config.elasticityMultiplier,
+            baseFeeMaxChangeDenominator: config.baseFeeMaxChangeDenominator,
+            minimumBaseFee: config.minimumBaseFee,
+            systemTxMaxGas: config.systemTxMaxGas,
+            maximumBaseFee: config.maximumBaseFee
+        });
     }
 
     /// @notice Proves a withdrawal transaction.
@@ -578,7 +604,7 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
                 uint256(0), // value
                 uint64(SYSTEM_DEPOSIT_GAS_LIMIT), // gasLimit
                 false, // isCreation,
-                abi.encodeCall(L1Block.setGasPayingToken, (_token, _decimals, _name, _symbol))
+                abi.encodeCall(IL1Block.setGasPayingToken, (_token, _decimals, _name, _symbol))
             )
         );
     }

@@ -44,6 +44,9 @@ yarn add -D redprint-forge
 @redprint-safe-contracts/=node_modules/redprint-forge/lib/safe-smart-account/contracts
 ```
 
+>[!NOTE]
+> All OPStack's contracts are based on [`v1.9.4`](https://github.com/ethereum-optimism/optimism/tree/v1.9.4/packages/contracts-bedrock)
+
 >[!TIP]
 > We use @redprint-<yourLib>/ as a convention to avoid any naming conflicts with your previously installed libararies ( i.e. `@redprint-forge-std/` vs `@forge-std/`)
 

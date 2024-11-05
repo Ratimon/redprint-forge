@@ -4,7 +4,7 @@ out = "out"
 test = "test"
 # script = 'script'
 libs = ["node_modules", "lib"]
-solc_version = '0.8.15'
+solc_version = '0.8.25'
 auto_detect_solc = false
 
 [fmt]

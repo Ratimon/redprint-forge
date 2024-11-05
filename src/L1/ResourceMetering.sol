@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+// Contracts
 import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
+
+// Libraries
 import { Math } from "@redprint-openzeppelin/utils/math/Math.sol";
 import { Burn } from "@redprint-core/libraries/Burn.sol";
 import { Arithmetic } from "@redprint-core/libraries/Arithmetic.sol";

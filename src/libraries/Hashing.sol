@@ -27,7 +27,7 @@ library Hashing {
         return keccak256(abi.encode(bytes32(0), depositId));
     }
 
-    /// @notice Hashes the cross domain message based on the version that is encoded into the
+    /// @notice Hashes the cross do@redprint-core message based on the version that is encoded into the
     ///         message nonce.
     /// @param _nonce    Message nonce with version encoded into the first two bytes.
     /// @param _sender   Address of the sender of the message.

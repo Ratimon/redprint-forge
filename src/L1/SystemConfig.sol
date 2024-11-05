@@ -1,15 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+// Contracts
 import { OwnableUpgradeable } from "@redprint-openzeppelin-upgradable/access/OwnableUpgradeable.sol";
-import { ISemver } from "@redprint-core/universal/ISemver.sol";
-import { ResourceMetering } from "@redprint-core/L1/ResourceMetering.sol";
-import { Storage } from "@redprint-core/libraries/Storage.sol";
-import { Constants } from "@redprint-core/libraries/Constants.sol";
-import { OptimismPortal } from "@redprint-core/L1/OptimismPortal.sol";
-import { GasPayingToken, IGasToken } from "@redprint-core/libraries/GasPayingToken.sol";
 import { ERC20 } from "@redprint-openzeppelin/token/ERC20/ERC20.sol";
 
+// Libraries
+import { Storage } from "@redprint-core/libraries/Storage.sol";
+import { Constants } from "@redprint-core/libraries/Constants.sol";
+import { GasPayingToken, IGasToken } from "@redprint-core/libraries/GasPayingToken.sol";
+
+// Interfaces
+import { ISemver } from "@redprint-core/universal/ISemver.sol";
+import { IOptimismPortal } from "@redprint-core/L1/interfaces/IOptimismPortal.sol";
+import { IResourceMetering } from "@redprint-core/L1/interfaces/IResourceMetering.sol";
+
+/// @custom:proxied true
 /// @title SystemConfig
 /// @notice The SystemConfig contract is used to manage configuration of an Optimism network.
 ///         All configuration is stored on L1 and picked up by L2 as part of the derviation of
@@ -17,15 +23,16 @@ import { ERC20 } from "@redprint-openzeppelin/token/ERC20/ERC20.sol";
 contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
     /// @notice Enum representing different types of updates.
     /// @custom:value BATCHER              Represents an update to the batcher hash.
-    /// @custom:value GAS_CONFIG           Represents an update to txn fee config on L2.
+    /// @custom:value FEE_SCALARS          Represents an update to l1 data fee scalars.
     /// @custom:value GAS_LIMIT            Represents an update to gas limit on L2.
     /// @custom:value UNSAFE_BLOCK_SIGNER  Represents an update to the signer key for unsafe
     ///                                    block distrubution.
     enum UpdateType {
         BATCHER,
-        GAS_CONFIG,
+        FEE_SCALARS,
         GAS_LIMIT,
-        UNSAFE_BLOCK_SIGNER
+        UNSAFE_BLOCK_SIGNER,
+        EIP_1559_PARAMS
     }
 
     /// @notice Struct representing the addresses of L1 system contracts. These should be the
@@ -115,7 +122,13 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
     /// @notice The configuration for the deposit fee market.
     ///         Used by the OptimismPortal to meter the cost of buying L2 gas on L1.
     ///         Set as internal with a getter so that the struct is returned instead of a tuple.
-    ResourceMetering.ResourceConfig internal _resourceConfig;
+    IResourceMetering.ResourceConfig internal _resourceConfig;
+
+    /// @notice The EIP-1559 base fee max change denominator.
+    uint32 public eip1559Denominator;
+
+    /// @notice The EIP-1559 elasticity multiplier.
+    uint32 public eip1559Elasticity;
 
     /// @notice Emitted when configuration is updated.
     /// @param version    SystemConfig version.
@@ -124,9 +137,9 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
     event ConfigUpdate(uint256 indexed version, UpdateType indexed updateType, bytes data);
 
     /// @notice Semantic version.
-    /// @custom:semver 2.3.0-beta.2
+    /// @custom:semver 2.3.0-beta.5
     function version() public pure virtual returns (string memory) {
-        return "2.3.0-beta.2";
+        return "2.3.0-beta.5";
     }
 
     /// @notice Constructs the SystemConfig contract. Cannot set
@@ -143,7 +156,7 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
             _batcherHash: bytes32(0),
             _gasLimit: 1,
             _unsafeBlockSigner: address(0),
-            _config: ResourceMetering.ResourceConfig({
+            _config: IResourceMetering.ResourceConfig({
                 maxResourceLimit: 1,
                 elasticityMultiplier: 1,
                 baseFeeMaxChangeDenominator: 2,
@@ -183,7 +196,7 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
         bytes32 _batcherHash,
         uint64 _gasLimit,
         address _unsafeBlockSigner,
-        ResourceMetering.ResourceConfig memory _config,
+        IResourceMetering.ResourceConfig memory _config,
         address _batchInbox,
         SystemConfig.Addresses memory _addresses
     )
@@ -317,7 +330,7 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
 
             // Set the gas paying token in storage and in the OptimismPortal.
             GasPayingToken.set({ _token: _token, _decimals: GAS_PAYING_TOKEN_DECIMALS, _name: name, _symbol: symbol });
-            OptimismPortal(payable(optimismPortal())).setGasPayingToken({
+            IOptimismPortal(payable(optimismPortal())).setGasPayingToken({
                 _token: _token,
                 _decimals: GAS_PAYING_TOKEN_DECIMALS,
                 _name: name,
@@ -374,7 +387,7 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
         scalar = _scalar;
 
         bytes memory data = abi.encode(_overhead, _scalar);
-        emit ConfigUpdate(VERSION, UpdateType.GAS_CONFIG, data);
+        emit ConfigUpdate(VERSION, UpdateType.FEE_SCALARS, data);
     }
 
     /// @notice Updates gas config as of the Ecotone upgrade. Can only be called by the owner.
@@ -394,7 +407,7 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
         scalar = (uint256(0x01) << 248) | (uint256(_blobbasefeeScalar) << 32) | _basefeeScalar;
 
         bytes memory data = abi.encode(overhead, scalar);
-        emit ConfigUpdate(VERSION, UpdateType.GAS_CONFIG, data);
+        emit ConfigUpdate(VERSION, UpdateType.FEE_SCALARS, data);
     }
 
     /// @notice Updates the L2 gas limit. Can only be called by the owner.
@@ -412,6 +425,25 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
 
         bytes memory data = abi.encode(_gasLimit);
         emit ConfigUpdate(VERSION, UpdateType.GAS_LIMIT, data);
+    }
+
+    /// @notice Updates the EIP-1559 parameters of the chain. Can only be called by the owner.
+    /// @param _denominator EIP-1559 base fee max change denominator.
+    /// @param _elasticity  EIP-1559 elasticity multiplier.
+    function setEIP1559Params(uint32 _denominator, uint32 _elasticity) external onlyOwner {
+        _setEIP1559Params(_denominator, _elasticity);
+    }
+
+    /// @notice Internal function for updating the EIP-1559 parameters.
+    function _setEIP1559Params(uint32 _denominator, uint32 _elasticity) internal {
+        // require the parameters have sane values:
+        require(_denominator >= 1, "SystemConfig: denominator must be >= 1");
+        require(_elasticity >= 1, "SystemConfig: elasticity must be >= 1");
+        eip1559Denominator = _denominator;
+        eip1559Elasticity = _elasticity;
+
+        bytes memory data = abi.encode(uint256(_denominator) << 32 | uint64(_elasticity));
+        emit ConfigUpdate(VERSION, UpdateType.EIP_1559_PARAMS, data);
     }
 
     /// @notice Sets the start block in a backwards compatible way. Proxies
@@ -432,7 +464,7 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
     /// @notice A getter for the resource config.
     ///         Ensures that the struct is returned instead of a tuple.
     /// @return ResourceConfig
-    function resourceConfig() external view returns (ResourceMetering.ResourceConfig memory) {
+    function resourceConfig() external view returns (IResourceMetering.ResourceConfig memory) {
         return _resourceConfig;
     }
 
@@ -441,7 +473,7 @@ contract SystemConfig is OwnableUpgradeable, ISemver, IGasToken {
     ///         In the future, this method may emit an event that the `op-node` picks up
     ///         for when the resource config is changed.
     /// @param _config The new resource config.
-    function _setResourceConfig(ResourceMetering.ResourceConfig memory _config) internal {
+    function _setResourceConfig(IResourceMetering.ResourceConfig memory _config) internal {
         // Min base fee must be less than or equal to max base fee.
         require(
             _config.minimumBaseFee <= _config.maximumBaseFee, "SystemConfig: min base fee must be less than max base"

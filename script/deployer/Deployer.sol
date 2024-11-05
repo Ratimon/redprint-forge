@@ -239,6 +239,7 @@ contract GlobalDeployer is IDeployer {
             L2OutputOracle: getAddress("L2OutputOracleProxy"),
             DisputeGameFactory: getAddress("DisputeGameFactoryProxy"),
             DelayedWETH: getAddress("DelayedWETHProxy"),
+            PermissionedDelayedWETH: getAddress("PermissionedDelayedWETH"),
             AnchorStateRegistry: getAddress("AnchorStateRegistryProxy"),
             OptimismMintableERC20Factory: getAddress("OptimismMintableERC20FactoryProxy"),
             OptimismPortal: getAddress("OptimismPortalProxy"),
@@ -274,8 +275,6 @@ contract GlobalDeployer is IDeployer {
             return payable(Predeploys.L1_MESSAGE_SENDER);
         } else if (digest == keccak256(bytes("DeployerWhitelist"))) {
             return payable(Predeploys.DEPLOYER_WHITELIST);
-        } else if (digest == keccak256(bytes("WETH9"))) {
-            return payable(Predeploys.WETH9);
         } else if (digest == keccak256(bytes("LegacyERC20ETH"))) {
             return payable(Predeploys.LEGACY_ERC20_ETH);
         } else if (digest == keccak256(bytes("L1BlockNumber"))) {

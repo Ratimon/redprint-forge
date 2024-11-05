@@ -24,7 +24,7 @@
   "repository": "github:Ratimon/redprint-forge",
   "scripts": {
     "---------------------- USER WORKFLOW ----------------------": "",
-    "postinstall": "forge install --no-git openzeppelin-4_9_4=openzeppelin/openzeppelin-contracts@v4.9.4 openzeppelin-upgradeable-4_9_4=OpenZeppelin/openzeppelin-contracts-upgradeable@v4.9.4 foundry-rs/forge-std@v1.9.1 safe-global/safe-smart-account@v1.4.1 || echo ''",
+    "postinstall": "forge install --no-git openzeppelin-4_9_4=openzeppelin/openzeppelin-contracts@v4.9.4 openzeppelin-upgradeable-4_9_4=OpenZeppelin/openzeppelin-contracts-upgradeable@v4.9.4 foundry-rs/forge-std@v1.9.1 safe-global/safe-smart-account@v1.4.1 ethereum-optimism/lib-keccak || echo ''",
     "---------------------- DEV WORKFLOW ----------------------": "",
     "prepare": "rm -rf lib/ && set-defaults .vscode && forge install --no-git openzeppelin-4_9_4=openzeppelin/openzeppelin-contracts@v4.9.4 openzeppelin-upgradeable-4_9_4=OpenZeppelin/openzeppelin-contracts-upgradeable@v4.9.4 foundry-rs/forge-std@v1.9.1 safe-global/safe-smart-account@v1.4.1 || echo '' ",
     "build": "forge build",
