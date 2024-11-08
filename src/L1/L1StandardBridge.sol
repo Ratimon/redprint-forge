@@ -83,7 +83,6 @@ contract L1StandardBridge is StandardBridge, ISemver {
     {
         emit ETHDepositInitiated(_from, _to, _amount, _extraData);
         super._emitETHBridgeInitiated(_from, _to, _amount, _extraData);
-        super._emitETHBridgeInitiated(_from, _to, _amount, _extraData);
     }
 
     function _emitETHBridgeFinalized(address _from, address _to, uint256 _amount, bytes memory _extraData)
@@ -91,7 +90,6 @@ contract L1StandardBridge is StandardBridge, ISemver {
         override
     {
         emit ETHWithdrawalFinalized(_from, _to, _amount, _extraData);
-        super._emitETHBridgeFinalized(_from, _to, _amount, _extraData);
         super._emitETHBridgeFinalized(_from, _to, _amount, _extraData);
     }
 
@@ -101,7 +99,6 @@ contract L1StandardBridge is StandardBridge, ISemver {
     {
          emit ERC20DepositInitiated(_localToken, _remoteToken, _from, _to, _amount, _extraData);
         super._emitERC20BridgeInitiated(_localToken, _remoteToken, _from, _to, _amount, _extraData);
-        super._emitERC20BridgeInitiated(_localToken, _remoteToken, _from, _to, _amount, _extraData);
     }
 
     function _emitERC20BridgeFinalized(address _localToken, address _remoteToken, address _from, address _to, uint256 _amount, bytes memory _extraData)
@@ -109,7 +106,6 @@ contract L1StandardBridge is StandardBridge, ISemver {
         override
     {
         emit ERC20WithdrawalFinalized(_localToken, _remoteToken, _from, _to, _amount, _extraData);
-        super._emitERC20BridgeFinalized(_localToken, _remoteToken, _from, _to, _amount, _extraData);
         super._emitERC20BridgeFinalized(_localToken, _remoteToken, _from, _to, _amount, _extraData);
     }
 
