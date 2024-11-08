@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {OwnableUpgradeable} from "@redprint-openzeppelin-upgradable/access/OwnableUpgradeable.sol";
+import {OwnableUpgradeable} from "@redprint-openzeppelin-upgradeable/access/OwnableUpgradeable.sol";
 import {IGasToken, GasPayingToken} from "@redprint-core/libraries/GasPayingToken.sol";
 import {ISemver} from "@redprint-core/universal/interfaces/ISemver.sol";
 import {ERC20} from "@redprint-openzeppelin/token/ERC20/ERC20.sol";

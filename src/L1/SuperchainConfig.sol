@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.15;
+pragma solidity ^0.8.0;
 
-import {Initializable} from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
-import {ISemver} from "@redprint-core/universal/interfaces/ISemver.sol";
-import {Storage} from "@redprint-core/libraries/Storage.sol";
+import { Initializable } from "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+import { ISemver } from "src/universal/interfaces/ISemver.sol";
+import { Storage } from "src/libraries/Storage.sol";
 
+/// @custom:proxied true
 /// @custom:audit none This contracts is not yet audited.
 /// @title SuperchainConfig
 /// @notice The SuperchainConfig contract is used to manage configuration of global superchain values.
@@ -35,12 +36,12 @@ contract SuperchainConfig is Initializable, ISemver {
     event ConfigUpdate(UpdateType indexed updateType, bytes data);
 
     /// @notice Semantic version.
-    /// @custom:semver 1.1.0
-    string public constant version = "1.1.0";
+    /// @custom:semver 1.1.1-beta.1
+    string public constant version = "1.1.1-beta.1";
 
     /// @notice Constructs the SuperchainConfig contract.
     constructor() {
-        initialize({_guardian: address(0), _paused: false});
+        initialize({ _guardian: address(0), _paused: false });
     }
 
     /// @notice Initializer.

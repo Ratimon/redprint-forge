@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 // Contracts
-import { OwnableUpgradeable } from "@redprint-openzeppelin-upgradable/access/OwnableUpgradeable.sol";
+import { OwnableUpgradeable } from "@redprint-openzeppelin-upgradeable/access/OwnableUpgradeable.sol";
 
 
 import { LibClone } from "@solady/utils/LibClone.sol";

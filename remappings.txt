@@ -6,4 +6,4 @@
 @redprint-safe-contracts/=lib/safe-smart-account/contracts/
 @redprint-lib-keccak/=lib/lib-keccak/contracts/lib/
 @redprint-openzeppelin/=lib/openzeppelin-4_7_3/contracts
-@redprint-openzeppelin-upgradable/=lib/openzeppelin-upgradeable-4_7_3/contracts
+@redprint-openzeppelin-upgradeable/=lib/openzeppelin-upgradeable-4_7_3/contracts
