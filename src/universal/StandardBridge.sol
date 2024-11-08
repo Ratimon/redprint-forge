@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.15;
 
 import { IERC20 } from "@redprint-openzeppelin/token/ERC20/IERC20.sol";
 import { ERC165Checker } from "@redprint-openzeppelin/utils/introspection/ERC165Checker.sol";
@@ -7,7 +7,7 @@ import { Address } from "@redprint-openzeppelin/utils/Address.sol";
 import { SafeERC20 } from "@redprint-openzeppelin/token/ERC20/utils/SafeERC20.sol";
 import { SafeCall } from "@redprint-core/libraries/SafeCall.sol";
 import { IOptimismMintableERC20, ILegacyMintableERC20 } from "@redprint-core/universal/interfaces/IOptimismMintableERC20.sol";
-import { CrossDomainMessenger } from "@redprint-core/universal/CrossDomainMessenger.sol";
+import { ICrossDomainMessenger } from "@redprint-core/universal/interfaces/ICrossDomainMessenger.sol";
 import { OptimismMintableERC20 } from "@redprint-core/universal/OptimismMintableERC20.sol";
 import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
 import { Constants } from "@redprint-core/libraries/Constants.sol";
@@ -38,7 +38,7 @@ abstract contract StandardBridge is Initializable {
 
     /// @notice Messenger contract on this domain.
     /// @custom:network-specific
-    CrossDomainMessenger public messenger;
+    ICrossDomainMessenger public messenger;
 
     /// @notice Corresponding bridge on the other domain.
     /// @custom:network-specific
@@ -99,9 +99,7 @@ abstract contract StandardBridge is Initializable {
     ///         calling code within their constructors, but also doesn't really matter since we're
     ///         just trying to prevent users accidentally depositing with smart contract wallets.
     modifier onlyEOA() {
-        
-        require(msg.sender.code.length == 0, "StandardBridge: function can only be called from an EOA");
-        // require(!Address.isContract(msg.sender), "StandardBridge: function can only be called from an EOA");
+        require(!Address.isContract(msg.sender), "StandardBridge: function can only be called from an EOA");
         _;
     }
 
@@ -118,7 +116,7 @@ abstract contract StandardBridge is Initializable {
     /// @param _messenger   Contract for CrossDomainMessenger on this network.
     /// @param _otherBridge Contract for the other StandardBridge contract.
     function __StandardBridge_init(
-        CrossDomainMessenger _messenger,
+        ICrossDomainMessenger _messenger,
         StandardBridge _otherBridge
     )
         internal
@@ -145,7 +143,7 @@ abstract contract StandardBridge is Initializable {
     ///         Public getter is legacy and will be removed in the future. Use `messenger` instead.
     /// @return Contract of the messenger on this domain.
     /// @custom:legacy
-    function MESSENGER() external view returns (CrossDomainMessenger) {
+    function MESSENGER() external view returns (ICrossDomainMessenger) {
         return messenger;
     }
 
