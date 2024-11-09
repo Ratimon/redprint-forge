@@ -28,6 +28,7 @@ import {OptimismMintableERC20Factory} from "@redprint-core/universal/OptimismMin
 import {SystemConfig} from "@redprint-core/L1/SystemConfig.sol";
 import {SystemConfigInterop} from "@redprint-core/L1/SystemConfigInterop.sol";
 import {L1StandardBridge} from "@redprint-core/L1/L1StandardBridge.sol";
+import {L1ERC721Bridge} from "@redprint-core/L1/L1ERC721Bridge.sol";
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
@@ -47,6 +48,8 @@ string constant Artifact_OptimismMintableERC20Factory = "OptimismMintableERC20Fa
 string constant Artifact_SystemConfig = "SystemConfig.sol:SystemConfig";
 string constant Artifact_SystemConfigInterop = "SystemConfigInterop.sol:SystemConfigInterop";
 string constant Artifact_L1StandardBridge = "L1StandardBridge.sol:L1StandardBridge";
+string constant Artifact_L1ERC721Bridge = "L1ERC721Bridge.sol:L1ERC721Bridge";
+
 
 library DeployerFunctions {
         /// @notice Foundry cheatcode VM.
@@ -345,6 +348,24 @@ library DeployerFunctions {
         console.log("Deploying L1StandardBridge");
         bytes memory args = abi.encode();
         return L1StandardBridge(DefaultDeployerFunction.deploy(deployer, name, Artifact_L1StandardBridge, args, options));
+    }
+
+    function deploy_L1ERC721Bridge(IDeployer deployer, string memory name)
+        internal
+        returns (L1ERC721Bridge)
+    {
+        console.log("Deploying L1ERC721Bridge");
+        bytes memory args = abi.encode();
+        return L1ERC721Bridge(DefaultDeployerFunction.deploy(deployer, name, Artifact_L1ERC721Bridge, args));
+    }
+
+    function deploy_L1ERC721Bridge(IDeployer deployer, string memory name, DeployOptions memory options)
+        internal
+        returns (L1ERC721Bridge)
+    {
+        console.log("Deploying L1ERC721Bridge");
+        bytes memory args = abi.encode();
+        return L1ERC721Bridge(DefaultDeployerFunction.deploy(deployer, name, Artifact_L1ERC721Bridge, args, options));
     }
 
 }
