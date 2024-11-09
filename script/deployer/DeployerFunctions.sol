@@ -27,6 +27,7 @@ import {L1CrossDomainMessenger} from "@redprint-core/L1/L1CrossDomainMessenger.s
 import {OptimismMintableERC20Factory} from "@redprint-core/universal/OptimismMintableERC20Factory.sol";
 import {SystemConfig} from "@redprint-core/L1/SystemConfig.sol";
 import {SystemConfigInterop} from "@redprint-core/L1/SystemConfigInterop.sol";
+import {L1StandardBridge} from "@redprint-core/L1/L1StandardBridge.sol";
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
@@ -45,7 +46,7 @@ string constant Artifact_L1CrossDomainMessenger = "L1CrossDomainMessenger.sol:L1
 string constant Artifact_OptimismMintableERC20Factory = "OptimismMintableERC20Factory.sol:OptimismMintableERC20Factory";
 string constant Artifact_SystemConfig = "SystemConfig.sol:SystemConfig";
 string constant Artifact_SystemConfigInterop = "SystemConfigInterop.sol:SystemConfigInterop";
-
+string constant Artifact_L1StandardBridge = "L1StandardBridge.sol:L1StandardBridge";
 
 library DeployerFunctions {
         /// @notice Foundry cheatcode VM.
@@ -326,6 +327,24 @@ library DeployerFunctions {
         console.log("Deploying SystemConfigInterop");
         bytes memory args = abi.encode();
         return SystemConfigInterop(DefaultDeployerFunction.deploy(deployer, name, Artifact_SystemConfigInterop, args, options));
+    }
+
+    function deploy_L1StandardBridge(IDeployer deployer, string memory name)
+        internal
+        returns (L1StandardBridge)
+    {
+        console.log("Deploying L1StandardBridge");
+        bytes memory args = abi.encode();
+        return L1StandardBridge(DefaultDeployerFunction.deploy(deployer, name, Artifact_L1StandardBridge, args));
+    }
+
+    function deploy_L1StandardBridge(IDeployer deployer, string memory name, DeployOptions memory options)
+        internal
+        returns (L1StandardBridge)
+    {
+        console.log("Deploying L1StandardBridge");
+        bytes memory args = abi.encode();
+        return L1StandardBridge(DefaultDeployerFunction.deploy(deployer, name, Artifact_L1StandardBridge, args, options));
     }
 
 }
