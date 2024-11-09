@@ -1,51 +1,28 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-// Contracts
-import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
-import { ResourceMetering } from "@redprint-core/L1/ResourceMetering.sol";
+import {ResourceMetering} from "@redprint-core/L1/ResourceMetering.sol";
+import {ISemver} from "@redprint-core/universal/interfaces/ISemver.sol";
+import {SafeERC20} from "@redprint-openzeppelin/token/ERC20/utils/SafeERC20.sol";
+import {Initializable} from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
+import {SafeCall} from "@redprint-core/libraries/SafeCall.sol";
+import {Constants} from "@redprint-core/libraries/Constants.sol";
+import {Types} from "@redprint-core/libraries/Types.sol";
+import {Hashing} from "@redprint-core/libraries/Hashing.sol";
+import {SecureMerkleTrie} from "@redprint-core/libraries/trie/SecureMerkleTrie.sol";
+import {Predeploys} from "@redprint-core/libraries/Predeploys.sol";
+import {AddressAliasHelper} from "@redprint-core/vendor/AddressAliasHelper.sol";
+import "@redprint-core/libraries/PortalErrors.sol";
+import {IERC20} from "@redprint-openzeppelin/token/ERC20/IERC20.sol";
+import {IL2OutputOracle} from "@redprint-core/L1/interfaces/IL2OutputOracle.sol";
+import {ISystemConfig} from "@redprint-core/L1/interfaces/ISystemConfig.sol";
+import {IResourceMetering} from "@redprint-core/L1/interfaces/IResourceMetering.sol";
+import {ISuperchainConfig} from "@redprint-core/L1/interfaces/ISuperchainConfig.sol";
+import {IL1Block} from "@redprint-core/L2/interfaces/IL1Block.sol";
 
-// Libraries
-import { SafeERC20 } from "@redprint-openzeppelin/token/ERC20/utils/SafeERC20.sol";
-import { SafeCall } from "@redprint-core/libraries/SafeCall.sol";
-import { Constants } from "@redprint-core/libraries/Constants.sol";
-import { Types } from "@redprint-core/libraries/Types.sol";
-import { Hashing } from "@redprint-core/libraries/Hashing.sol";
-import { SecureMerkleTrie } from "@redprint-core/libraries/trie/SecureMerkleTrie.sol";
-import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
-import { AddressAliasHelper } from "@redprint-core/vendor/AddressAliasHelper.sol";
-import {
-    BadTarget,
-    LargeCalldata,
-    SmallGasLimit,
-    TransferFailed,
-    OnlyCustomGasToken,
-    NoValue,
-    Unauthorized,
-    CallPaused,
-    GasEstimation,
-    NonReentrant,
-    Unproven
-} from "@redprint-core/libraries/PortalErrors.sol";
-
-// Interfaces
-import { IERC20 } from "@redprint-openzeppelin/token/ERC20/IERC20.sol";
-import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
-import { IL2OutputOracle } from "@redprint-core/L1/interfaces/IL2OutputOracle.sol";
-import { ISystemConfig } from "@redprint-core/L1/interfaces/ISystemConfig.sol";
-import { IResourceMetering } from "@redprint-core/L1/interfaces/IResourceMetering.sol";
-import { ISuperchainConfig } from "@redprint-core/L1/interfaces/ISuperchainConfig.sol";
-import { IL1Block } from "@redprint-core/L2/interfaces/IL1Block.sol";
-
-/// @custom:proxied true
-/// @title OptimismPortal
-/// @notice The OptimismPortal is a low-level contract responsible for passing messages between L1
-///         and L2. Messages sent directly to the OptimismPortal have no form of replayability.
-///         Users are encouraged to use the L1CrossDomainMessenger for a higher-level interface.
-contract OptimismPortal is Initializable, ResourceMetering, ISemver {
-    /// @notice Allows for interactions with non standard ERC20 tokens.
-    using SafeERC20 for IERC20;
-
+/// @custom:security-contact Consult full code at https://github.com/ethereum-optimism/optimism/blob/v1.9.4/packages/contracts-bedrock/src/L1/OptimismPortal.sol
+contract OptimismPortal is ResourceMetering, ISemver {
+    using SafeERC20 for IERC20 ;
     /// @notice Represents a proven withdrawal.
     /// @custom:field outputRoot    Root of the L2 output this was proven against.
     /// @custom:field timestamp     Timestamp at whcih the withdrawal was proven.
@@ -55,43 +32,32 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         uint128 timestamp;
         uint128 l2OutputIndex;
     }
-
     /// @notice Version of the deposit event.
     uint256 internal constant DEPOSIT_VERSION = 0;
-
     /// @notice The L2 gas limit set when eth is deposited using the receive() function.
     uint64 internal constant RECEIVE_DEFAULT_GAS_LIMIT = 100_000;
-
     /// @notice The L2 gas limit for system deposit transactions that are initiated from L1.
     uint32 internal constant SYSTEM_DEPOSIT_GAS_LIMIT = 200_000;
-
     /// @notice Address of the L2 account which initiated a withdrawal in this transaction.
     ///         If the of this variable is the default L2 sender address, then we are NOT inside of
     ///         a call to finalizeWithdrawalTransaction.
     address public l2Sender;
-
     /// @notice A list of withdrawal hashes which have been successfully finalized.
     mapping(bytes32 => bool) public finalizedWithdrawals;
-
-    /// @notice A mapping of withdrawal hashes to `ProvenWithdrawal` data.
+    /// @notice A mapping of withdrawal hashes to ProvenWithdrawal data.
     mapping(bytes32 => ProvenWithdrawal) public provenWithdrawals;
-
     /// @custom:legacy
     /// @custom:spacer paused
     /// @notice Spacer for backwards compatibility.
     bool private spacer_53_0_1;
-
     /// @notice Contract of the Superchain Config.
     ISuperchainConfig public superchainConfig;
-
     /// @notice Contract of the L2OutputOracle.
     /// @custom:network-specific
     IL2OutputOracle public l2Oracle;
-
-    /// @notice Contract of the SystemConfig.
+    //// @notice Contract of the SystemConfig.
     /// @custom:network-specific
     ISystemConfig public systemConfig;
-
     /// @custom:spacer disputeGameFactory
     /// @notice Spacer for backwards compatibility.
     address private spacer_56_0_20;
@@ -111,14 +77,12 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
     /// @custom:spacer proofSubmitters
     /// @notice Spacer for backwards compatibility.
     bytes32 private spacer_60_0_32;
-
     /// @notice Represents the amount of native asset minted in L2. This may not
     ///         be 100% accurate due to the ability to send ether to the contract
     ///         without triggering a deposit transaction. It also is used to prevent
     ///         overflows for L2 account balances when custom gas tokens are used.
-    ///         It is not safe to trust `ERC20.balanceOf` as it may lie.
+    ///         It is not safe to trust ERC20.balanceOf as it may lie.
     uint256 internal _balance;
-
     /// @notice Emitted when a transaction is deposited from L1 to L2.
     ///         The parameters of this event are read by the rollup node and used to derive deposit
     ///         transactions on L2.
@@ -127,31 +91,21 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
     /// @param version    Version of this deposit transaction event.
     /// @param opaqueData ABI encoded deposit data to be parsed off-chain.
     event TransactionDeposited(address indexed from, address indexed to, uint256 indexed version, bytes opaqueData);
-
     /// @notice Emitted when a withdrawal transaction is proven.
     /// @param withdrawalHash Hash of the withdrawal transaction.
     /// @param from           Address that triggered the withdrawal transaction.
     /// @param to             Address that the withdrawal transaction is directed to.
     event WithdrawalProven(bytes32 indexed withdrawalHash, address indexed from, address indexed to);
-
     /// @notice Emitted when a withdrawal transaction is finalized.
     /// @param withdrawalHash Hash of the withdrawal transaction.
     /// @param success        Whether the withdrawal transaction was successful.
     event WithdrawalFinalized(bytes32 indexed withdrawalHash, bool success);
 
-    /// @notice Reverts when paused.
     modifier whenNotPaused() {
         if (paused()) revert CallPaused();
         _;
     }
 
-    /// @notice Semantic version.
-    /// @custom:semver 2.8.1-beta.4
-    function version() public pure virtual returns (string memory) {
-        return "2.8.1-beta.4";
-    }
-
-    /// @notice Constructs the OptimismPortal contract.
     constructor() {
         initialize({
             _l2Oracle: IL2OutputOracle(address(0)),
@@ -160,15 +114,15 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         });
     }
 
-    /// @notice Initializer.
-    /// @param _l2Oracle Contract of the L2OutputOracle.
-    /// @param _systemConfig Contract of the SystemConfig.
-    /// @param _superchainConfig Contract of the SuperchainConfig.
-    function initialize(
-        IL2OutputOracle _l2Oracle,
-        ISystemConfig _systemConfig,
-        ISuperchainConfig _superchainConfig
-    )
+    receive() external payable {
+        depositTransaction(msg.sender, msg.value, RECEIVE_DEFAULT_GAS_LIMIT, false, bytes(""));
+    }
+
+    function version() public pure virtual returns (string memory) {
+        return "2.8.1-beta.3";
+    }
+
+    function initialize(IL2OutputOracle _l2Oracle, ISystemConfig _systemConfig, ISuperchainConfig _superchainConfig)
         public
         initializer
     {
@@ -181,7 +135,6 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         __ResourceMetering_init();
     }
 
-    /// @notice Getter for the balance of the contract.
     function balance() public view returns (uint256) {
         (address token,) = gasPayingToken();
         if (token == Constants.ETHER) {
@@ -191,56 +144,36 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         }
     }
 
-    /// @notice Getter function for the address of the guardian.
-    ///         Public getter is legacy and will be removed in the future. Use `SuperchainConfig.guardian()` instead.
-    /// @return Address of the guardian.
-    /// @custom:legacy
     function guardian() public view returns (address) {
         return superchainConfig.guardian();
     }
 
-    /// @notice Getter for the current paused status.
-    /// @return paused_ Whether or not the contract is paused.
     function paused() public view returns (bool paused_) {
         paused_ = superchainConfig.paused();
     }
 
-    /// @notice Computes the minimum gas limit for a deposit.
-    ///         The minimum gas limit linearly increases based on the size of the calldata.
-    ///         This is to prevent users from creating L2 resource usage without paying for it.
-    ///         This function can be used when interacting with the portal to ensure forwards
-    ///         compatibility.
-    /// @param _byteCount Number of bytes in the calldata.
-    /// @return The minimum gas limit for a deposit.
     function minimumGasLimit(uint64 _byteCount) public pure returns (uint64) {
         return _byteCount * 16 + 21000;
     }
 
-    /// @notice Accepts value so that users can send ETH directly to this contract and have the
-    ///         funds be deposited to their address on L2. This is intended as a convenience
-    ///         function for EOAs. Contracts should call the depositTransaction() function directly
-    ///         otherwise any deposited funds will be lost due to address aliasing.
-    receive() external payable {
-        depositTransaction(msg.sender, msg.value, RECEIVE_DEFAULT_GAS_LIMIT, false, bytes(""));
-    }
-
-    /// @notice Accepts ETH value without triggering a deposit to L2.
-    ///         This function mainly exists for the sake of the migration between the legacy
-    ///         Optimism system and Bedrock.
     function donateETH() external payable {
         // Intentionally empty.
     }
 
-    /// @notice Returns the gas paying token and its decimals.
-    function gasPayingToken() internal view returns (address addr_, uint8 decimals_) {
+    function gasPayingToken()
+        internal
+        view
+        returns (address addr_, uint8 decimals_)
+    {
         (addr_, decimals_) = systemConfig.gasPayingToken();
     }
 
-    /// @notice Getter for the resource config.
-    ///         Used internally by the ResourceMetering contract.
-    ///         The SystemConfig is the source of truth for the resource config.
-    /// @return ResourceMetering ResourceConfig
-    function _resourceConfig() internal view override returns (ResourceConfig memory) {
+    function _resourceConfig()
+        internal
+        view
+        override
+        returns (ResourceConfig memory)
+    {
         IResourceMetering.ResourceConfig memory config = systemConfig.resourceConfig();
         return ResourceConfig({
             maxResourceLimit: config.maxResourceLimit,
@@ -252,23 +185,13 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         });
     }
 
-    /// @notice Proves a withdrawal transaction.
-    /// @param _tx              Withdrawal transaction to finalize.
-    /// @param _l2OutputIndex   L2 output index to prove against.
-    /// @param _outputRootProof Inclusion proof of the L2ToL1MessagePasser contract's storage root.
-    /// @param _withdrawalProof Inclusion proof of the withdrawal in L2ToL1MessagePasser contract.
-    function proveWithdrawalTransaction(
-        Types.WithdrawalTransaction memory _tx,
-        uint256 _l2OutputIndex,
-        Types.OutputRootProof calldata _outputRootProof,
-        bytes[] calldata _withdrawalProof
-    )
+    function proveWithdrawalTransaction(Types.WithdrawalTransaction memory _tx, uint256 _l2OutputIndex, Types.OutputRootProof calldata _outputRootProof, bytes[] calldata _withdrawalProof)
         external
         whenNotPaused
     {
         // Prevent users from creating a deposit transaction where this address is the message
         // sender on L2. Because this is checked here, we do not need to check again in
-        // `finalizeWithdrawalTransaction`.
+        // finalizeWithdrawalTransaction.
         if (_tx.target == address(this)) revert BadTarget();
 
         // Get the output root and load onto the stack to prevent multiple mloads. This will
@@ -320,8 +243,8 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
             "OptimismPortal: invalid withdrawal inclusion proof"
         );
 
-        // Designate the withdrawalHash as proven by storing the `outputRoot`, `timestamp`, and
-        // `l2BlockNumber` in the `provenWithdrawals` mapping. A `withdrawalHash` can only be
+        // Designate the withdrawalHash as proven by storing the outputRoot, timestamp, and
+        // l2BlockNumber in the provenWithdrawals mapping. A withdrawalHash can only be
         // proven once unless it is submitted again with a different outputRoot.
         provenWithdrawals[withdrawalHash] = ProvenWithdrawal({
             outputRoot: outputRoot,
@@ -329,19 +252,20 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
             l2OutputIndex: uint128(_l2OutputIndex)
         });
 
-        // Emit a `WithdrawalProven` event.
+        // Emit a WithdrawalProven event.
         emit WithdrawalProven(withdrawalHash, _tx.sender, _tx.target);
     }
 
-    /// @notice Finalizes a withdrawal transaction.
-    /// @param _tx Withdrawal transaction to finalize.
-    function finalizeWithdrawalTransaction(Types.WithdrawalTransaction memory _tx) external whenNotPaused {
+    function finalizeWithdrawalTransaction(Types.WithdrawalTransaction memory _tx)
+        external
+        whenNotPaused
+    {
         // Make sure that the l2Sender has not yet been set. The l2Sender is set to a value other
         // than the default value when a withdrawal transaction is being finalized. This check is
         // a defacto reentrancy guard.
         if (l2Sender != Constants.DEFAULT_L2_SENDER) revert NonReentrant();
 
-        // Grab the proven withdrawal from the `provenWithdrawals` map.
+        // Grab the proven withdrawal from the provenWithdrawals map.
         bytes32 withdrawalHash = Hashing.hashWithdrawal(_tx);
         ProvenWithdrawal memory provenWithdrawal = provenWithdrawals[withdrawalHash];
 
@@ -404,7 +328,7 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
             //      amount of data (and this is OK because we don't care about the returndata here).
             //   2. The amount of gas provided to the execution context of the target is at least the
             //      gas limit specified by the user. If there is not enough gas in the current context
-            //      to accomplish this, `callWithMinGas` will revert.
+            //      to accomplish this, callWithMinGas will revert.
             success = SafeCall.callWithMinGas(_tx.target, _tx.gasLimit, _tx.value, _tx.data);
         } else {
             // Cannot call the token contract directly from the portal. This would allow an attacker
@@ -455,24 +379,7 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         }
     }
 
-    /// @notice Entrypoint to depositing an ERC20 token as a custom gas token.
-    ///         This function depends on a well formed ERC20 token. There are only
-    ///         so many checks that can be done on chain for this so it is assumed
-    ///         that chain operators will deploy chains with well formed ERC20 tokens.
-    /// @param _to         Target address on L2.
-    /// @param _mint       Units of ERC20 token to deposit into L2.
-    /// @param _value      Units of ERC20 token to send on L2 to the recipient.
-    /// @param _gasLimit   Amount of L2 gas to purchase by burning gas on L1.
-    /// @param _isCreation Whether or not the transaction is a contract creation.
-    /// @param _data       Data to trigger the recipient with.
-    function depositERC20Transaction(
-        address _to,
-        uint256 _mint,
-        uint256 _value,
-        uint64 _gasLimit,
-        bool _isCreation,
-        bytes memory _data
-    )
+    function depositERC20Transaction(address _to, uint256 _mint, uint256 _value, uint64 _gasLimit, bool _isCreation, bytes memory _data)
         public
         metered(_gasLimit)
     {
@@ -504,25 +411,9 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         });
     }
 
-    /// @notice Accepts deposits of ETH and data, and emits a TransactionDeposited event for use in
-    ///         deriving deposit transactions. Note that if a deposit is made by a contract, its
-    ///         address will be aliased when retrieved using `tx.origin` or `msg.sender`. Consider
-    ///         using the CrossDomainMessenger contracts for a simpler developer experience.
-    /// @param _to         Target address on L2.
-    /// @param _value      ETH value to send to the recipient.
-    /// @param _gasLimit   Amount of L2 gas to purchase by burning gas on L1.
-    /// @param _isCreation Whether or not the transaction is a contract creation.
-    /// @param _data       Data to trigger the recipient with.
-    function depositTransaction(
-        address _to,
-        uint256 _value,
-        uint64 _gasLimit,
-        bool _isCreation,
-        bytes memory _data
-    )
+    function depositTransaction(address _to, uint256 _value, uint64 _gasLimit, bool _isCreation, bytes memory _data)
         public
-        payable
-        metered(_gasLimit)
+        payable metered(_gasLimit)
     {
         (address token,) = gasPayingToken();
         if (token != Constants.ETHER && msg.value != 0) revert NoValue();
@@ -537,24 +428,10 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         });
     }
 
-    /// @notice Common logic for creating deposit transactions.
-    /// @param _to         Target address on L2.
-    /// @param _mint       Units of asset to deposit into L2.
-    /// @param _value      Units of asset to send on L2 to the recipient.
-    /// @param _gasLimit   Amount of L2 gas to purchase by burning gas on L1.
-    /// @param _isCreation Whether or not the transaction is a contract creation.
-    /// @param _data       Data to trigger the recipient with.
-    function _depositTransaction(
-        address _to,
-        uint256 _mint,
-        uint256 _value,
-        uint64 _gasLimit,
-        bool _isCreation,
-        bytes memory _data
-    )
+    function _depositTransaction(address _to, uint256 _mint, uint256 _value, uint64 _gasLimit, bool _isCreation, bytes memory _data)
         internal
     {
-        // Just to be safe, make sure that people specify address(0) as the target when doing
+         // Just to be safe, make sure that people specify address(0) as the target when doing
         // contract creations.
         if (_isCreation && _to != address(0)) revert BadTarget();
 
@@ -584,13 +461,13 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         emit TransactionDeposited(from, _to, DEPOSIT_VERSION, opaqueData);
     }
 
-    /// @notice Sets the gas paying token for the L2 system. This token is used as the
-    ///         L2 native asset. Only the SystemConfig contract can call this function.
-    function setGasPayingToken(address _token, uint8 _decimals, bytes32 _name, bytes32 _symbol) external {
+    function setGasPayingToken(address _token, uint8 _decimals, bytes32 _name, bytes32 _symbol)
+        external
+    {
         if (msg.sender != address(systemConfig)) revert Unauthorized();
 
         // Set L2 deposit gas as used without paying burning gas. Ensures that deposits cannot use too much L2 gas.
-        // This value must be large enough to cover the cost of calling `L1Block.setGasPayingToken`.
+        // This value must be large enough to cover the cost of calling L1Block.setGasPayingToken.
         useGas(SYSTEM_DEPOSIT_GAS_LIMIT);
 
         // Emit the special deposit transaction directly that sets the gas paying
@@ -609,20 +486,19 @@ contract OptimismPortal is Initializable, ResourceMetering, ISemver {
         );
     }
 
-    /// @notice Determine if a given output is finalized.
-    ///         Reverts if the call to l2Oracle.getL2Output reverts.
-    ///         Returns a boolean otherwise.
-    /// @param _l2OutputIndex Index of the L2 output to check.
-    /// @return Whether or not the output is finalized.
-    function isOutputFinalized(uint256 _l2OutputIndex) external view returns (bool) {
+    function isOutputFinalized(uint256 _l2OutputIndex)
+        external
+        view
+        returns (bool)
+    {
         return _isFinalizationPeriodElapsed(l2Oracle.getL2Output(_l2OutputIndex).timestamp);
     }
 
-    /// @notice Determines whether the finalization period has elapsed with respect to
-    ///         the provided block timestamp.
-    /// @param _timestamp Timestamp to check.
-    /// @return Whether or not the finalization period has elapsed.
-    function _isFinalizationPeriodElapsed(uint256 _timestamp) internal view returns (bool) {
+    function _isFinalizationPeriodElapsed(uint256 _timestamp)
+        internal
+        view
+        returns (bool)
+    {
         return block.timestamp > _timestamp + l2Oracle.FINALIZATION_PERIOD_SECONDS();
     }
 }
