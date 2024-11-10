@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.15;
 
-import { CrossDomainMessenger } from "@redprint-core/universal/CrossDomainMessenger.sol";
-import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
+import { ICrossDomainMessenger } from "@redprint-core/universal/interfaces/ICrossDomainMessenger.sol";
 import { Address } from "@redprint-openzeppelin/utils/Address.sol";
 import { Initializable } from "@redprint-openzeppelin/proxy/utils/Initializable.sol";
 
@@ -15,7 +14,7 @@ abstract contract ERC721Bridge is Initializable {
 
     /// @notice Messenger contract on this domain.
     /// @custom:network-specific
-    CrossDomainMessenger public messenger;
+    ICrossDomainMessenger public messenger;
 
     /// @notice Contract of the bridge on the other network.
     /// @custom:network-specific
@@ -69,7 +68,7 @@ abstract contract ERC721Bridge is Initializable {
     /// @param _messenger   Contract of the CrossDomainMessenger on this network.
     /// @param _otherBridge Contract of the ERC721 bridge on the other network.
     function __ERC721Bridge_init(
-        CrossDomainMessenger _messenger,
+        ICrossDomainMessenger _messenger,
         ERC721Bridge _otherBridge
     )
         internal
@@ -83,7 +82,7 @@ abstract contract ERC721Bridge is Initializable {
     ///         Public getter is legacy and will be removed in the future. Use `messenger` instead.
     /// @return Messenger contract on this domain.
     /// @custom:legacy
-    function MESSENGER() external view returns (CrossDomainMessenger) {
+    function MESSENGER() external view returns (ICrossDomainMessenger) {
         return messenger;
     }
 
@@ -134,9 +133,7 @@ abstract contract ERC721Bridge is Initializable {
         // the NFT if they use this function because it sends the NFT to the same address as the
         // caller. This check could be bypassed by a malicious contract via initcode, but it takes
         // care of the user error we want to avoid.
-        
-        require(msg.sender.code.length == 0, "ERC721Bridge: account is not externally owned");
-        // require(!Address.isContract(msg.sender), "ERC721Bridge: account is not externally owned");
+        require(!Address.isContract(msg.sender), "ERC721Bridge: account is not externally owned");
 
         _initiateBridgeERC721(_localToken, _remoteToken, msg.sender, msg.sender, _tokenId, _minGasLimit, _extraData);
     }

@@ -1,15 +1,21 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity 0.8.15;
 
+// Contracts
 import { ERC721Bridge } from "@redprint-core/universal/ERC721Bridge.sol";
+
+// Libraries
 import { ERC165Checker } from "@redprint-openzeppelin/utils/introspection/ERC165Checker.sol";
-import { L1ERC721Bridge } from "@redprint-core/L1/L1ERC721Bridge.sol";
-import { IOptimismMintableERC721 } from "@redprint-core/universal/interfaces/IOptimismMintableERC721.sol";
-import { CrossDomainMessenger } from "@redprint-core/universal/CrossDomainMessenger.sol";
-import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
-import { Constants } from "@redprint-core/libraries/Constants.sol";
 import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
 
+// Interfaces
+import { IL1ERC721Bridge } from "@redprint-core/L1/interfaces/IL1ERC721Bridge.sol";
+import { IOptimismMintableERC721 } from "@redprint-core/universal/interfaces/IOptimismMintableERC721.sol";
+import { ICrossDomainMessenger } from "@redprint-core/universal/interfaces/ICrossDomainMessenger.sol";
+import { ISemver } from "@redprint-core/universal/interfaces/ISemver.sol";
+
+/// @custom:proxied true
+/// @custom:predeploy 0x4200000000000000000000000000000000000014
 /// @title L2ERC721Bridge
 /// @notice The L2 ERC721 bridge is a contract which works together with the L1 ERC721 bridge to
 ///         make it possible to transfer ERC721 tokens from Ethereum to Optimism. This contract
@@ -20,8 +26,8 @@ import { Predeploys } from "@redprint-core/libraries/Predeploys.sol";
 ///         wait for the one-week challenge period to elapse before their Optimism-native NFT
 ///         can be refunded on L2.
 contract L2ERC721Bridge is ERC721Bridge, ISemver {
-    /// @custom:semver 1.7.1+beta.1
-    string public constant version = "1.7.1+beta.1";
+    /// @custom:semver 1.7.1-beta.3
+    string public constant version = "1.7.1-beta.3";
 
     /// @notice Constructs the L2ERC721Bridge contract.
     constructor() ERC721Bridge() {
@@ -32,7 +38,7 @@ contract L2ERC721Bridge is ERC721Bridge, ISemver {
     /// @param _l1ERC721Bridge Address of the ERC721 bridge contract on the other network.
     function initialize(address payable _l1ERC721Bridge) public initializer {
         __ERC721Bridge_init({
-            _messenger: CrossDomainMessenger(Predeploys.L2_CROSS_DOMAIN_MESSENGER),
+            _messenger: ICrossDomainMessenger(Predeploys.L2_CROSS_DOMAIN_MESSENGER),
             _otherBridge: ERC721Bridge(_l1ERC721Bridge)
         });
     }
@@ -112,7 +118,7 @@ contract L2ERC721Bridge is ERC721Bridge, ISemver {
         IOptimismMintableERC721(_localToken).burn(_from, _tokenId);
 
         bytes memory message = abi.encodeWithSelector(
-            L1ERC721Bridge.finalizeBridgeERC721.selector, remoteToken, _localToken, _from, _to, _tokenId, _extraData
+            IL1ERC721Bridge.finalizeBridgeERC721.selector, remoteToken, _localToken, _from, _to, _tokenId, _extraData
         );
 
         // Send message to L1 bridge
