@@ -30,6 +30,7 @@ import {SystemConfigInterop} from "@redprint-core/L1/SystemConfigInterop.sol";
 import {L1StandardBridge} from "@redprint-core/L1/L1StandardBridge.sol";
 import {L1ERC721Bridge} from "@redprint-core/L1/L1ERC721Bridge.sol";
 import {OptimismPortal} from "@redprint-core/L1/OptimismPortal.sol";
+import {L2OutputOracle} from "@redprint-core/L1/L2OutputOracle.sol";
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
@@ -51,6 +52,7 @@ string constant Artifact_SystemConfigInterop = "SystemConfigInterop.sol:SystemCo
 string constant Artifact_L1StandardBridge = "L1StandardBridge.sol:L1StandardBridge";
 string constant Artifact_L1ERC721Bridge = "L1ERC721Bridge.sol:L1ERC721Bridge";
 string constant Artifact_OptimismPortal = "OptimismPortal.sol:OptimismPortal";
+string constant Artifact_L2OutputOracle = "L2OutputOracle.sol:L2OutputOracle";
 
 
 
@@ -387,6 +389,24 @@ library DeployerFunctions {
         console.log("Deploying OptimismPortal");
         bytes memory args = abi.encode();
         return OptimismPortal(DefaultDeployerFunction.deploy(deployer, name, Artifact_OptimismPortal, args, options));
+    }
+
+    function deploy_L2OutputOracle(IDeployer deployer, string memory name)
+        internal
+        returns (L2OutputOracle)
+    {
+        console.log("Deploying L2OutputOracle");
+        bytes memory args = abi.encode();
+        return L2OutputOracle(DefaultDeployerFunction.deploy(deployer, name, Artifact_L2OutputOracle, args));
+    }
+
+    function deploy_L2OutputOracle(IDeployer deployer, string memory name, DeployOptions memory options)
+        internal
+        returns (L2OutputOracle)
+    {
+        console.log("Deploying L2OutputOracle");
+        bytes memory args = abi.encode();
+        return L2OutputOracle(DefaultDeployerFunction.deploy(deployer, name, Artifact_L2OutputOracle, args, options));
     }
 
 }
