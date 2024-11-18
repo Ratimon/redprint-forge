@@ -31,6 +31,7 @@ import {L1StandardBridge} from "@redprint-core/L1/L1StandardBridge.sol";
 import {L1ERC721Bridge} from "@redprint-core/L1/L1ERC721Bridge.sol";
 import {OptimismPortal} from "@redprint-core/L1/OptimismPortal.sol";
 import {L2OutputOracle} from "@redprint-core/L1/L2OutputOracle.sol";
+import {OptimismPortal2} from "@redprint-core/L1/OptimismPortal2.sol";
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
@@ -53,6 +54,7 @@ string constant Artifact_L1StandardBridge = "L1StandardBridge.sol:L1StandardBrid
 string constant Artifact_L1ERC721Bridge = "L1ERC721Bridge.sol:L1ERC721Bridge";
 string constant Artifact_OptimismPortal = "OptimismPortal.sol:OptimismPortal";
 string constant Artifact_L2OutputOracle = "L2OutputOracle.sol:L2OutputOracle";
+string constant Artifact_OptimismPortal2 = "OptimismPortal2.sol:OptimismPortal2";
 
 
 
@@ -407,6 +409,24 @@ library DeployerFunctions {
         console.log("Deploying L2OutputOracle");
         bytes memory args = abi.encode();
         return L2OutputOracle(DefaultDeployerFunction.deploy(deployer, name, Artifact_L2OutputOracle, args, options));
+    }
+
+    function deploy_OptimismPortal2(IDeployer deployer, string memory name, uint256 _proofMaturityDelaySeconds, uint256 _disputeGameFinalityDelaySeconds)
+        internal
+        returns (OptimismPortal2)
+    {
+        console.log("Deploying OptimismPortal2");
+        bytes memory args = abi.encode(_proofMaturityDelaySeconds, _disputeGameFinalityDelaySeconds);
+        return OptimismPortal2(DefaultDeployerFunction.deploy(deployer, name, Artifact_OptimismPortal2, args));
+    }
+
+    function deploy_OptimismPortal2(IDeployer deployer, string memory name, uint256 _proofMaturityDelaySeconds, uint256 _disputeGameFinalityDelaySeconds, DeployOptions memory options)
+        internal
+        returns (OptimismPortal2)
+    {
+        console.log("Deploying OptimismPortal2");
+        bytes memory args = abi.encode(_proofMaturityDelaySeconds, _disputeGameFinalityDelaySeconds);
+        return OptimismPortal2(DefaultDeployerFunction.deploy(deployer, name, Artifact_OptimismPortal2, args, options));
     }
 
 }
