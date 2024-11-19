@@ -32,6 +32,8 @@ import {L1ERC721Bridge} from "@redprint-core/L1/L1ERC721Bridge.sol";
 import {OptimismPortal} from "@redprint-core/L1/OptimismPortal.sol";
 import {L2OutputOracle} from "@redprint-core/L1/L2OutputOracle.sol";
 import {OptimismPortal2} from "@redprint-core/L1/OptimismPortal2.sol";
+import {OptimismPortalInterop} from "@redprint-core/L1/OptimismPortalInterop.sol";
+import {DisputeGameFactory} from "@redprint-core/dispute/DisputeGameFactory.sol";
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
@@ -55,7 +57,8 @@ string constant Artifact_L1ERC721Bridge = "L1ERC721Bridge.sol:L1ERC721Bridge";
 string constant Artifact_OptimismPortal = "OptimismPortal.sol:OptimismPortal";
 string constant Artifact_L2OutputOracle = "L2OutputOracle.sol:L2OutputOracle";
 string constant Artifact_OptimismPortal2 = "OptimismPortal2.sol:OptimismPortal2";
-
+string constant Artifact_OptimismPortalInterop = "OptimismPortalInterop.sol:OptimismPortalInterop";
+string constant Artifact_DisputeGameFactory = "DisputeGameFactory.sol:DisputeGameFactory";
 
 
 library DeployerFunctions {
@@ -445,6 +448,24 @@ library DeployerFunctions {
         console.log("Deploying OptimismPortalInterop");
         bytes memory args = abi.encode(_proofMaturityDelaySeconds, _disputeGameFinalityDelaySeconds);
         return OptimismPortalInterop(DefaultDeployerFunction.deploy(deployer, name, Artifact_OptimismPortalInterop, args, options));
+    }
+
+    function deploy_DisputeGameFactory(IDeployer deployer, string memory name)
+        internal
+        returns (DisputeGameFactory)
+    {
+        console.log("Deploying DisputeGameFactory");
+        bytes memory args = abi.encode();
+        return DisputeGameFactory(DefaultDeployerFunction.deploy(deployer, name, Artifact_DisputeGameFactory, args));
+    }
+
+    function deploy_DisputeGameFactory(IDeployer deployer, string memory name, DeployOptions memory options)
+        internal
+        returns (DisputeGameFactory)
+    {
+        console.log("Deploying DisputeGameFactory");
+        bytes memory args = abi.encode();
+        return DisputeGameFactory(DefaultDeployerFunction.deploy(deployer, name, Artifact_DisputeGameFactory, args, options));
     }
 
 }
