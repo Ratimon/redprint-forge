@@ -429,4 +429,22 @@ library DeployerFunctions {
         return OptimismPortal2(DefaultDeployerFunction.deploy(deployer, name, Artifact_OptimismPortal2, args, options));
     }
 
+    function deploy_OptimismPortalInterop(IDeployer deployer, string memory name,uint256 _proofMaturityDelaySeconds, uint256 _disputeGameFinalityDelaySeconds)
+        internal
+        returns (OptimismPortalInterop)
+    {
+        console.log("Deploying OptimismPortalInterop");
+        bytes memory args = abi.encode(_proofMaturityDelaySeconds, _disputeGameFinalityDelaySeconds);
+        return OptimismPortalInterop(DefaultDeployerFunction.deploy(deployer, name, Artifact_OptimismPortalInterop, args));
+    }
+
+    function deploy_OptimismPortalInterop(IDeployer deployer, string memory name,uint256 _proofMaturityDelaySeconds, uint256 _disputeGameFinalityDelaySeconds, DeployOptions memory options)
+        internal
+        returns (OptimismPortalInterop)
+    {
+        console.log("Deploying OptimismPortalInterop");
+        bytes memory args = abi.encode(_proofMaturityDelaySeconds, _disputeGameFinalityDelaySeconds);
+        return OptimismPortalInterop(DefaultDeployerFunction.deploy(deployer, name, Artifact_OptimismPortalInterop, args, options));
+    }
+
 }
