@@ -35,6 +35,7 @@ import {OptimismPortal2} from "@redprint-core/L1/OptimismPortal2.sol";
 import {OptimismPortalInterop} from "@redprint-core/L1/OptimismPortalInterop.sol";
 import {DisputeGameFactory} from "@redprint-core/dispute/DisputeGameFactory.sol";
 import {DelayedWETH} from "@redprint-core/dispute/DelayedWETH.sol";
+import {PreimageOracle} from "@redprint-core/cannon/PreimageOracle.sol";
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
@@ -61,7 +62,7 @@ string constant Artifact_OptimismPortal2 = "OptimismPortal2.sol:OptimismPortal2"
 string constant Artifact_OptimismPortalInterop = "OptimismPortalInterop.sol:OptimismPortalInterop";
 string constant Artifact_DisputeGameFactory = "DisputeGameFactory.sol:DisputeGameFactory";
 string constant Artifact_DelayedWETH = "DelayedWETH.sol:DelayedWETH";
-
+string constant Artifact_PreimageOracle = "PreimageOracle.sol:PreimageOracle";
 
 
 library DeployerFunctions {
@@ -487,6 +488,24 @@ library DeployerFunctions {
         console.log("Deploying DelayedWETH");
         bytes memory args = abi.encode(_faultGameWithdrawalDelay);
         return DelayedWETH(DefaultDeployerFunction.deploy(deployer, name, Artifact_DelayedWETH, args, options));
+    }
+
+    function deploy_PreimageOracle(IDeployer deployer, string memory name, uint256 _minProposalSize, uint256 _challengePeriod)
+        internal
+        returns (PreimageOracle)
+    {
+        console.log("Deploying PreimageOracle");
+        bytes memory args = abi.encode(_minProposalSize, _challengePeriod);
+        return PreimageOracle(DefaultDeployerFunction.deploy(deployer, name, Artifact_PreimageOracle, args));
+    }
+
+    function deploy_PreimageOracle(IDeployer deployer, string memory name, uint256 _minProposalSize, uint256 _challengePeriod, DeployOptions memory options)
+        internal
+        returns (PreimageOracle)
+    {
+        console.log("Deploying PreimageOracle");
+        bytes memory args = abi.encode(_minProposalSize, _challengePeriod);
+        return PreimageOracle(DefaultDeployerFunction.deploy(deployer, name, Artifact_PreimageOracle, args, options));
     }
 
 }
