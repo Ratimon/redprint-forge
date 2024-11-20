@@ -34,6 +34,7 @@ import {L2OutputOracle} from "@redprint-core/L1/L2OutputOracle.sol";
 import {OptimismPortal2} from "@redprint-core/L1/OptimismPortal2.sol";
 import {OptimismPortalInterop} from "@redprint-core/L1/OptimismPortalInterop.sol";
 import {DisputeGameFactory} from "@redprint-core/dispute/DisputeGameFactory.sol";
+import {DelayedWETH} from "@redprint-core/dispute/DelayedWETH.sol";
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
@@ -59,6 +60,8 @@ string constant Artifact_L2OutputOracle = "L2OutputOracle.sol:L2OutputOracle";
 string constant Artifact_OptimismPortal2 = "OptimismPortal2.sol:OptimismPortal2";
 string constant Artifact_OptimismPortalInterop = "OptimismPortalInterop.sol:OptimismPortalInterop";
 string constant Artifact_DisputeGameFactory = "DisputeGameFactory.sol:DisputeGameFactory";
+string constant Artifact_DelayedWETH = "DelayedWETH.sol:DelayedWETH";
+
 
 
 library DeployerFunctions {
@@ -466,6 +469,24 @@ library DeployerFunctions {
         console.log("Deploying DisputeGameFactory");
         bytes memory args = abi.encode();
         return DisputeGameFactory(DefaultDeployerFunction.deploy(deployer, name, Artifact_DisputeGameFactory, args, options));
+    }
+
+    function deploy_DelayedWETH(IDeployer deployer, string memory name , uint256 _faultGameWithdrawalDelay)
+        internal
+        returns (DelayedWETH)
+    {
+        console.log("Deploying DelayedWETH");
+        bytes memory args = abi.encode(_faultGameWithdrawalDelay);
+        return DelayedWETH(DefaultDeployerFunction.deploy(deployer, name, Artifact_DelayedWETH, args));
+    }
+
+    function deploy_DelayedWETH(IDeployer deployer, string memory name , uint256 _faultGameWithdrawalDelay, DeployOptions memory options)
+        internal
+        returns (DelayedWETH)
+    {
+        console.log("Deploying DelayedWETH");
+        bytes memory args = abi.encode(_faultGameWithdrawalDelay);
+        return DelayedWETH(DefaultDeployerFunction.deploy(deployer, name, Artifact_DelayedWETH, args, options));
     }
 
 }
