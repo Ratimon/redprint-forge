@@ -1,24 +1,34 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import { IFaultDisputeGame } from "@redprint-core/dispute/interfaces/IFaultDisputeGame.sol";
 import { IDisputeGameFactory } from "@redprint-core/dispute/interfaces/IDisputeGameFactory.sol";
-
+import { ISuperchainConfig } from "@redprint-core/L1/interfaces/ISuperchainConfig.sol";
 import "@redprint-core/dispute/lib/Types.sol";
 
-/// @title IAnchorStateRegistry
-/// @notice Describes a contract that stores the anchor state for each game type.
 interface IAnchorStateRegistry {
-    /// @notice Returns the anchor state for the given game type.
-    /// @param _gameType The game type to get the anchor state for.
-    /// @return The anchor state for the given game type.
-    function anchors(GameType _gameType) external view returns (Hash, uint256);
+    struct StartingAnchorRoot {
+        GameType gameType;
+        OutputRoot outputRoot;
+    }
 
-    /// @notice Returns the DisputeGameFactory address.
-    /// @return DisputeGameFactory address.
+    error InvalidGameStatus();
+    error Unauthorized();
+    error UnregisteredGame();
+
+    event Initialized(uint8 version);
+
+    function anchors(GameType) external view returns (Hash root, uint256 l2BlockNumber); // nosemgrep
     function disputeGameFactory() external view returns (IDisputeGameFactory);
-
-    /// @notice Callable by FaultDisputeGame contracts to update the anchor state. Pulls the anchor state directly from
-    ///         the FaultDisputeGame contract and stores it in the registry if the new anchor state is valid and the
-    ///         state is newer than the current anchor state.
+    function initialize(
+        StartingAnchorRoot[] memory _startingAnchorRoots,
+        ISuperchainConfig _superchainConfig
+    )
+        external;
+    function setAnchorState(IFaultDisputeGame _game) external;
+    function superchainConfig() external view returns (ISuperchainConfig);
     function tryUpdateAnchorState() external;
+    function version() external view returns (string memory);
+
+    function __constructor__(IDisputeGameFactory _disputeGameFactory) external;
 }

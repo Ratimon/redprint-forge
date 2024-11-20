@@ -1,11 +1,17 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-import { IDelayedWETH } from "@redprint-core/dispute/interfaces/IDelayedWETH.sol";
-import { IAnchorStateRegistry } from "@redprint-core/dispute/interfaces/IAnchorStateRegistry.sol";
-import { FaultDisputeGame, IFaultDisputeGame, IBigStepper, IInitializable } from "@redprint-core/dispute/FaultDisputeGame.sol";
+// Contracts
+import { FaultDisputeGame } from "@redprint-core/dispute/FaultDisputeGame.sol";
+
+// Libraries
 import "@redprint-core/dispute/lib/Types.sol";
 import "@redprint-core/dispute/lib/Errors.sol";
+
+// Interfaces
+import { IDelayedWETH } from "@redprint-core/dispute/interfaces/IDelayedWETH.sol";
+import { IAnchorStateRegistry } from "@redprint-core/dispute/interfaces/IAnchorStateRegistry.sol";
+import { IBigStepper } from "@redprint-core/dispute/interfaces/IBigStepper.sol";
 
 /// @title PermissionedDisputeGame
 /// @notice PermissionedDisputeGame is a contract that inherits from `FaultDisputeGame`, and contains two roles:
@@ -73,7 +79,7 @@ contract PermissionedDisputeGame is FaultDisputeGame {
         CHALLENGER = _challenger;
     }
 
-    /// @inheritdoc IFaultDisputeGame
+    /// @inheritdoc FaultDisputeGame
     function step(
         uint256 _claimIndex,
         bool _isAttack,
@@ -106,7 +112,7 @@ contract PermissionedDisputeGame is FaultDisputeGame {
         super.move(_disputed, _challengeIndex, _claim, _isAttack);
     }
 
-    /// @inheritdoc IInitializable
+    /// @notice Initializes the contract.
     function initialize() public payable override {
         // The creator of the dispute game must be the proposer EOA.
         if (tx.origin != PROPOSER) revert BadAuth();

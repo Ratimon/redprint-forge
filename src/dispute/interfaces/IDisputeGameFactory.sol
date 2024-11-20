@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import { IDisputeGame } from "@redprint-core/dispute/interfaces/IDisputeGame.sol";
-
 import "@redprint-core/dispute/lib/Types.sol";
 
 interface IDisputeGameFactory {
