@@ -7,6 +7,8 @@ import { Vm } from "@redprint-forge-std/Vm.sol";
 import {IDeployer} from "@redprint-deploy/deployer/Deployer.sol";
 import {DefaultDeployerFunction, DeployOptions} from "@redprint-deploy/deployer/DefaultDeployerFunction.sol";
 
+import {IPreimageOracle} from "@redprint-core/cannon/interfaces/IPreimageOracle.sol";
+
 import { EIP1967Helper } from "@redprint-core/universal/EIP1967Helper.sol";
 
 import {SafeProxy} from "@redprint-safe-contracts/proxies/SafeProxy.sol";
@@ -36,6 +38,8 @@ import {OptimismPortalInterop} from "@redprint-core/L1/OptimismPortalInterop.sol
 import {DisputeGameFactory} from "@redprint-core/dispute/DisputeGameFactory.sol";
 import {DelayedWETH} from "@redprint-core/dispute/DelayedWETH.sol";
 import {PreimageOracle} from "@redprint-core/cannon/PreimageOracle.sol";
+import {MIPS} from "@redprint-core/cannon/MIPS.sol";
+
 
 
 string constant Artifact_SafeProxyFactory = "SafeProxyFactory.sol:SafeProxyFactory";
@@ -63,6 +67,7 @@ string constant Artifact_OptimismPortalInterop = "OptimismPortalInterop.sol:Opti
 string constant Artifact_DisputeGameFactory = "DisputeGameFactory.sol:DisputeGameFactory";
 string constant Artifact_DelayedWETH = "DelayedWETH.sol:DelayedWETH";
 string constant Artifact_PreimageOracle = "PreimageOracle.sol:PreimageOracle";
+string constant Artifact_MIPS = "MIPS.sol:MIPS";
 
 
 library DeployerFunctions {
@@ -506,6 +511,24 @@ library DeployerFunctions {
         console.log("Deploying PreimageOracle");
         bytes memory args = abi.encode(_minProposalSize, _challengePeriod);
         return PreimageOracle(DefaultDeployerFunction.deploy(deployer, name, Artifact_PreimageOracle, args, options));
+    }
+
+    function deploy_MIPS(IDeployer deployer, string memory name, IPreimageOracle _preimageOracle)
+        internal
+        returns (MIPS)
+    {
+        console.log("Deploying MIPS");
+        bytes memory args = abi.encode(_preimageOracle);
+        return MIPS(DefaultDeployerFunction.deploy(deployer, name, Artifact_MIPS, args));
+    }
+
+    function deploy_MIPS(IDeployer deployer, string memory name, IPreimageOracle _preimageOracle, DeployOptions memory options)
+        internal
+        returns (MIPS)
+    {
+        console.log("Deploying MIPS");
+        bytes memory args = abi.encode(_preimageOracle);
+        return MIPS(DefaultDeployerFunction.deploy(deployer, name, Artifact_MIPS, args, options));
     }
 
 }
