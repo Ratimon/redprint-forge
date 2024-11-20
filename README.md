@@ -42,6 +42,8 @@ yarn add -D redprint-forge
 @redprint-openzeppelin/=node_modules/redprint-forge/lib/openzeppelin-4_7_3/contracts
 @redprint-openzeppelin-upgradeable/=node_modules/redprint-forge/lib/openzeppelin-upgradeable-4_7_3/contracts
 @redprint-safe-contracts/=node_modules/redprint-forge/lib/safe-smart-account/contracts
+@redprint-lib-keccak/=node_modules/redprint-forge/lib/lib-keccak/contracts/lib/
+@redprint-solad/=node_modules/redprint-forge/lib/solady/src/
 ```
 
 >[!NOTE]
