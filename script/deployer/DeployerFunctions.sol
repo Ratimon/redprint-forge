@@ -8,6 +8,7 @@ import {IDeployer} from "@redprint-deploy/deployer/Deployer.sol";
 import {DefaultDeployerFunction, DeployOptions} from "@redprint-deploy/deployer/DefaultDeployerFunction.sol";
 
 import {IPreimageOracle} from "@redprint-core/cannon/interfaces/IPreimageOracle.sol";
+import {IDisputeGameFactory} from "@redprint-core/dispute/interfaces/IDisputeGameFactory.sol";
 
 import { EIP1967Helper } from "@redprint-core/universal/EIP1967Helper.sol";
 
@@ -39,6 +40,7 @@ import {DisputeGameFactory} from "@redprint-core/dispute/DisputeGameFactory.sol"
 import {DelayedWETH} from "@redprint-core/dispute/DelayedWETH.sol";
 import {PreimageOracle} from "@redprint-core/cannon/PreimageOracle.sol";
 import {MIPS} from "@redprint-core/cannon/MIPS.sol";
+import {AnchorStateRegistry} from "@redprint-core/dispute/AnchorStateRegistry.sol";
 
 
 
@@ -68,6 +70,8 @@ string constant Artifact_DisputeGameFactory = "DisputeGameFactory.sol:DisputeGam
 string constant Artifact_DelayedWETH = "DelayedWETH.sol:DelayedWETH";
 string constant Artifact_PreimageOracle = "PreimageOracle.sol:PreimageOracle";
 string constant Artifact_MIPS = "MIPS.sol:MIPS";
+string constant Artifact_AnchorStateRegistry = "AnchorStateRegistry.sol:AnchorStateRegistry";
+
 
 
 library DeployerFunctions {
@@ -529,6 +533,24 @@ library DeployerFunctions {
         console.log("Deploying MIPS");
         bytes memory args = abi.encode(_preimageOracle);
         return MIPS(DefaultDeployerFunction.deploy(deployer, name, Artifact_MIPS, args, options));
+    }
+
+    function deploy_AnchorStateRegistry(IDeployer deployer, string memory name, IDisputeGameFactory _disputeGameFactory)
+        internal
+        returns (AnchorStateRegistry)
+    {
+        console.log("Deploying AnchorStateRegistry");
+        bytes memory args = abi.encode(_disputeGameFactory);
+        return AnchorStateRegistry(DefaultDeployerFunction.deploy(deployer, name, Artifact_AnchorStateRegistry, args));
+    }
+
+    function deploy_AnchorStateRegistry(IDeployer deployer, string memory name, IDisputeGameFactory _disputeGameFactory, DeployOptions memory options)
+        internal
+        returns (AnchorStateRegistry)
+    {
+        console.log("Deploying AnchorStateRegistry");
+        bytes memory args = abi.encode(_disputeGameFactory);
+        return AnchorStateRegistry(DefaultDeployerFunction.deploy(deployer, name, Artifact_AnchorStateRegistry, args, options));
     }
 
 }
