@@ -28,6 +28,8 @@ interface IDeployer {
 
     function getConfig() external pure returns (DeployConfig);
 
+    function getProxies() external view returns (Types.ContractSet memory);
+
     function getProxiesUnstrict() external view returns (Types.ContractSet memory);
 
 
@@ -229,6 +231,26 @@ contract GlobalDeployer is IDeployer {
             return existing.addr;
         }
         return payable(address(0));
+    }
+
+        /// @notice Returns the proxy addresses. If a proxy is not found, it will have address(0).
+    function getProxies() external view returns (Types.ContractSet memory proxies_) {
+        proxies_ = Types.ContractSet({
+            L1CrossDomainMessenger: mustGetAddress("L1CrossDomainMessengerProxy"),
+            L1StandardBridge: mustGetAddress("L1StandardBridgeProxy"),
+            L2OutputOracle: mustGetAddress("L2OutputOracleProxy"),
+            DisputeGameFactory: mustGetAddress("DisputeGameFactoryProxy"),
+            DelayedWETH: mustGetAddress("DelayedWETHProxy"),
+            PermissionedDelayedWETH: mustGetAddress("PermissionedDelayedWETHProxy"),
+            AnchorStateRegistry: mustGetAddress("AnchorStateRegistryProxy"),
+            OptimismMintableERC20Factory: mustGetAddress("OptimismMintableERC20FactoryProxy"),
+            OptimismPortal: mustGetAddress("OptimismPortalProxy"),
+            OptimismPortal2: mustGetAddress("OptimismPortalProxy"),
+            SystemConfig: mustGetAddress("SystemConfigProxy"),
+            L1ERC721Bridge: mustGetAddress("L1ERC721BridgeProxy"),
+            ProtocolVersions: mustGetAddress("ProtocolVersionsProxy"),
+            SuperchainConfig: mustGetAddress("SuperchainConfigProxy")
+        });
     }
 
     /// @notice Returns the proxy addresses, not reverting if any are unset.

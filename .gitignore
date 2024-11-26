@@ -11,17 +11,34 @@ out/
 # Docs
 docs/
 
-# files
-*.env
-*.log
-.DS_Store
-.pnp.*
-package-lock.json
-pnpm-lock.yaml
-yarn.lock
+# local files
+*.local
+
+# env files
+.env
+.env.testnet
+
+# deploy tool packages
+/generated
+/deployments/
+/deployments/localhost
+# /deployments/localhost.
+# /deployments/31337
+# /deployments/31337.
+/deployments/void
+# /deployments/void.
 
 # forge: we do not use submodule instead we specify dependencies in package.json `prepare` script
 # if you use git and want to make use of the submodule
 # delete that line and execute `just reinstall git`
 
 /lib
+# npm
+node_modules/
+
+# vscode
+.vscode/*
+!.vscode/extensions.json
+!*.default
+
+.DS_Store

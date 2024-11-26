@@ -1,11 +1,21 @@
 [profile.default]
 src = "src"
 out = "out"
-test = "test"
-# script = 'script'
+script = 'script'
+test = 'test'
 libs = ["node_modules", "lib"]
 solc_version = '0.8.25'
-auto_detect_solc = false
+auto_detect_solc = true
+fs_permissions = [
+    { access = 'read-write', path = './deployments/' },
+    { access = 'write', path = './deployments/31337/' },
+    { access = 'read', path = './deploy-config/' },
+    { access = 'read', path = './broadcast/' },
+    { access = 'read', path = './forge-artifacts/' },
+    { access = 'read', path = './out' },
+    { access = 'read', path = './script/deploy/' },
+    { access = 'read-write', path = './' },
+]
 
 [fmt]
 bracket_spacing = true
