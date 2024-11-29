@@ -19,6 +19,7 @@ import { ISuperchainConfig } from "@redprint-core/L1/interfaces/ISuperchainConfi
 import {OptimismPortal2} from "@redprint-core/L1/OptimismPortal2.sol";
 
 
+//  to do add more test
 contract InitializeImplementationsScript is Script , SafeScript{
     IDeployer deployerProcedue;
 

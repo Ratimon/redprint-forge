@@ -180,7 +180,7 @@ library DeployerFunctions {
         console.log("Deploying ERC1967Proxy");
 
         bytes memory args = abi.encode(_proxyOwner);
-        Proxy proxy = Proxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args, options));
+        Proxy proxy = Proxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_L1ChugSplashProxy, args, options));
 
         require(EIP1967Helper.getAdmin(address(proxy)) == _proxyOwner, "admin must equal owner");
         return proxy;
@@ -195,7 +195,7 @@ library DeployerFunctions {
         console.log("Deploying L1ChugSplashProxy");
 
         bytes memory args = abi.encode(_proxyOwner);
-        L1ChugSplashProxy proxy = L1ChugSplashProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args));
+        L1ChugSplashProxy proxy = L1ChugSplashProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_L1ChugSplashProxy, args));
 
         require(EIP1967Helper.getAdmin(address(proxy)) == _proxyOwner, "Admin address must equal the owner param");
         return proxy;
@@ -221,7 +221,7 @@ library DeployerFunctions {
         console.log("Deploying ResolvedDelegateProxy");
 
         bytes memory args = abi.encode(_addressManager, _implementationName);
-        ResolvedDelegateProxy proxy = ResolvedDelegateProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args));
+        ResolvedDelegateProxy proxy = ResolvedDelegateProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_ResolvedDelegateProxy, args));
         return proxy;
     }
 
@@ -232,7 +232,7 @@ library DeployerFunctions {
         console.log("Deploying ResolvedDelegateProxy");
 
         bytes memory args = abi.encode(_addressManager, _implementationName);
-        ResolvedDelegateProxy proxy = ResolvedDelegateProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_Proxy, args, options));
+        ResolvedDelegateProxy proxy = ResolvedDelegateProxy(DefaultDeployerFunction.deploy(deployer, name, Artifact_ResolvedDelegateProxy, args, options));
         return proxy;
     }
 
