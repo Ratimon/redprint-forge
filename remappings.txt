@@ -1,5 +1,6 @@
 @redprint-core/=src/
 @redprint-deploy/=script/
+@redprint-test/=test/
 
 @redprint-forge-std/=lib/forge-std/src/
 @redprint-openzeppelin/=lib/openzeppelin-4_7_3/contracts

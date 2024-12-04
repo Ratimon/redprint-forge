@@ -38,6 +38,7 @@ yarn add -D redprint-forge
 ```txt
 @redprint-core/=node_modules/redprint-forge/src
 @redprint-deploy/=node_modules/redprint-forge/script
+@redprint-test/=test/
 @redprint-forge-std/=node_modules/redprint-forge/lib/forge-std/src
 @redprint-openzeppelin/=node_modules/redprint-forge/lib/openzeppelin-4_7_3/contracts
 @redprint-openzeppelin-upgradeable/=node_modules/redprint-forge/lib/openzeppelin-upgradeable-4_7_3/contracts
