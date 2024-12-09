@@ -54,6 +54,6 @@
     "faultGameSplitDepth": 4,
     "faultGameWithdrawalDelay": 604800,
     "preimageOracleMinProposalSize": 1800000,
-    "preimageOracleChallengePeriod": 86400,
+    "preimageOracleChallengePeriod": 120,
     "preimageOracleCancunActivationTimestamp": 0
 }

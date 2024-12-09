@@ -25,6 +25,8 @@ contract DeployAll_Test is Test {
     uint256 ownerPrivateKey = vm.deriveKey(mnemonic, "m/44'/60'/0'/0/", 1); //  address = 0x70997970C51812dc3A010C7d01b50e0d17dc79C8
     address owner = vm.envOr("DEPLOYER", vm.addr(ownerPrivateKey));
 
+    uint256 public staticTime;
+
     IDeployer deployerProcedue;
 
     SafeProxy safeProxy;
@@ -37,6 +39,12 @@ contract DeployAll_Test is Test {
     ResolvedDelegateProxy resolved;
 
     function setUp() external {
+
+        staticTime = block.timestamp;
+
+        vm.warp({newTimestamp: staticTime + 1800000000});
+
+
         deployerProcedue = getDeployer();
         deployerProcedue.setAutoBroadcast(false);
 

@@ -36,6 +36,7 @@ import {DeployPreimageOracleScript} from "@redprint-deploy/example/402K_DeployPr
 import {DeployMIPSScript} from "@redprint-deploy/example/402L_DeployMIPSScript.s.sol";
 import {DeployAnchorStateRegistryScript} from "@redprint-deploy/example/402M_DeployAnchorStateRegistryScript.s.sol";
 import {InitializeImplementationsScript} from "@redprint-deploy/example/402N_InitializeImplementationsScript.s.sol";
+import {SetFaultGameImplementationScript} from "@redprint-deploy/example/402O_SetFaultGameImplementationScript.s.sol";
 
 
 contract SetupOpchainScript is Script {
@@ -44,6 +45,8 @@ contract SetupOpchainScript is Script {
     function run() public {
         deployerProcedue = getDeployer();
         deployerProcedue.setAutoSave(true);
+
+        console.log("Setup Opchain ... ");
         
         DeployOptimismPortalProxyScript optimismPortalProxyDeployments = new DeployOptimismPortalProxyScript();
         DeploySystemConfigProxyScript systemConfigProxyDeployments = new DeploySystemConfigProxyScript();
@@ -97,6 +100,7 @@ contract SetupOpchainScript is Script {
         DeployMIPSScript mipsDeployments = new DeployMIPSScript();
         DeployAnchorStateRegistryScript anchorStateRegistryDeployments = new DeployAnchorStateRegistryScript();
         InitializeImplementationsScript initializeImplementations = new InitializeImplementationsScript();
+        SetFaultGameImplementationScript setFaultGameImplementation = new SetFaultGameImplementationScript();
 
 
         l1CrossDomainMessengerDeployments.deploy();
@@ -113,9 +117,11 @@ contract SetupOpchainScript is Script {
         mipsDeployments.deploy();
         anchorStateRegistryDeployments.deploy();
         initializeImplementations.run();
+        setFaultGameImplementation.run();
+        
         console.log("L1CrossDomainMessenger at: ", deployerProcedue.getAddress("L1CrossDomainMessenger"));
         console.log("OptimismMintableERC20Factory at: ", deployerProcedue.getAddress("OptimismMintableERC20Factory"));
-        console.log("SystemConfigInterop at: ", deployerProcedue.getAddress("SystemConfigInterop"));
+        console.log("SystemConfig at: ", deployerProcedue.getAddress("SystemConfig"));
         console.log("L1StandardBridge at: ", deployerProcedue.getAddress("L1StandardBridge"));
         console.log("L1ERC721Bridge at: ", deployerProcedue.getAddress("L1ERC721Bridge"));
         console.log("OptimismPortal at: ", deployerProcedue.getAddress("OptimismPortal"));
@@ -126,7 +132,7 @@ contract SetupOpchainScript is Script {
         console.log("DisputeGameFactory at: ", deployerProcedue.getAddress("DisputeGameFactory"));
         console.log("DelayedWETH at: ", deployerProcedue.getAddress("DelayedWETH"));
         console.log("PreimageOracle at: ", deployerProcedue.getAddress("PreimageOracle"));
-        console.log("MIPS at: ", deployerProcedue.getAddress("MIPS"));
+        console.log("MIPS at: ", deployerProcedue.getAddress("Mips"));
         console.log("AnchorStateRegistry at: ", deployerProcedue.getAddress("AnchorStateRegistry"));
     }
 
