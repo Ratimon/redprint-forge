@@ -26,6 +26,9 @@ import {L1ChugSplashProxy} from "@redprint-core/legacy/L1ChugSplashProxy.sol";
 import { SuperchainConfig } from "@redprint-core/L1/SuperchainConfig.sol";
 import { ProtocolVersions } from "@redprint-core/L1/ProtocolVersions.sol";
 
+import {DataAvailabilityChallenge} from "@redprint-core/L1/DataAvailabilityChallenge.sol";
+
+
 import {L1CrossDomainMessenger} from "@redprint-core/L1/L1CrossDomainMessenger.sol";
 import {OptimismMintableERC20Factory} from "@redprint-core/universal/OptimismMintableERC20Factory.sol";
 import {SystemConfig} from "@redprint-core/L1/SystemConfig.sol";
@@ -55,6 +58,8 @@ string constant Artifact_L1ChugSplashProxy = "L1ChugSplashProxy.sol:L1ChugSplash
 
 string constant Artifact_SuperchainConfig = "SuperchainConfig.sol:SuperchainConfig";
 string constant Artifact_ProtocolVersions = "ProtocolVersions.sol:ProtocolVersions";
+
+string constant Artifact_DataAvailabilityChallenge = "DataAvailabilityChallenge.sol:DataAvailabilityChallenge";
 
 string constant Artifact_L1CrossDomainMessenger = "L1CrossDomainMessenger.sol:L1CrossDomainMessenger";
 string constant Artifact_OptimismMintableERC20Factory = "OptimismMintableERC20Factory.sol:OptimismMintableERC20Factory";
@@ -281,6 +286,24 @@ library DeployerFunctions {
         console.log("Deploying ProtocolVersions");
         bytes memory args = abi.encode();
         return ProtocolVersions(DefaultDeployerFunction.deploy(deployer, name, Artifact_ProtocolVersions, args, options));
+    }
+
+    function deploy_DataAvailabilityChallenge(IDeployer deployer, string memory name)
+        internal
+        returns (DataAvailabilityChallenge)
+    {
+        console.log("Deploying DataAvailabilityChallenge");
+        bytes memory args = abi.encode();
+        return DataAvailabilityChallenge(DefaultDeployerFunction.deploy(deployer, name, Artifact_DataAvailabilityChallenge, args));
+    }
+
+    function deploy_DataAvailabilityChallenge(IDeployer deployer, string memory name, DeployOptions memory options)
+        internal
+        returns (DataAvailabilityChallenge)
+    {
+        console.log("Deploying DataAvailabilityChallenge");
+        bytes memory args = abi.encode();
+        return DataAvailabilityChallenge(DefaultDeployerFunction.deploy(deployer, name, Artifact_DataAvailabilityChallenge, args, options));
     }
 
     function deploy_L1CrossDomainMessenger(IDeployer deployer, string memory name)
