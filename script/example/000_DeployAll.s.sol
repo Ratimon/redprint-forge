@@ -2,11 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {Script} from "@redprint-forge-std/Script.sol";
-import {DeploySafeProxyScript} from "@redprint-deploy/example/101_DeploySafeProxyScript.s.sol";
-// import {DeployGovernorScript} from "@redprint-deploy/example/111_DeployGoverner.s.sol";
-import {SetupSuperchainScript} from "@redprint-deploy/example/200_SetupSuperchain.s.sol";
-import {SetupOpchainScript} from "@redprint-deploy/example/400_SetupOpchain.s.sol";
-import {SetupOpAltDAScript} from "@redprint-deploy/example/300_SetupOpAltDAScript.s.sol";
+import {DeploySafeProxyScript} from "@scripts/101_DeploySafeProxyScript.s.sol";
+// import {DeployGovernorScript} from "@scripts/111_DeployGoverner.s.sol";
+import {SetupSuperchainScript} from "@scripts/200_SetupSuperchain.s.sol";
+import {SetupOpchainScript} from "@scripts/400_SetupOpchain.s.sol";
+import {SetupOpAltDAScript} from "@scripts/300_SetupOpAltDAScript.s.sol";
 
 contract DeployAllScript is Script {
     function run() public {

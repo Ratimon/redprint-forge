@@ -35,7 +35,7 @@ import { GameTypes, OutputRoot, Hash } from "@redprint-core/dispute/lib/Types.so
 
 contract InitializeImplementationsScript is Script, SafeScript {
     IDeployer deployerProcedue;
-    address public constant customGasTokenAddress = Constants.ETHER;
+    address public constant customGasTokenAddress = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
     string mnemonic = vm.envString("MNEMONIC");
     uint256 ownerPrivateKey = vm.deriveKey(mnemonic, "m/44'/60'/0'/0/", 1);
     address owner = vm.envOr("DEPLOYER_ADDRESS", vm.addr(ownerPrivateKey));

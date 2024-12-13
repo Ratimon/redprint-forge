@@ -17,11 +17,12 @@ DONT forget to add secret env `NPM_AUTH_TOKEN` at [repo](https://github.com/Rati
 
 ### Config the Remapping
 
-We use different remapping.txt 
+We use different remapping.txt for different context
 
 ```txt
 @redprint-core/=src/
 @redprint-deploy/=script/
+@scripts/=script/example/
 @redprint-test/=test/
 
 @redprint-forge-std/=lib/forge-std/src/
@@ -37,7 +38,8 @@ or using from installed package `redprint-forge`
 ```txt
 @redprint-core/=node_modules/redprint-forge/src
 @redprint-deploy/=node_modules/redprint-forge/script
-@redprint-test/=node_modules/test/
+@scripts/=script/example/
+@redprint-test/=node_modules/redprint-forge/test/
 @redprint-forge-std/=node_modules/redprint-forge/lib/forge-std/src
 @redprint-openzeppelin/=node_modules/redprint-forge/lib/openzeppelin-4_7_3/contracts
 @redprint-openzeppelin-upgradeable/=node_modules/redprint-forge/lib/openzeppelin-upgradeable-4_7_3/contracts

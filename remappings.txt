@@ -1,5 +1,6 @@
 @redprint-core/=src/
 @redprint-deploy/=script/
+@scripts/=script/example/
 @redprint-test/=test/
 
 @redprint-forge-std/=lib/forge-std/src/

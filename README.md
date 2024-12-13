@@ -15,60 +15,126 @@
 
 ## Installation
 
-There are 2 ways: [with Node.js](#with-node) and one [Git Submodules](#git-submodules)
-
-### with Node
-
-This is the recommended approach.
-
-We assume that you already setup your working environment with **hardhat** + **foundry** as specified in [foundry 's guide](https://book.getfoundry.sh/config/hardhat) or [hardhat 's guide](https://hardhat.org/hardhat-runner/docs/advanced/hardhat-and-foundry) and `cd` into it
+1.  Fork `optimism` 's monorepo:
 
 ```bash
-cd my-project;
+git clone --depth 1 --branch v1.9.4 https://github.com/ethereum-optimism/optimism.git
 ``` 
 
-1.  Add the `redprint-forge` using your favorite package manager, e.g., with Yarn:
-
-```sh
-yarn add -D redprint-forge
-```
-
-2. Adding `remappings.txt` with following line:
-
-```txt
-@redprint-core/=node_modules/redprint-forge/src
-@redprint-deploy/=node_modules/redprint-forge/script
-@redprint-test/=node_modules/test/
-@redprint-forge-std/=node_modules/redprint-forge/lib/forge-std/src
-@redprint-openzeppelin/=node_modules/redprint-forge/lib/openzeppelin-4_7_3/contracts
-@redprint-openzeppelin-upgradeable/=node_modules/redprint-forge/lib/openzeppelin-upgradeable-4_7_3/contracts
-@redprint-safe-contracts/=node_modules/redprint-forge/lib/safe-smart-account/contracts
-@redprint-lib-keccak/=node_modules/redprint-forge/lib/lib-keccak/contracts/lib/
-@redprint-solady/=node_modules/redprint-forge/lib/solady/src/
-```
-
-or use/modify it from Optimism' monorepo
-```
-forge install --no-git optimism-v1.9.4=ethereum-optimism/optimism@v1.9.4
-```
-
-```txt
-@redprint-core/=lib/optimism-v1.9.4/packages/contracts-bedrock/src/
-@redprint-deploy/=node_modules/redprint-forge/script
-@redprint-test/=node_modules/redprint-forge/test/
-@redprint-forge-std/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/forge-std/src
-@redprint-openzeppelin/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/openzeppelin-contracts/contracts
-@redprint-openzeppelin-upgradeable/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/openzeppelin-contracts-upgradeable/contracts
-@redprint-safe-contracts/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/safe-contracts/contracts
-@redprint-lib-keccak/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/lib-keccak/contracts/lib/
-@redprint-solady/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/solady/src/
-```
-
 >[!NOTE]
-> All OPStack's contracts are based on [`v1.9.4`](https://github.com/ethereum-optimism/optimism/tree/v1.9.4/packages/contracts-bedrock)
+> All OPStack's contracts are based on [`v1.9.4`](https://github.com/ethereum-optimism/optimism/tree/v1.9.4/packages/contracts-bedrock). So, you may just run:
+
+```bash
+git clone https://github.com/ethereum-optimism/optimism.git
+``` 
+
+2. Enter the working ditectory:
+
+```bash
+cd ethereum-optimism/packages/contracts-bedrock
+``` 
+
+3. Add the `redprint-forge` using your favorite package manager, e.g., with pnpm:
+
+```bash
+pnpm init
+``` 
+```bash
+pnpm add redprint-forge
+``` 
+```bash
+pnpm install
+``` 
+
+4. Modify OPStack 's [remapping](https://github.com/ethereum-optimism/optimism/blob/v1.9.4/packages/contracts-bedrock/foundry.toml) as following
+
+```diff
+
+[profile.default]
+
+# Compilation settings
+src = 'src'
+out = 'forge-artifacts'
+script = 'scripts'
+optimizer = true
+optimizer_runs = 999999
+remappings = [
+  '@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts',
+  '@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts',
+  '@openzeppelin/contracts-v5/=lib/openzeppelin-contracts-v5/contracts',
+  '@rari-capital/solmate/=lib/solmate',
+  '@lib-keccak/=lib/lib-keccak/contracts/lib',
+  '@solady/=lib/solady/src',
+  'forge-std/=lib/forge-std/src',
+  'ds-test/=lib/forge-std/lib/ds-test/src',
+  'safe-contracts/=lib/safe-contracts/contracts',
+  'kontrol-cheatcodes/=lib/kontrol-cheatcodes/src',
+  'gelato/=lib/automate/contracts'
++ '@redprint-core/=src/',
++ '@redprint-deploy/=node_modules/redprint-forge/script',
++ '@redprint-test/=node_modules/redprint-forge/test/',
++ '@redprint-forge-std/=lib/forge-std/src',
++ '@redprint-openzeppelin/=lib/openzeppelin-contracts/contracts',
++ '@redprint-openzeppelin-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts',
++ '@redprint-safe-contracts/=lib/safe-contracts/contracts',
++ '@redprint-lib-keccak/=lib/lib-keccak/contracts/lib',
++ '@redprint-solady/=lib/solady/src',
+]
+...
+```
 
 >[!TIP]
 > We use @redprint-<yourLib>/ as a convention to avoid any naming conflicts with your previously installed libararies ( i.e. `@redprint-forge-std/` vs `@forge-std/`)
+
+
+5. Copy [`.env`](./.env) and modify as following.
+
+```sh
+
+RPC_URL_localhost=http://localhost:8545
+
+#secret management
+MNEMONIC="test test test test test test test test test test test junk"
+# local network 's default private key so it is still not exposed
+DEPLOYER_PRIVATE_KEY=0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d
+DEPLOYER_ADDRESS=0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+
+# script/Config.sol
+DEPLOYMENT_OUTFILE=deployments/31337/.save.json
+DEPLOY_CONFIG_PATH=deploy-config/hardhat.json
+CHAIN_ID=
+IMPL_SALT=$(openssl rand -hex 32)
+STATE_DUMP_PATH=
+SIG=
+DEPLOY_FILE=
+DRIPPIE_OWNER_PRIVATE_KEY=9000
+
+# deploy-Config
+GS_ADMIN_ADDRESS=0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+GS_BATCHER_ADDRESS=0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+GS_PROPOSER_ADDRESS=0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+GS_SEQUENCER_ADDRESS=0x70997970C51812dc3A010C7d01b50e0d17dc79C8
+L1_RPC_URL=http://localhost:8545
+```
+
+6. Copy a set of deploy scripts: 
+
+```
+cp node_modules/redprint-forge/script/example/* scripts/
+```
+Copy a test suite:
+```
+cp node_modules/redprint-forge/test/example/DeployAll.t.sol test/
+```
+
+7. Compile and run test:
+
+```
+forge b
+```
+```
+forge test -vvvv --match-path test/DeployAll.t.sol
+```
 
 
 ## What Is It For
