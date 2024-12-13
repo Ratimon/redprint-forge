@@ -55,7 +55,7 @@ forge install --no-git optimism-v1.9.4=ethereum-optimism/optimism@v1.9.4
 ```txt
 @redprint-core/=lib/optimism-v1.9.4/packages/contracts-bedrock/src/
 @redprint-deploy/=node_modules/redprint-forge/script
-@redprint-test/=node_modules/test/
+@redprint-test/=node_modules/redprint-forge/test/
 @redprint-forge-std/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/forge-std/src
 @redprint-openzeppelin/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/openzeppelin-contracts/contracts
 @redprint-openzeppelin-upgradeable/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/openzeppelin-contracts-upgradeable/contracts
