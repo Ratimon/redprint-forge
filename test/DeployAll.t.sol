@@ -5,7 +5,7 @@ import {console} from "@redprint-forge-std/console.sol";
 
 import {Test} from "@redprint-forge-std/Test.sol";
 
-import {SafeProxy} from "@redprint-safe-contracts/proxies/SafeProxy.sol";
+import {GnosisSafeProxy as SafeProxy} from "@redprint-safe-contracts/proxies/GnosisSafeProxy.sol";
 import {AddressManager} from "@redprint-core/legacy/AddressManager.sol";
 import {ProxyAdmin} from "@redprint-core/universal/ProxyAdmin.sol";
 

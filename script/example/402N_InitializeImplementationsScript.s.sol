@@ -17,7 +17,7 @@ import {OptimismPortal} from "@redprint-core/L1/OptimismPortal.sol";
 import {SystemConfig} from "@redprint-core/L1/SystemConfig.sol";
 import {IL1CrossDomainMessenger} from "@redprint-core/L1/interfaces/IL1CrossDomainMessenger.sol";
 import {ProxyAdmin} from "@redprint-core/universal/ProxyAdmin.sol";
-import {Safe} from "@redprint-safe-contracts/Safe.sol";
+import {GnosisSafe as Safe} from "@redprint-safe-contracts/GnosisSafe.sol";
 import {L1StandardBridge} from "@redprint-core/L1/L1StandardBridge.sol";
 import {L1ERC721Bridge} from "@redprint-core/L1/L1ERC721Bridge.sol";
 import {OptimismMintableERC20Factory} from "@redprint-core/universal/OptimismMintableERC20Factory.sol";
@@ -232,7 +232,7 @@ contract InitializeImplementationsScript is Script, SafeScript {
         address l1ERC721Bridge = deployerProcedue.mustGetAddress("L1ERC721Bridge");
         address l1CrossDomainMessengerProxy = deployerProcedue.mustGetAddress("L1CrossDomainMessengerProxy");
         address superchainConfigProxy = deployerProcedue.mustGetAddress("SuperchainConfigProxy");
-        address systemConfigProxy = deployerProcedue.mustGetAddress("SystemConfigProxy");
+        // address systemConfigProxy = deployerProcedue.mustGetAddress("SystemConfigProxy");
 
         _upgradeAndCallViaSafe({
             _proxyAdmin: proxyAdmin,

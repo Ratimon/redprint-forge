@@ -6,9 +6,9 @@ import {console2 as console} from "@redprint-forge-std/console2.sol";
 import {DeployScript, IDeployer} from "@redprint-deploy/deployer/DeployScript.sol";
 import {DeployerFunctions} from "@redprint-deploy/deployer/DeployerFunctions.sol";
 
-import {SafeProxyFactory} from "@redprint-safe-contracts/proxies/SafeProxyFactory.sol";
-import {Safe} from "@redprint-safe-contracts/Safe.sol";
-import {SafeProxy} from "@redprint-safe-contracts/proxies/SafeProxy.sol";
+import {GnosisSafeProxyFactory as SafeProxyFactory} from "@redprint-safe-contracts/proxies/GnosisSafeProxyFactory.sol";
+import {GnosisSafe as Safe} from "@redprint-safe-contracts/GnosisSafe.sol";
+import {GnosisSafeProxy as SafeProxy} from "@redprint-safe-contracts/proxies/GnosisSafeProxy.sol";
 
 contract DeploySafeProxyScript is DeployScript {
     using DeployerFunctions for IDeployer;

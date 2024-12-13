@@ -15,7 +15,7 @@
 
 ## Installation
 
-There are 2 ways: [with Node.js](#with-node) and one  [Git Submodules](#git-submodules)
+There are 2 ways: [with Node.js](#with-node) and one [Git Submodules](#git-submodules)
 
 ### with Node
 
@@ -38,13 +38,30 @@ yarn add -D redprint-forge
 ```txt
 @redprint-core/=node_modules/redprint-forge/src
 @redprint-deploy/=node_modules/redprint-forge/script
-@redprint-test/=test/
+@redprint-test/=node_modules/test/
 @redprint-forge-std/=node_modules/redprint-forge/lib/forge-std/src
 @redprint-openzeppelin/=node_modules/redprint-forge/lib/openzeppelin-4_7_3/contracts
 @redprint-openzeppelin-upgradeable/=node_modules/redprint-forge/lib/openzeppelin-upgradeable-4_7_3/contracts
 @redprint-safe-contracts/=node_modules/redprint-forge/lib/safe-smart-account/contracts
 @redprint-lib-keccak/=node_modules/redprint-forge/lib/lib-keccak/contracts/lib/
-@redprint-solad/=node_modules/redprint-forge/lib/solady/src/
+@redprint-solady/=node_modules/redprint-forge/lib/solady/src/
+```
+
+or use/modify it from Optimism' monorepo
+```
+forge install --no-git optimism-v1.9.4=ethereum-optimism/optimism@v1.9.4
+```
+
+```txt
+@redprint-core/=lib/optimism-v1.9.4/packages/contracts-bedrock/src/
+@redprint-deploy/=node_modules/redprint-forge/script
+@redprint-test/=node_modules/test/
+@redprint-forge-std/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/forge-std/src
+@redprint-openzeppelin/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/openzeppelin-contracts/contracts
+@redprint-openzeppelin-upgradeable/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/openzeppelin-contracts-upgradeable/contracts
+@redprint-safe-contracts/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/safe-contracts/contracts
+@redprint-lib-keccak/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/lib-keccak/contracts/lib/
+@redprint-solady/=lib/optimism-v1.9.4/packages/contracts-bedrock/lib/solady/src/
 ```
 
 >[!NOTE]
