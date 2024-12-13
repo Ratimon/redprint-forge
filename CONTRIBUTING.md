@@ -15,9 +15,12 @@ git push origin tag v0.3.3
 
 DONT forget to add secret env `NPM_AUTH_TOKEN` at [repo](https://github.com/Ratimon/solid-grinder/settings/secrets/actions)
 
+
 ### Config the Remapping
 
-We use different remapping.txt for different context
+We use different `remapping.txt` for different context:
+
+- For internal dev, we use from [our repo](./remappings.txt)
 
 ```txt
 @redprint-core/=src/
@@ -33,7 +36,7 @@ We use different remapping.txt for different context
 @redprint-solady/=node_modules/solady/src/
 ```
 
-or using from installed package `redprint-forge`
+- For testing purpose, we may use from installed package `redprint-forge` :
 
 ```txt
 @redprint-core/=node_modules/redprint-forge/src

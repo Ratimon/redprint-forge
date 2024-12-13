@@ -1,6 +1,5 @@
 <h1>Keep Optimistic and be OPStack deployer!! </h1>
 
-- [Installation](#installation)
 - [What is it for](#what-is-it-for)
 - [Quickstart](#quickstart)
 - [Contributing](#contributing)
@@ -13,7 +12,27 @@
 > The code is not audited yet. Please use it carefully in production.
 
 
-## Installation
+## What Is It For
+
+One of our Swiss army knife toolset: **redprint-forge** is a developer-friendly framework/library in solidity to modify & deploy OPStack ’s contracts in a modular style.
+
+The features include:
+
+- Type-safe smart contract deployment
+
+- Re-usable  smart contract deployment and testing pipeline
+
+- Standardized framework, minimizing developer mistake and enhancing better security
+
+- All-Solidity-based so no context switching, no new scripting syntax in other languages
+
+- Tx Management via Safe Smart Contract Deploy Script
+
+Together with [`Redprint Wizard UI`](https://github.com/Ratimon/redprint-wizard), which is a code generator/ interactive playground oriented for OPStack development, it does not only help novice developers to deploy OPStack's smart contracts to deploy on OP mainnet, but also help them to use generated deployment script in their own projects.
+
+
+## Quickstart
+### Quick Guilde
 
 1.  Fork `optimism` 's monorepo:
 
@@ -31,7 +50,7 @@ git clone https://github.com/ethereum-optimism/optimism.git
 2. Enter the working ditectory:
 
 ```bash
-cd ethereum-optimism/packages/contracts-bedrock
+cd optimism/packages/contracts-bedrock
 ``` 
 
 3. Add the `redprint-forge` using your favorite package manager, e.g., with pnpm:
@@ -72,6 +91,7 @@ remappings = [
   'gelato/=lib/automate/contracts'
 + '@redprint-core/=src/',
 + '@redprint-deploy/=node_modules/redprint-forge/script',
++ '@scripts/=scripts/',
 + '@redprint-test/=node_modules/redprint-forge/test/',
 + '@redprint-forge-std/=lib/forge-std/src',
 + '@redprint-openzeppelin/=lib/openzeppelin-contracts/contracts',
@@ -87,7 +107,7 @@ remappings = [
 > We use @redprint-<yourLib>/ as a convention to avoid any naming conflicts with your previously installed libararies ( i.e. `@redprint-forge-std/` vs `@forge-std/`)
 
 
-5. Copy [`.env`](./.env) and modify as following.
+5. Copy `.env` and modify as following.
 
 ```sh
 
@@ -122,41 +142,23 @@ L1_RPC_URL=http://localhost:8545
 ```
 cp node_modules/redprint-forge/script/example/* scripts/
 ```
-Copy a test suite:
+
+Now, copy a test suite:
 ```
-cp node_modules/redprint-forge/test/example/DeployAll.t.sol test/
+cp node_modules/redprint-forge/test/DeployAll.t.sol test/
 ```
 
 7. Compile and run test:
 
+This will take a while to compile:
 ```
 forge b
 ```
+
+Then run test command against copied deploy script
 ```
 forge test -vvvv --match-path test/DeployAll.t.sol
 ```
-
-
-## What Is It For
-
-One of our Swiss army knife toolset: **redprint-forge** is a developer-friendly framework/library in solidity to modify & deploy OPStack ’s contracts in a modular style.
-
-The features include:
-
-- Type-safe smart contract deployment
-
-- Re-usable  smart contract deployment and testing pipeline
-
-- Standardized framework, minimizing developer mistake and enhancing better security
-
-- All-Solidity-based so no context switching, no new scripting syntax in other languages
-
-- Tx Management via Safe Smart Contract Deploy Script
-
-Together with [`Redprint Wizard UI`](https://github.com/Ratimon/redprint-wizard), which is a code generator/ interactive playground oriented for OPStack development, it does not only help novice developers to deploy OPStack's smart contracts to deploy on OP mainnet, but also help them to use generated deployment script in their own projects.
-
-
-## Quickstart
 
 ### Tx Management Via Safe-Multisig
 
