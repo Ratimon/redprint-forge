@@ -65,7 +65,7 @@ pnpm add redprint-forge
 pnpm install
 ``` 
 
-4. Modify OPStack 's [remapping](https://github.com/ethereum-optimism/optimism/blob/v1.9.4/packages/contracts-bedrock/foundry.toml) as following
+4. Modify OPStack 's [remapping](https://github.com/ethereum-optimism/optimism/blob/v1.9.4/packages/contracts-bedrock/foundry.toml) as following:
 
 ```diff
 
@@ -155,9 +155,41 @@ This will take a while to compile:
 forge b
 ```
 
-Then run test command against copied deploy script
+Then run a test command against a copied set of deploy scripts:
 ```
 forge test -vvvv --match-path test/DeployAll.t.sol
+```
+
+>[!NOTE]
+>Behind the scene, the test suite works by replicating the same environment as production script, because it utilizes the samr deployment logic script inside `setUp()` as following:
+
+```ts
+
+/** ... */
+
+// deployment logic
+import {DeployAllScript} from "@scripts/000_DeployAll.s.sol";
+
+contract DeployAll_Test is Test {
+
+    /** ... */
+
+    function setUp() external {
+
+         /** ... */
+
+        deployerProcedue = getDeployer();
+        deployerProcedue.setAutoBroadcast(false);
+
+        DeployAllScript allDeployments = new DeployAllScript();
+        allDeployments.run();
+
+        deployerProcedue.deactivatePrank();
+
+    }
+    /** ... */
+
+}
 ```
 
 ### Tx Management Via Safe-Multisig
