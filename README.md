@@ -32,7 +32,7 @@ Together with [`Redprint Wizard UI`](https://github.com/Ratimon/redprint-wizard)
 
 
 ## Quickstart
-### Quick Guilde
+### Quick Guide
 
 1.  Fork `optimism` 's monorepo:
 

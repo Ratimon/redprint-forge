@@ -2,7 +2,7 @@
   "name": "redprint-forge",
   "description": "A developer-friendly framework/library in solidity to modify & deploy OPStack ’s contracts in a modular style.",
   "version": "0.3.3",
-  "homepage": "https://github.com/Ratimon/redprint-forg#readme",
+  "homepage": "https://github.com/Ratimon/redprint-forge#readme",
   "keywords": [
     "blockchain",
     "ethereum",
@@ -22,6 +22,10 @@
   ],
   "license": "MIT",
   "repository": "github:Ratimon/redprint-forge",
+  "author": {
+    "name": "Rati Montreewat",
+    "url": "https://github.com/Ratimon/redprint-forge"
+  },
   "scripts": {
     "---------------------- USER WORKFLOW ----------------------": "",
     "postinstall": "forge install --no-git openzeppelin-4_7_3=openzeppelin/openzeppelin-contracts@v4.7.3 openzeppelin-upgradeable-4_7_3=OpenZeppelin/openzeppelin-contracts-upgradeable@v4.7.3 foundry-rs/forge-std@v1.9.1 safe-global/safe-smart-account@v1.3.0 ethereum-optimism/lib-keccak Vectorized/solady@v0.0.158 || echo ''",
@@ -30,10 +34,6 @@
     "build": "forge build",
     "clean": "rm -rf cache out",
     "test": "forge test"
-  },
-  "author": {
-    "name": "Rati Montreewat",
-    "url": "https://github.com/Ratimon/redprint-forge"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "v4.9.4",
