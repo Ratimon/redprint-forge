@@ -137,31 +137,36 @@ GS_SEQUENCER_ADDRESS=0x70997970C51812dc3A010C7d01b50e0d17dc79C8
 L1_RPC_URL=http://localhost:8545
 ```
 
-6. Copy a set of deploy scripts: 
+6. Copy a set of deploy scripts example except [`/deployer`](./script/deployer/):
 
+```sh
+rsync -av --exclude='deployer/' node_modules/redprint-forge/script/ script/
 ```
-cp node_modules/redprint-forge/script/example/* scripts/
+
+Alternatively:
+```sh
+cp node_modules/redprint-forge/script/example/* script/
 ```
 
 Now, copy a test suite:
-```
+```sh
 cp node_modules/redprint-forge/test/DeployAll.t.sol test/
 ```
 
 7. Compile and run test:
 
 This will take a while to compile:
-```
+```sh
 forge b
 ```
 
 Then run a test command against a copied set of deploy scripts:
-```
+```sh
 forge test -vvvv --match-path test/DeployAll.t.sol
 ```
 
 >[!NOTE]
->Behind the scene, the test suite works by replicating the same environment as production script, because it utilizes the samr deployment logic script inside `setUp()` as following:
+>Behind the scene, the test suite works by replicating the same environment as production script, because it utilizes the same deployment logic script inside `setUp()` as following:
 
 ```ts
 
@@ -191,6 +196,10 @@ contract DeployAll_Test is Test {
 
 }
 ```
+
+>[!NOTE]
+> You can chekout [this](https://github.com/Ratimon/redprint-forge/blob/main/script/example/000_DeployAll.s.sol)
+
 
 ### Tx Management Via Safe-Multisig
 
